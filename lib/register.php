@@ -34,8 +34,7 @@ if ($formname == "registration_form" AND $_POST['registerbutton'] == "Register")
             " usr_voornaam='" . htmlentities($_POST['usr_voornaam'], ENT_QUOTES) . "' , " .
             " usr_naam='" . htmlentities($_POST['usr_naam'], ENT_QUOTES) . "' , " .
             " usr_email='" . $_POST['usr_email'] . "' , " .
-            " usr_paswoord='" . $password_encrypted . "' ";
-
+            " usr_paswoord='" . $password_encrypted . "' "; }
 
 
 
@@ -50,5 +49,5 @@ if ($formname == "registration_form" AND $_POST['registerbutton'] == "Register")
         }
     } else {
         header("Location: ../register.php");
-    } }
+    }
 
