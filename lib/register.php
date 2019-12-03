@@ -35,7 +35,7 @@ if ($formname == "registration_form" AND $_POST['registerbutton'] == "Register")
             " usr_naam='" . htmlentities($_POST['usr_naam'], ENT_QUOTES) . "' , " .
             " usr_email='" . $_POST['usr_email'] . "' , " .
             " usr_paswoord='" . $password_encrypted . "' ";
-        var_dump($sql);
+
 
 
 
