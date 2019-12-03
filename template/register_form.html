@@ -1,0 +1,42 @@
+<main id="mainlogin" class="container login-container">
+    <img src="images/banner2.png" alt="banner" id="banner">
+    <div class="loginform">
+        <div class="loginitem">
+            <img src="images/logo.png" alt="logo" id="logo">
+            <h2 id="login">Registratie</h2>
+            <form id="registration_form" method="post" action="lib/register.php">
+
+                <input type="hidden" id="formname" name="formname" value="registration_form">
+                <input type="hidden" id="tablename" name="tablename" value="user">
+                <input type="hidden" id="pkey" name="pkey" value="usr_id">
+
+                <ul class="list-unstyled">
+                    <li>
+                        <input type="hidden">
+                        <input type="text" name="usr_voornaam" placeholder="Voornaam">
+                    </li>
+                    <li>
+                        <input type="text" name="usr_naam" placeholder="Naam">
+                    </li>
+                    <li>
+
+                        <input type="email" name="usr_email" placeholder="E-mail">
+                    </li>
+                    <li>
+                        <input type="password" name="usr_paswoord" placeholder="Paswoord">
+                    </li>
+                    <li>@@message@@</li>
+                    <li>
+                        <input class="submit"name="registerbutton" type="submit" value="Register">
+                    </li>
+
+                </ul>
+
+            </form>
+        </div>
+        <div class="loginitem" >
+            <p>Heb je al een account? <a href="login.php" id="registreer">Log je hier in.</a></p>
+
+        </div>
+    </div>
+</main>

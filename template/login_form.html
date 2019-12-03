@@ -1,0 +1,36 @@
+<main id="mainlogin" class="login-container container">
+    <img src="images/banner1.png" alt="banner" id="banner">
+    <div class="loginform">
+        <div class="loginitem">
+            <img src="images/logo.png" alt="logo" id="logo">
+            <h2 id="login">Login</h2>
+                <form id=login_form method="post" action="lib/login.php">
+                    <input type="hidden" id="formname" name="formname" value="login_form">
+                <ul class="list-unstyled">
+                    <li>
+                        <input type="hidden">
+                        <input type="email" name="usr_email" placeholder="E-mail">
+                    </li>
+                    <li>
+                        <input type="password" name="usr_paswoord" placeholder="Paswoord">
+                    </li>
+                    <li>
+                    <li>@@message@@</li>
+
+                    </li>
+                    <li><input class="submit" name="loginbutton" type="submit" value="Log in"></li>
+
+
+                                            <li>
+                                            <a href="forget.php" id="Wachtwoordvergeten">Wachtwoord vergeten?</a>
+
+                                            </li>
+
+                </ul>
+            </form>
+        </div>
+        <div class="loginitem" >
+            <p>Geen account? <a href="register.php" id="registreer">Registreer je hier.</a></p>
+        </div>
+    </div>
+</main>
