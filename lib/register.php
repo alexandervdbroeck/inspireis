@@ -41,13 +41,10 @@ if ($formname == "registration_form" AND $_POST['registerbutton'] == "Register")
 
 
         if (ExecuteSQL($sql)) {
-          //  $_SESSION["msg"][] = "Bedankt voor uw registratie!";
-          //  if (StartLoginSession($_POST["usr_email"], $_POST["usr_paswoord"]))
-            // mail versturen met link
-                $_SESSION["hash"] = $hash;
-                require_once "mailverify.php";
-                $_SESSION["message"]= "volg de link in uw email";
-                header("Location:../login.php");
+            $_SESSION["msg"][] = "Bedankt voor uw registratie!";
+            if (StartLoginSession($_POST["usr_email"], $_POST["usr_paswoord"]))
+
+                header("Location:../index.php");
             }
         } else {
             $_SESSION["message"] = "Sorry, er liep iets fout. Uw gegevens werden niet goed opgeslagen";
