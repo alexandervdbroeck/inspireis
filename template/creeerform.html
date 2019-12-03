@@ -1,0 +1,43 @@
+<form action="" class="form-blog">
+    <fieldset class="formcontainer">
+        <div class="create-blog">
+            <div class="blog-details">
+                <div>
+                    <label for="titel">Titel</label>
+                    <input type="text" class="titel" name="titel">
+                </div>
+                <div class="dropdown-container-item-blog">
+                    <label for="land">Land: </label>
+                    <select id="land" name="land">
+                        <option disabled selected>Kies een land ...</option>
+                        @@landen@@
+                    </select>
+                </div>
+                <div class="stad">
+                    <label for="stad">Stad</label>
+                    <input type="text" id="stad" name="stad">
+                </div>
+                <div class="dropdown-container-item-blog">
+                    <label for="vakantie">Vakantie: </label>
+                    <select id="vakantie" name="vakantie">
+                        <option disabled selected>Kies een vakantie ...</option>
+                        @@category@@
+
+                    </select>
+                </div>
+            </div>
+            <div class="polaroid">
+                <img src="images/polaroid.png" alt="">
+                <button type="button">Upload afbeelding</button>
+            </div>
+        </div>
+        <div class="blog">
+            <label for="post_tekst">Blog</label>
+            <textarea id="post_tekst" name="post_tekst" rows="10" cols="50">schrijf hier uw blog</textarea>
+        </div>
+        <div class="button-blog" >
+            <a href="#"><button type="button" >Post</button></a>
+        </div>
+
+    </fieldset>
+</form>

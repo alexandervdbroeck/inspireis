@@ -51,7 +51,3 @@ unset($_SESSION["message"])
     </div>
 
 </main>
-
-<?php
-PrintPageSection("footer");
-?>

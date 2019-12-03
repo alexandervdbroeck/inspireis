@@ -92,3 +92,22 @@ function PrintForm($template_html)
     print $content;
 
 }
+
+/*het formulier om een blog te creeren af drukkne*/
+function PrintcreateForm()
+{
+    //samenstellen van de <option> menu landen
+    $landen = GetData("SELECT land_id, land_naam FROM landen");
+    $templatelanden = LoadTemplate("select_landen");
+    $optionlanden = ReplaceContent($landen,$templatelanden);
+    $category = GetData("SELECT cat_id, cat_naam FROM category");
+    $templatecategory = LoadTemplate("select_category");
+    $optioncategory = ReplaceContent($category,$templatecategory);
+    $content = LoadTemplate("creeerform");
+    $content = str_replace("@@landen@@", $optionlanden, $content);
+    $content = str_replace("@@category@@", $optioncategory, $content);
+
+
+    print $content;
+
+}
