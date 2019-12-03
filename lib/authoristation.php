@@ -4,7 +4,7 @@ require_once "autoload.php";
 function StartLoginSession($login, $paswd )
 {
     //gebruiker opzoeken ahv zijn login (e-mail)
-    $sql = "SELECT * FROM users WHERE usr_email='" . $login . "' ";
+    $sql = "SELECT * FROM user WHERE usr_email='" . $login . "' ";
     $data = GetData($sql);
     if ( count($data) == 1 )
     {

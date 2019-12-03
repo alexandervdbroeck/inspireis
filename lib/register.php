@@ -7,7 +7,6 @@ $tablename = $_POST["tablename"];
 $pkey = $_POST["pkey"];
 unset($_SESSION['message']);
 if ($formname == "registration_form" AND $_POST['registerbutton'] == "Register") {
-
     //controle of gebruiker al bestaat
     $sql = "SELECT * FROM user WHERE usr_email='" . $_POST['usr_email'] . "' ";
     $data = GetData($sql);
@@ -29,28 +28,27 @@ if ($formname == "registration_form" AND $_POST['registerbutton'] == "Register")
     }
 
     if (!isset($_SESSION["message"])){
-        $hash = password_hash($_POST["usr_email"],PASSWORD_DEFAULT);
         //wachtwoord coderen
         $password_encrypted = password_hash($_POST["usr_paswoord"], PASSWORD_DEFAULT);
         $sql = "INSERT INTO $tablename SET " .
             " usr_voornaam='" . htmlentities($_POST['usr_voornaam'], ENT_QUOTES) . "' , " .
             " usr_naam='" . htmlentities($_POST['usr_naam'], ENT_QUOTES) . "' , " .
             " usr_email='" . $_POST['usr_email'] . "' , " .
-            " usr_paswoord='" . $password_encrypted . "' , ".
-            " usr_verificatie='". $hash."'";
+            " usr_paswoord='" . $password_encrypted . "' ";
+        var_dump($sql);
+
 
 
         if (ExecuteSQL($sql)) {
-            $_SESSION["msg"][] = "Bedankt voor uw registratie!";
-            if (StartLoginSession($_POST["usr_email"], $_POST["usr_paswoord"]))
-
+            $_SESSION["msg"]= "Bedankt voor uw registratie!";
+            if (StartLoginSession($_POST["usr_email"], $_POST["usr_paswoord"])){
                 header("Location:../index.php");
             }
         } else {
             $_SESSION["message"] = "Sorry, er liep iets fout. Uw gegevens werden niet goed opgeslagen";
-
+            header("Location: ../register.php");
         }
     } else {
         header("Location: ../register.php");
-    }
+    } }
 
