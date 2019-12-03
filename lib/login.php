@@ -14,6 +14,7 @@ if ( $formname == "login_form" AND $buttonvalue == "Log in" )
     }
     else
     {
+        $_SESSION["message"] = "verkeerde user log in of paswoord";
         header("Location: ../login.php");
     }
 }
