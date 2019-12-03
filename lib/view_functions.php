@@ -1,11 +1,5 @@
 <?php
-/* Deze functie laadt de <head> sectie */
-function BasicHead()
-{
-    print LoadTemplate("basic_head");
 
-    $_SESSION["head_printed"] = true;
-}
 
 /* afdrukken van niet dynamische delen van een pagina */
 function PrintPageSection($template)
