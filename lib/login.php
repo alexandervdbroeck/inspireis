@@ -7,7 +7,7 @@ $buttonvalue = $_POST['loginbutton'];
 
 if ( $formname == "login_form" AND $buttonvalue == "Log in" )
 {
-    if ( StartLoginSession( $_POST['usr_email'], $_POST['usr_paswoord'] ) )
+    if ( StartLoginSession( $_POST['usr_login'], $_POST['usr_paswoord'] ) )
     {
         $_SESSION["message"]= "Welkom, " . $_SESSION['usr']['usr_voornaam'] . "!" ;
         header("Location: ../index.php");
