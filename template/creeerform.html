@@ -1,25 +1,28 @@
-<form action="" class="form-blog">
+<form action="lib/creeerpost.php" method="post" class="form-blog">
+        <input type="hidden" id="formname" name="formname" value="creeerform">
+        <input type="hidden" id="tablename" name="tablename" value="post">
     <fieldset class="formcontainer">
         <div class="create-blog">
             <div class="blog-details">
+
                 <div>
-                    <label for="titel">Titel</label>
-                    <input type="text" class="titel" name="titel">
+                    <label for="post_title">Titel</label>
+                    <input type="text" class="titel" id="post_title" name="post_title" value="" required>
                 </div>
                 <div class="dropdown-container-item-blog">
-                    <label for="land">Land: </label>
-                    <select id="land" name="land">
-                        <option disabled selected>Kies een land ...</option>
+                    <label for="land_id">Land: </label>
+                    <select id="land_id" name="land_id" required>
+                        <option disabled selected >Kies een land ...</option>
                         @@landen@@
                     </select>
                 </div>
                 <div class="stad">
-                    <label for="stad">Stad</label>
-                    <input type="text" id="stad" name="stad">
+                    <label for="post_stad_naam">Stad</label>
+                    <input type="text" id="post_stad_naam" name="post_stad_naam" required>
                 </div>
                 <div class="dropdown-container-item-blog">
-                    <label for="vakantie">Vakantie: </label>
-                    <select id="vakantie" name="vakantie">
+                    <label for="cat_naam">Vakantie: </label>
+                    <select id="cat_naam" name="cat_naam" required>
                         <option disabled selected>Kies een vakantie ...</option>
                         @@category@@
 
@@ -36,7 +39,7 @@
             <textarea id="post_tekst" name="post_tekst" rows="10" cols="50">schrijf hier uw blog</textarea>
         </div>
         <div class="button-blog" >
-            <a href="#"><button type="button" >Post</button></a>
+            <input type="submit" name="creeerpost"value="save_post" >
         </div>
 
     </fieldset>
