@@ -1,5 +1,5 @@
 <form action="lib/creeerpost.php" method="post" class="form-blog">
-        <input type="hidden" id="formname" name="formname" value="creeerform">
+        <input type="hidden" id="formname" name="formname" value="creeer_form">
         <input type="hidden" id="tablename" name="tablename" value="post">
     <fieldset class="formcontainer">
         <div class="create-blog">
@@ -13,6 +13,7 @@
                     <label for="land_id">Land: </label>
                     <select id="land_id" name="land_id" required>
                         <option disabled selected >Kies een land ...</option>
+                        <!-- dynamisch gecreeerde dropdown categorie-->
                         @@landen@@
                     </select>
                 </div>
@@ -24,8 +25,8 @@
                     <label for="cat_naam">Vakantie: </label>
                     <select id="cat_naam" name="cat_naam" required>
                         <option disabled selected>Kies een vakantie ...</option>
+                        <!-- dynamisch gecreeerde dropdown categorie-->
                         @@category@@
-
                     </select>
                 </div>
             </div>
@@ -35,11 +36,11 @@
             </div>
         </div>
         <div class="blog">
-            <label for="post_tekst">Blog</label>
-            <textarea id="post_tekst" name="post_tekst" rows="10" cols="50">schrijf hier uw blog</textarea>
+            <label for="post_blog">Blog</label>
+            <textarea id="post_blog" name="post_blog" rows="10" cols="50">schrijf hier uw blog</textarea>
         </div>
         <div class="button-blog" >
-            <input type="submit" name="creeerpost"value="save_post" >
+            <input type="submit" name="submitpost"value="save_post" >
         </div>
 
     </fieldset>
