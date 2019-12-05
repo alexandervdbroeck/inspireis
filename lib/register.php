@@ -1,5 +1,5 @@
 <?php
-
+$register_acces = true;
 require_once "autoload.php";
 
 $formname = $_POST["formname"];

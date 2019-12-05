@@ -1,5 +1,5 @@
 <?php
-
+$register_acces = true;
 require_once "autoload.php";
 function StartLoginSession($login, $paswd )
 {
