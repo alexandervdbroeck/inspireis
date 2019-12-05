@@ -97,6 +97,7 @@ function PrintForm($template_html)
 function PrintcreateForm()
 {
     //samenstellen van de <option> menu landen
+    $error = $_SESSION['message'];
     $landen = GetData("SELECT land_id, land_naam FROM landen");
     $templatelanden = LoadTemplate("select_landen");
     $optionlanden = ReplaceContent($landen,$templatelanden);
@@ -106,6 +107,7 @@ function PrintcreateForm()
     $content = LoadTemplate("creeerform");
     $content = str_replace("@@landen@@", $optionlanden, $content);
     $content = str_replace("@@category@@", $optioncategory, $content);
+    $content = str_replace("@@message@@",$error,$content);
 
 
     print $content;
