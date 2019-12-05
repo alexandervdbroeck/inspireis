@@ -20,6 +20,17 @@ function GetData( $sql )
     return $rows;
 }
 
+function GetDataOneRow( $sql )
+{
+    $pdo = GetConnection();
+
+    $stm = $pdo->prepare($sql);
+    $stm->execute();
+
+    $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+    return $rows[0];
+}
+
 function ExecuteSQL( $sql )
 {
     $pdo = GetConnection();
