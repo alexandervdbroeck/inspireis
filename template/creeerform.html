@@ -1,4 +1,4 @@
-<form action="lib/creeerpost.php" method="post" class="form-blog">
+<form action="lib/creeerpost.php" method="post" class="form-blog" enctype="multipart/form-data">
         <input type="hidden" id="formname" name="formname" value="creeer_form">
         <input type="hidden" id="tablename" name="tablename" value="post">
     <fieldset class="formcontainer">
@@ -10,6 +10,7 @@
                     <input type="text" class="titel" id="post_title" name="post_title" value="" required>
                 </div>
                 <div class="dropdown-container-item-blog">
+                    <p class="error">@@message@@</p>
                     <label for="land_id">Land: </label>
                     <select id="land_id" name="land_id" required>
                         <option disabled selected >Kies een land ...</option>
@@ -31,8 +32,7 @@
                 </div>
             </div>
             <div class="polaroid">
-                <script src="./path/to/dropzone.js"></script>
-                        <input id="file" name="file" type="file" multiple />
+                        <input id="filename" name="filename[]" type="file" multiple >
                 <img src="images/polaroid.png" alt="">
             </div>
         </div>

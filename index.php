@@ -11,6 +11,7 @@ unset($_SESSION["message"])
         <p class="datum">27-11-2019</p>
         <h2>Dag 3: Spanje</h2>
         <a href="#" title="#" class="userlink">Alexander Van den Broeck</a>
+        <button type="button" name="usr_id" value="10" >volg-mij</button>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi architecto nisi facere dignissimos officiis dicta et sunt molestiae ducimus.</p>
         <a href="../blog/blog-item.html" title="">Lees meer</a>
     </div>
@@ -18,12 +19,14 @@ unset($_SESSION["message"])
         <p class="datum">26-11-2019</p>
         <h2>Dag 3: Tenerife</h2>
         <a href="#" title="#" class="userlink">Maya Vekemans</a>
+        <button type="button" name="usr_id" value="10" >volg-mij</button>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est reiciendis reprehenderit vitae ea eos quod suscipit sapiente. </p><a href="#" title="">Lees meer</a>
     </div>
     <div class="tegel"><img src="images/3.JPG" alt="afbeelding">
         <p class="datum">25-11-2019</p>
         <h2>Dag 2: Spanje</h2>
         <a href="#" title="#" class="userlink">Alexander Van den Broeck</a>
+        <button type="button" name="usr_id" value="10" >volg-mij</button>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p><a href="#" title="">Lees meer</a>
 
     </div>
@@ -45,9 +48,27 @@ unset($_SESSION["message"])
     <div class="tegel"><img src="images/6.JPG" alt="afbeelding">
         <p class="datum">22-11-2019</p>
         <h2>Dag 1: Tenerife</h2>
-        <a href="#" title="#" class="userlink">Maya Vekemans</a>
+        <a href="#" title="#" class="userlink">Maya Vekemans</a><button type="button" name="usr_id" value="10" >volg-mij</button>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit asperiores aspernatur tenetur esse!</p>
         <a href="#" title="">Lees meer</a>
     </div>
 
 </main>
+
+<script>
+    $(document).ready(function () {
+        $('button[type="button"]').click(function () {
+            var usr_id = $(this).val();
+            $.ajax({
+                url: "lib/tetsvolg.php",
+                method: "POST",
+                data: {
+                    usr_id: usr_id
+                },
+                success: function (data) {
+                    $('#result').html(data);
+                }
+            });
+        });
+    });
+</script>
