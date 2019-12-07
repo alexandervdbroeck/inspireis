@@ -113,3 +113,16 @@ function PrintcreateForm()
     print $content;
 
 }
+
+function PrintUserLog($id){
+    $sql = "SELECT usr_voornaam, usr_naam FROM user WHERE usr_id=".$id;
+    $username = GetDataOneRow($sql);
+    $sql = "SELECT log_in, log_out FROM logging WHERE log_usr_id=".$id;
+    $userlogdata = GetData($sql);
+    $temprow = LoadTemplate("user_log_row");
+    $rows = ReplaceContent($userlogdata,$temprow);
+    $templog = LoadTemplate("user_log");
+    $temp = ReplaceContentOneRow($username, $templog);
+    $content = str_replace("@@log_row@@", $rows, $temp);
+    return $content;
+}

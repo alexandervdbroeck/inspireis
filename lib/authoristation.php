@@ -26,6 +26,7 @@ function StartLoginSession($login, $paswd )
     {
         session_start();
         $_SESSION['usr'] = $row;
+        LoginUser();
         return true;
     }
 

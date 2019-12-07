@@ -84,7 +84,7 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "save_post" AND !isse
         array_push($fotos,$_FILES["filename"]["name"][$i]);
         $target_file = $target_dir.basename($_FILES["filename"]["name"][$i]);
         // de foto uploaden in zijn usermap
-        if(move_uploaded_file($_FILES["filename"]["tmp_name"][$i],$target_file)) $_SESSION['message'] .= "UW blog en zijn foto's zijn gecreeerd";
+        if(move_uploaded_file($_FILES["filename"]["tmp_name"][$i],$target_file));
         else $_SESSION['message']= " uw foto's zijn niet opgeslagen";
     }
     // fotos in database zetten aan de hand
