@@ -2,14 +2,15 @@
 //Insert Data
 require_once "autoload.php";
 
+/*check welke gebruiker gevolgd dient te worden*/
+$blog_id= $_GET['blog'];
+$followuser= $_GET['userid'];
+$userid = $_SESSION['usr']['usr_id'];
 
-$sql = "INSERT INTO volgers SET volg_user_id=".$_SESSION['usr']['usr_id'].",
-        volg_volgt_user_id=".$_POST["usr_id"];
+/* invoeren in de database*/
+$sql = SQLBlogITemsAddFollow($followuser,$userid);
         ExecuteSQL($sql);
-        var_dump($sql);
-
-
-
-
+        /* terug naar de juiste detail pagina*/
+header ("location:../blog_item.php?blogid=".$blog_id."&userid=".$followuser);
 
 ?>

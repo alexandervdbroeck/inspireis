@@ -1,5 +1,4 @@
 <?php
-
 require_once "autoload.php";
 function StartLoginSession($login, $paswd )
 {
@@ -26,6 +25,7 @@ function StartLoginSession($login, $paswd )
     {
         session_start();
         $_SESSION['usr'] = $row;
+        LoginUser();
         return true;
     }
 

@@ -42,9 +42,11 @@ for($i=0;$i<$countfiles;$i++){
 // als er geen error berichten zijn en het juiste formulier binnen gekomen is de blog, en foto's opslaan
 if ($formname == "creeer_form" AND $_POST['submitpost'] == "save_post" AND !isset($_SESSION['message'])) {
     // sql statement samenstellen
+    $blogtexst = $_POST['post_blog'];
+
     $sql = "INSERT INTO $tablename SET " .
         " post_title='" . htmlentities($_POST['post_title'], ENT_QUOTES) . "' , " .
-        " post_blog='" . htmlentities($_POST['post_blog'], ENT_QUOTES) . "' , " .
+        " post_blog='" . htmlentities($blogtexst, ENT_QUOTES) . "' , " .
         " post_stad_naam='" . htmlentities($_POST['post_stad_naam'], ENT_QUOTES) . "' , " .
         " post_user_id='" . $_SESSION['usr']['usr_id'] . "' , " .
         " post_cat_id='" . $_POST['cat_naam'] . "', ".
@@ -71,7 +73,9 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "save_post" AND !isse
 
     // een lijst aanmaken om de namen van de foto's in op te slaan(voor in de databank)
     $fotos = array();
+
     // files stuk voor stuk downloaden naar de images/user_XX map
+
     for($i=0;$i<$countfiles;$i++){
         // foto herbenoemen naar (postid_fotonr) in lowercase letters
         $filename = strtolower($_FILES["filename"]["name"][$i]) ;
@@ -84,8 +88,10 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "save_post" AND !isse
         array_push($fotos,$_FILES["filename"]["name"][$i]);
         $target_file = $target_dir.basename($_FILES["filename"]["name"][$i]);
         // de foto uploaden in zijn usermap
-        if(move_uploaded_file($_FILES["filename"]["tmp_name"][$i],$target_file)) $_SESSION['message'] .= "UW blog en zijn foto's zijn gecreeerd";
-        else $_SESSION['message']= " uw foto's zijn niet opgeslagen";
+        if(move_uploaded_file($_FILES["filename"]["tmp_name"][$i],$target_file));
+        else $_SESSION['message']= "Sorry, er is een probleem, uw blogtext is opgeslagen, maar een of meerdere van uw foto's niet";
+        header ("location:../creeer.php");
+
     }
     // fotos in database zetten aan de hand
 
@@ -96,4 +102,5 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "save_post" AND !isse
     }
 
 }
-header ("location:../creeer.php");
+$_SESSION['message']= "Uw blog is opgeslagen";
+header ("location:../blog_item.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
