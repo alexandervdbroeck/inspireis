@@ -1,4 +1,4 @@
-
+<p class="error">@@message@@</p>
     <h1>Schrijf je blog</h1>
 <form action="lib/creeerpost.php" method="post" class="form-blog" enctype="multipart/form-data">
         <input type="hidden" id="formname" name="formname" value="creeer_form">
@@ -32,17 +32,17 @@
                     </select>
                 </div>
             </div>
-            <div class="polaroid">
-                        <input id="filename" name="filename[]" type="file" multiple >
+            <div class="polaroid button-blog">
                 <img src="images/polaroid.png" alt="">
+                <input  id="filename" name="filename[]" type="file" multiple >
             </div>
         </div>
         <div class="blog">
             <label for="post_blog">Blog</label>
-            <textarea id="post_blog" name="post_blog" rows="10" cols="50">schrijf hier uw blog</textarea>
+            <textarea id="post_blog" name="post_blog" rows="30" cols="30">schrijf hier uw blog</textarea>
         </div>
         <div class="button-blog" >
-            <input type="submit" name="submitpost"value="save_post" ><p class="error">@@message@@</p>
+            <input type="submit" name="submitpost"value="save_post" >
         </div>
 
     </fieldset>
