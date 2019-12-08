@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once "database.php";
-//include_once "tetsvolg.php";
+//include_once "volg.php";
 include_once "view_functions.php";
 include_once "authoristation.php";
 include_once "user_log.php";

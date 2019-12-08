@@ -1,5 +1,6 @@
 <?php
 require_once "lib/autoload.php";
+
 PrintPageSection("head");
 PrintPageSection("nav");
 if(isset($_SESSION["message"])) print '<p class=error>'. $_SESSION["message"]."</p>";
@@ -20,19 +21,35 @@ unset($_SESSION["message"]);
                     $row = GetDataOneRow($sql);
                     $temp = ReplaceContentOneRow($row,$temp);
                     echo $temp;
-                    ?>
-                <a href="lib/tetsvolg.php?blog=<?php echo $_GET['blogid'];?>&userid=<?php echo $_GET['userid']?>" title=""><input type="submit" class="" name="Volg" value="Volg">
-                    </a>
-            </div>
+                $sql = SqlBlogItemsCheckFollow($_SESSION['usr']['usr_id'],$_GET['userid']);
+                $row = GetDataOneRow($sql);
+                /*Check of de de ingelogde user de bekeken user al volgt,*/
+                if($row['follow'] == 0){
+                    $blogid = $_GET['blogid'];
+                    $userid = $_GET['userid'];
+                    $temp =LoadTemplate("blog-bericht-follow");
+                    $temp = str_replace("@@blog_id@@", $blogid, $temp);
+                    $temp = str_replace("@@user_id@@", $userid, $temp);
+                    echo $temp;
 
-        </div>
-        <div><br></div>
-        <div class="commentaar">
-            <h2 class="title-blog">Reageer</h2>
-            <input type="text"  name="commentaar" placeholder="Reageer"><br>
-            <a href="" title=""><input type="submit" name="Reageer" value="Reageer"></a>
-        </div>
-    </div>
+                }else {
+
+                    $blogid = $_GET['blogid'];
+                    $userid = $_GET['userid'];
+                    $temp =LoadTemplate("blog-bericht-unfollow");
+                    $temp = str_replace("@@blog_id@@", $blogid, $temp);
+                    $temp = str_replace("@@user_id@@", $userid, $temp);
+                    echo $temp;
+                }
+                    ?>
+
+
+<?php
+                $temp = LoadTemplate("blog-bericht-comment");
+                echo $temp;
+
+?>
+
     <?php
     $blogid = $_GET['blogid'];
     $sql = SqlBlogItems($blogid);
