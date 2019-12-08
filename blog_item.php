@@ -15,7 +15,8 @@ unset($_SESSION["message"]);
                 <p class="details">3 posts</p>
                 <p class="details">65 volgers</p>
                 <p class="details">36 volgend</p>
-                <a href="" title=""><input type="submit" class="" name="Volg" value="Volg"></a>
+                <a href="lib/tetsvolg.php?blog=<?php echo $_GET['blogid'];?>" title=""><input type="submit" class="" name="Volg" value="Volg">
+                    </a>
             </div>
 
         </div>

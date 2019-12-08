@@ -1,5 +1,6 @@
 <?php
 require_once "lib/autoload.php";
+require_once "lib/tetsvolg.php";
 PrintPageSection("head");
 PrintPageSection("nav");
 if(isset($_SESSION["message"])) print $_SESSION["message"];
