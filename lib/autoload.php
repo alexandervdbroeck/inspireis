@@ -6,6 +6,7 @@ include_once "view_functions.php";
 include_once "authoristation.php";
 include_once "user_log.php";
 include_once "sqlstatements.php";
+require_once "comment.php";
 
 //
 //// niet ingelogde gebruikers worden doorverwezen naar de login pagina

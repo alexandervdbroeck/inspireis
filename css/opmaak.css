@@ -675,3 +675,9 @@ footer p {
     height: 100px;
     text-align: center;
 }
+
+/* test pop uw window*/
+
+form input[type=checkbox]{
+    width: 50px;
+}

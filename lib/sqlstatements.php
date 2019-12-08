@@ -12,12 +12,13 @@ function SqlRegisterUserCheckLogin($login){
     return $sql;
 }
 
-function SqlRegisterUserInsertUser($voornaam,$naam,$email,$pasw,$login,$tablename){
+function SqlRegisterUserInsertUser($voornaam,$naam,$email,$pasw,$login,$tablename,$believe){
     $sql = "INSERT INTO $tablename SET " .
         " usr_voornaam='" . htmlentities($voornaam, ENT_QUOTES) . "' , " .
         " usr_naam='" . htmlentities($naam, ENT_QUOTES) . "' , " .
         " usr_email='" . $email. "' , " .
         " usr_paswoord='" .$pasw . "', ".
+        " usr_believer=" .$believe . ", ".
         " usr_login='".$login."'";
     return $sql;
 }
@@ -66,5 +67,22 @@ function SqlBlogItemsCheckFollow($userid, $followuser){
             where volg_user_id =".$userid."  and volg_volgt_user_id =".$followuser;
     return $sql;
 }
+
+
+/*      Comment formulier  ---------------------------------------------------------*/
+
+function SqlCommentAdd($user_id, $post_id, $tekst){
+    $sql= "INSERT INTO commentaar SET com_user_id=".$user_id.",
+        com_post_id=".$post_id.", com_tekst='".$tekst."'";
+    return $sql;
+}
+function SqlCommentSearch( $post_id){
+    $sql= "select com_tekst, com_datum, usr_login
+from commentaar
+inner join user u on commentaar.com_user_id = u.usr_id
+where com_post_id =".$post_id;
+    return $sql;
+}
+
 
 
