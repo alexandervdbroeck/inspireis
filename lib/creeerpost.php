@@ -103,4 +103,4 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "save_post" AND !isse
 
 }
 $_SESSION['message']= "Uw blog is opgeslagen";
-header ("location:../blog_item.php?blogid=".$post_id);
+header ("location:../blog_item.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);

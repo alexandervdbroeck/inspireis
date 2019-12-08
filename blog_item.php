@@ -7,15 +7,21 @@ unset($_SESSION["message"]);
 ?>
 <main class="container blogbericht">
     <div class="profiel-commentaar">
-        <div class="profiel-blogbericht">
-            <div>
-                <h2 class="title-blog">Alexander Van den Broeck</h2>
-            </div>
-            <div class="profiel-detail">
-                <p class="details">3 posts</p>
-                <p class="details">65 volgers</p>
-                <p class="details">36 volgend</p>
-                <a href="lib/tetsvolg.php?blog=<?php echo $_GET['blogid'];?>" title=""><input type="submit" class="" name="Volg" value="Volg">
+
+                <?php
+                /* afdrukken van de naam van de blogger, het aantal post's hoeveel volgers en hoeveel bloggers hij volgt*/
+                /*samensellen aantal volgers*/
+                    $sql = SqlBlogItemsSearchVolgers($_GET['userid']);
+                    $row = GetDataOneRow($sql);
+                    $temp = LoadTemplate("blog-bericht-volgers");
+                    $temp = ReplaceContentOneRow($row,$temp);
+                    /*samenstellen hoeveel post's en naam vd blogger*/
+                    $sql = SqlBlogItemsCountPost($_GET['userid']);
+                    $row = GetDataOneRow($sql);
+                    $temp = ReplaceContentOneRow($row,$temp);
+                    echo $temp;
+                    ?>
+                <a href="lib/tetsvolg.php?blog=<?php echo $_GET['blogid'];?>&userid=<?php echo $_GET['userid']?>" title=""><input type="submit" class="" name="Volg" value="Volg">
                     </a>
             </div>
 

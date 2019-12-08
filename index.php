@@ -56,20 +56,3 @@ unset($_SESSION["message"])
 
 </main>
 
-<script>
-    $(document).ready(function () {
-        $('button[type="button"]').click(function () {
-            var usr_id = $(this).val();
-            $.ajax({
-                url: "lib/tetsvolg.php",
-                method: "POST",
-                data: {
-                    usr_id: usr_id
-                },
-                success: function (data) {
-                    $('#result').html(data);
-                }
-            });
-        });
-    });
-</script>
