@@ -17,10 +17,9 @@ function LogoutUser(){
     $now = $timenow->format('Y-m-d H:i:s') ;
     $sql = "UPDATE logging SET  log_out='".$now."' where log_session_id='".$session."'";
     ExecuteSQL($sql);
-
 }
 
-/*function PrintUserLog(){
+function PrintLoginOverviuw(){
     $sql = "SELECT usr_voornaam, usr_naam FROM user WHERE usr_id=15";
     $username = GetDataOneRow($sql);
     $sql = "SELECT log_in, log_out FROM logging WHERE log_usr_id=15";
@@ -31,4 +30,4 @@ function LogoutUser(){
     $temp = ReplaceContentOneRow($username, $templog);
     $content = str_replace("@@log_row@@", $rows, $temp);
     return $content;
-}*/
+}

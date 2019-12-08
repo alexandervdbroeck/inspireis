@@ -93,7 +93,7 @@ function PrintForm($template_html)
 
 }
 
-/*het formulier om een blog te creeren af drukkne*/
+/*het formulier om een blog te creeren af drukken met eventuele error berichten*/
 function PrintcreateForm()
 {
     //samenstellen van de <option> menu landen
@@ -107,9 +107,9 @@ function PrintcreateForm()
     $content = LoadTemplate("creeerform");
     $content = str_replace("@@landen@@", $optionlanden, $content);
     $content = str_replace("@@category@@", $optioncategory, $content);
+    /*vervangen van error berichten */
     $content = str_replace("@@message@@",$error,$content);
-
-
+    unset($_SESSION["message"]);
     print $content;
 
 }
