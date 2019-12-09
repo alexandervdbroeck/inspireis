@@ -41,6 +41,11 @@ function CommentForm($userid,$postid) {
     $temp = LoadTemplate("blog-bericht-comment");
     $temp = str_replace("@@usr_id@@",$userid,$temp);
     $temp = str_replace("@@post_id@@",$postid,$temp);
+    $com = LoadTemplate('blog-bericht-comment-overview');
+    $sql = SqlCommentSearch($postid);
+    $data= GetData($sql);
+    $com = ReplaceContent($data,$com);
+    $temp = str_replace("@@comment@@",$com,$temp);
     return $temp;
 
 }
@@ -51,6 +56,11 @@ function BlogTekst($postid){
     $row = GetDataOneRow($sql);
     $temp = LoadTemplate("blog-bericht");
     $temp = ReplaceContentOneRow($row,$temp);
+    $sql = SqlImagesNotFirst($postid);
+    $data = GetData($sql);
+    $afb = LoadTemplate('image');
+    $afb = ReplaceContent($data,$afb);
+    $temp = str_replace("@@image@@",$afb,$temp);
     return $temp;
 }
 

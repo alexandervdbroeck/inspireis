@@ -1,6 +1,5 @@
 <?php
 
-
 /* afdrukken van niet dynamische delen van een pagina */
 function PrintPageSection($template)
 {
