@@ -57,10 +57,10 @@ function BlogTekst($postid){
     $temp = LoadTemplate("blog-bericht");
     $temp = ReplaceContentOneRow($row,$temp);
     /* als je er voor gekozen hebt om maar 1 foto te kunnen zien, wordt dit hier gecheckt*/
-    if($_SESSION['usr']['believer']==0){
+    if($_SESSION['usr']['usr_believer']==0){
         $sql = SqlImagesNotFirst($postid);
         $data = GetData($sql);
-        if(count($data)==0){
+        if(count($data)==1){
             $temp = str_replace("@@image@@","<p>er is maar 1 afbeelding</p>",$temp);
             return $temp;
         }
