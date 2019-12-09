@@ -84,5 +84,16 @@ where com_post_id =".$post_id;
     return $sql;
 }
 
+/* Tegel Statement -------------------------------------*/
+function SqlTegelHome($user_id){
+    $sql="select  usr_login, usr_id,post_title, post_id, post_datum, afb_locatie from volgers
+inner join user u on volgers.volg_volgt_user_id = u.usr_id
+inner join post p on u.usr_id = p.post_user_id
+inner join afbeelding a on p.post_id = a.afb_post_id
+where volg_user_id =".$user_id."
+group by post_id";
+    return $sql;
+}
+
 
 
