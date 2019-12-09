@@ -7,17 +7,15 @@ $checkuser = $_GET['userid'];
 if($userid==$checkuser){
     $sql = SqlImages($postid);
     $data = GetData($sql);
-    var_dump($data);
+    /*--------------------foto's verwijderen van de server---------------------*/
     foreach ( $data as $row )
     {
         foreach($row as $field => $value)
         {
-            unlink($value);
-            var_dump($value);
+            $value = "../".$value;
         }
     }
-
-    die;
+    /*---------------------blog, comments, en foto's uit de database verwijderen---*/
     $sql = SqlDeleteBlog($postid);
     if(ExecuteSQL($sql)){
     $_SESSION["message"] = "uw blog is verwijderd";
