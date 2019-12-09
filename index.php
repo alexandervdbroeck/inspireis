@@ -11,7 +11,7 @@ unset($_SESSION["message"])
     <h1>Home</h1>
     <section class="grid">
         <?php
-
+        $user_id = $_SESSION['usr']['usr_id'];
         function TegelHome($user_id)
         {
             $sql = SqlTegelHome($user_id);
