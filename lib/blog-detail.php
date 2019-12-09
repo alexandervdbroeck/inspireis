@@ -81,3 +81,5 @@ function Commentaren($blogid){
         $temp = ReplaceContent($data,$temp);
         return $temp;
 }
+
+
