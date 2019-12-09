@@ -126,3 +126,4 @@ function PrintUserLog($id){
     $content = str_replace("@@log_row@@", $rows, $temp);
     return $content;
 }
+

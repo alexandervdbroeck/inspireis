@@ -7,6 +7,7 @@ include_once "authoristation.php";
 include_once "user_log.php";
 include_once "sqlstatements.php";
 require_once "comment.php";
+require_once "blog-detail.php";
 
 //
 //// niet ingelogde gebruikers worden doorverwezen naar de login pagina

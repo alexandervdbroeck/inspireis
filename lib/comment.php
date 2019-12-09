@@ -4,8 +4,7 @@ require_once "autoload.php";
 
 $formname = $_POST["formname"];
 $tablename = $_POST["tablename"];
-var_dump($_POST);
-var_dump($_POST);
+
 unset($_SESSION['message']);
 // controle op formulier
 if ($formname == "comment" AND $_POST['submit'] == "Reageer") {
