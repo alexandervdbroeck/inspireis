@@ -56,13 +56,23 @@ function BlogTekst($postid){
     $row = GetDataOneRow($sql);
     $temp = LoadTemplate("blog-bericht");
     $temp = ReplaceContentOneRow($row,$temp);
-    $sql = SqlImagesNotFirst($postid);
-    $data = GetData($sql);
-    $afb = LoadTemplate('image');
-    $afb = ReplaceContent($data,$afb);
-    $temp = str_replace("@@image@@",$afb,$temp);
-    return $temp;
-}
+    /* als je er voor gekozen hebt om maar 1 foto te kunnen zien, wordt dit hier gecheckt*/
+    if($_SESSION['usr']['believer']==0){
+        $sql = SqlImagesNotFirst($postid);
+        $data = GetData($sql);
+        if(count($data)==0){
+            $temp = str_replace("@@image@@","<p>er is maar 1 afbeelding</p>",$temp);
+            return $temp;
+        }
+        $afb = LoadTemplate('image');
+        $afb = ReplaceContent($data,$afb);
+        $temp = str_replace("@@image@@",$afb,$temp);
+        return $temp;
+        } else{
+        $temp = str_replace("@@image@@","<p>u are a believer</p>",$temp);
+        return $temp;} }
+
+
 
 function Commentaren($blogid){
         $temp = LoadTemplate('blog-bericht-comment-overview');
