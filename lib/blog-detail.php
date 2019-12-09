@@ -2,6 +2,8 @@
 
 require_once "autoload.php";
 
+
+
 function GetFollowersAndFollowButton($userid,$postid) {
     $sql = SqlBlogItemsSearchVolgers($userid);
     $row = GetDataOneRow($sql);
@@ -35,6 +37,20 @@ function GetFollowersAndFollowButton($userid,$postid) {
         return $temp;
 
     }
+}
+
+function GetFollowers() {
+    $usrid = $_SESSION['usr']['usr_id'];
+    $sql = SqlBlogItemsSearchVolgers($usrid);
+    $row = GetDataOneRow($sql);
+    $temp = LoadTemplate("profiel-volgers");
+    $temp = ReplaceContentOneRow($row,$temp);
+    /*samenstellen hoeveel post's en naam vd blogger*/
+    $sql = SqlBlogItemsCountPost($usrid);
+    $row = GetDataOneRow($sql);
+    $temp = ReplaceContentOneRow($row,$temp);
+    return $temp;
+
 }
 
 function CommentForm($userid,$postid) {
