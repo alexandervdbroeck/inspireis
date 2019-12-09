@@ -105,5 +105,14 @@ group by post_id";
     return $sql;
 }
 
+function SqlTegelOntdek($user_id){
+    $sql="select  usr_id, post_title, post_id, afb_locatie 
+        from user 
+        inner join post p on user.usr_id = p.post_user_id
+        inner join afbeelding a on p.post_id = a.afb_post_id
+        group by post_id";
+    return $sql;
+}
+
 
 
