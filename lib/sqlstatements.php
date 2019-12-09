@@ -49,6 +49,15 @@ function SqlBlogItems($blogid){
             from post where post_id=".$blogid;
     return $sql;
 }
+
+function SqlImagesNotFirst($blogid){
+
+    $sql = "select afb_locatie
+            from afbeelding
+            where afb_post_id =".$blogid." 
+            and afb_filename not like '%_1.%'";
+    return$sql;
+}
 function SqlBlogItemsSearchVolgers($user_id){
     $sql= "select count(*) as volgt, (select count(*)from volgers where volg_volgt_user_id =". $user_id.")as aantalvolgers from volgers
             where volg_user_id =". $user_id;
@@ -80,7 +89,8 @@ function SqlCommentSearch( $post_id){
     $sql= "select com_tekst, com_datum, usr_login
 from commentaar
 inner join user u on commentaar.com_user_id = u.usr_id
-where com_post_id =".$post_id;
+where com_post_id =".$post_id."
+order by com_datum desc";
     return $sql;
 }
 

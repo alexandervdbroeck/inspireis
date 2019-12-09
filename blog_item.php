@@ -25,7 +25,7 @@ unset($_SESSION["message"]);
             /*commentaar formulier afdrukken*/
             echo CommentForm($userid,$blogid);
 
-            /* afdrukken van de blogtekst met bijhorende foto*/
+            /* afdrukken van de blogtekst met bijhorende foto's*/
             echo BlogTekst($blogid);
 
             /*  afdrukken van alle geposte commentaren*/
