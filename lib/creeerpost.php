@@ -46,7 +46,8 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "save_post" AND !isse
 
     $sql = "INSERT INTO $tablename SET " .
         " post_title='" . htmlentities($_POST['post_title'], ENT_QUOTES) . "' , " .
-        " post_blog='" . htmlentities($blogtexst, ENT_QUOTES) . "' , " .
+//        " post_blog='" . htmlentities($blogtexst, ENT_QUOTES) . "' , " .
+        " post_blog='". $blogtexst."' , " .
         " post_stad_naam='" . htmlentities($_POST['post_stad_naam'], ENT_QUOTES) . "' , " .
         " post_user_id='" . $_SESSION['usr']['usr_id'] . "' , " .
         " post_cat_id='" . $_POST['cat_naam'] . "', ".
@@ -100,7 +101,7 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "save_post" AND !isse
         ExecuteSQL($sql);
 
     }
-
+    $_SESSION['message']= "Uw blog is opgeslagen";
+    header ("location:../blog_item.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
 }
-$_SESSION['message']= "Uw blog is opgeslagen";
-header ("location:../blog_item.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
+
