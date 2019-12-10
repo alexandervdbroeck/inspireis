@@ -9,12 +9,21 @@ PrintPageSection('nav');
     <h1>Ontdek</h1>
     <form action="" class="form">
         <fieldset class="formcontainer dropdown-container">
-        <?php
-        $temp = LoadTemplate('zoekbar_ontdek');
-        print $temp;
+            <?php
 
+            function SearchCatOntdek(){
 
-        ?>
+                $sql = SQLSearchCatOntdek();
+                $data = GetData($sql);
+
+                $temp = LoadTemplate('zoekbar_ontdek');
+                $temp = ReplaceContentOneRow($data, $temp);
+                return $temp;
+            }
+
+            print SearchCatOntdek()
+
+            ?>
 
 
         </fieldset>

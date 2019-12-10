@@ -146,5 +146,16 @@ function SqlTegelOntdek($user_id){
     return $sql;
 }
 
+/*Zoekbar Ontdek ------------------------------*/
+
+function SQLSearchCatOntdek(){
+    $sql = "select cat_id, cat_naam from category;";
+    return $sql;
+}
+
+function SqlSearchLandOntdek(){
+    $sql= "select land_id, land_naam from landen;";
+    return $sql;
+}
 
 
