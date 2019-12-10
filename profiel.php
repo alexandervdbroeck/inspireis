@@ -2,12 +2,13 @@
 require_once "lib/autoload.php";
 PrintPageSection("head");
 PrintPageSection("nav");
-if(isset($_SESSION["message"])) print $_SESSION["message"];
-unset($_SESSION["message"])
 ?>
 
 
 <main>
+    <?php
+    PrintError();
+    ?>
     <h1>Profiel</h1>
     <div class="container container-profiel">
         <div class="profiel ">

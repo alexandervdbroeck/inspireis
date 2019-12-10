@@ -96,3 +96,9 @@ function PrintUserLog($id){
     return $content;
 }
 
+function PrintError(){
+    $message = "<p class=\"error\">".$_SESSION['message']."</p>";
+    print $message;
+    unset($_SESSION["message"]);
+}
+
