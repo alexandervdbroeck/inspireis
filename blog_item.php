@@ -14,7 +14,7 @@ unset($_SESSION["message"]);
             $blogid = $_GET['blogid'];
 
             /* als er geen userid of blogid meegegeven een error bericht generen en naar de indexpagina sturen*/
-            if(!isset($userid) or !isset($blogid)){
+            if(!isset($userid) and !isset($blogid)){
                 $_SESSION["message"] = "Sorry er liep iets mis bij het laden van een blog";
                 header("Location: index.php");
             }

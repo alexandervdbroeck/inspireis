@@ -23,7 +23,21 @@ function SqlRegisterUserInsertUser($voornaam,$naam,$email,$pasw,$login,$tablenam
     return $sql;
 }
 
-/* blog-items pagina--------------------------------------------------------------*/
+
+/*--------------------------post creeer/ delete / update--------------------------*/
+
+function SqlDeleteBlog($postid){
+    $sql = "delete from afbeelding
+            where afb_post_id =".$postid.";
+            delete from commentaar
+            where com_post_id = ".$postid.";
+            delete from post
+            where post_id = ".$postid;
+    return $sql;
+}
+
+
+/* -------------------------blog-items pagina-----------------------------------------*/
 //function SqlBlogItemsGetUserId($blogid){
 //    $sql = "select  post_user_id
 //from post where post_id=".$blogid;
@@ -50,6 +64,15 @@ function SqlBlogItems($blogid){
     return $sql;
 }
 
+function SqlBlogItemsProfile($usrid){
+    $sql = "select post_title, post_id, post_user_id, afb_locatie
+            from post
+            inner join afbeelding a on post.post_id = a.afb_post_id
+            where post_user_id =".$usrid."
+            group by post_id";
+    return $sql;
+}
+
 function SqlImagesNotFirst($blogid){
 
     $sql = "select afb_locatie
@@ -58,6 +81,15 @@ function SqlImagesNotFirst($blogid){
             and afb_filename not like '%_1.%'";
     return$sql;
 }
+
+function SqlImages($blogid){
+
+    $sql = "select afb_locatie
+            from afbeelding
+            where afb_post_id =".$blogid;
+    return $sql;
+}
+
 function SqlBlogItemsSearchVolgers($user_id){
     $sql= "select count(*) as volgt, (select count(*)from volgers where volg_volgt_user_id =". $user_id.")as aantalvolgers from volgers
             where volg_user_id =". $user_id;
@@ -94,15 +126,15 @@ order by com_datum desc";
     return $sql;
 }
 
-/* Tegel Statement -------------------------------------*/
+/* index pagina----------------------------------- -------------------------------------*/
 function SqlTegelHome($user_id){
-    $sql="select  usr_login, usr_id,post_title, post_id, post_datum, afb_locatie from volgers
-inner join user u on volgers.volg_volgt_user_id = u.usr_id
-inner join post p on u.usr_id = p.post_user_id
-inner join afbeelding a on p.post_id = a.afb_post_id
-where volg_user_id =".$user_id."
-group by post_id";
-    return $sql;
+    $sql = "select  usr_login, usr_id,post_title, post_id, post_datum, afb_locatie from volgers
+            inner join user u on volgers.volg_volgt_user_id = u.usr_id
+            inner join post p on u.usr_id = p.post_user_id
+            inner join afbeelding a on p.post_id = a.afb_post_id
+            where volg_user_id =".$user_id."
+            group by post_id";
+    return $sql ;
 }
 
 function SqlTegelOntdek($user_id){
