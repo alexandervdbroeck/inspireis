@@ -15,6 +15,7 @@ PrintPageSection('nav');
 
                 $sql = SQLSearchCatOntdek();
                 $data = GetData($sql);
+                var_dump($data);
 
                 $temp = LoadTemplate('zoekbar_ontdek');
                 $temp = ReplaceContentOneRow($data, $temp);
