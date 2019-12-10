@@ -7,4 +7,6 @@ function TegelOntdek($user_id)
     $temp = ReplaceContent($data, $temp);
     return $temp;
 }
+
+
 ?>
