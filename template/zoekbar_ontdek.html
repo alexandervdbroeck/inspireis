@@ -1,20 +1,25 @@
+
+    <input type="hidden" id="formname" name="formname" value="ontdek_form">
+
+
+
 <div class="dropdown-container-item">
-    <label for="land">Land: </label>
-    <select id="land" name="land">
-        <option disabled selected>Kies een land ...</option>
-        <option>@@land_naam@@</option>
+    <label for="land_id">Land: </label>
+    <select id="land_id" name="land_id" required>
+        <option disabled selected value="x" >Kies een land ...</option>
+        @@land_naam@@
 
     </select>
 </div>
 <div class="dropdown-container-item">
-    <label for="vakantie">Vakantie: </label>
-    <select id="vakantie" name="vakantie">
-        <option disabled selected>Kies een vakantie ...</option>
-        <option>@@cat_naam@@</option>
+    <label for="cat_id">Vakantie: </label>
+    <select id="cat_id" name="cat_id">
+        <option disabled selected value="x">Kies een vakantie ...</option>
+        @@cat_naam@@
     </select>
 </div>
 
 <div class="dropdown-container-item">
-    <button type="button" >Resultaat</button>
-</div>
+    <button type="submit" name="search" value = zoek >Resultaat</button>
+</div></form>
 
