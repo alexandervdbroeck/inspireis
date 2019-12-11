@@ -26,13 +26,24 @@ function SqlRegisterUserInsertUser($voornaam,$naam,$email,$pasw,$login,$tablenam
 
 /*--------------------------post creeer/ delete / update--------------------------*/
 
-function SqlDeleteBlog($postid){
+function SqlPostDelete($postid){
     $sql = "delete from afbeelding
             where afb_post_id =".$postid.";
             delete from commentaar
             where com_post_id = ".$postid.";
             delete from post
             where post_id = ".$postid;
+    return $sql;
+}
+
+function SqlPostUpdate($post_id,$post_blog,$post_cat,$post_land,$post_stad,$post_title){
+    $sql = "update post set
+            post_blog = '".$post_blog."',
+            post_cat_id =".$post_cat.",
+            post_land_id =".$post_land.",
+            post_stad_naam ='".$post_stad."',
+            post_title='".$post_title."'                    
+            where post_id =".$post_id;
     return $sql;
 }
 
@@ -60,6 +71,12 @@ where volg_user_id =".$userid." and volg_volgt_user_id =".$followuser;
 
 function SqlBlogItems($blogid){
     $sql = "select post_id, post_blog, post_title, post_user_id ,(select afbeelding.afb_locatie from afbeelding where afb_post_id=".$blogid."  limit 1) as afbeelding
+            from post where post_id=".$blogid;
+    return $sql;
+}
+
+function SqlBlogUpdateSearch($blogid){
+    $sql = "select post_id, post_blog, post_title, post_cat_id, post_land_id, post_stad_naam, post_user_id
             from post where post_id=".$blogid;
     return $sql;
 }

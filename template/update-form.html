@@ -1,0 +1,48 @@
+<script>tinymce.init({selector:'textarea'});</script>
+<p class="error">@@message@@</p>
+<h1>pas uw blog aan:</h1>
+<form action="lib/update-post.php" method="post" class="form-blog" enctype="multipart/form-data">
+    <input type="hidden" id="formname" name="formname" value="update_form">
+    <input type="hidden" id="post_usr_id" name="post_usr_id" value="@@post_user_id@@">
+    <input type="hidden" id="post_id" name="post_id" value="@@post_id@@">
+    <fieldset class="formcontainer">
+        <div class="create-blog">
+            <div class="blog-details">
+
+                <div>
+                    <label for="post_title">Titel</label>
+                    <input type="text" class="titel" id="post_title" name="post_title" value="@@post_title@@" required >
+                </div>
+                <div class="dropdown-container-item-blog">
+                    <label for="post_land_id">Land: </label>
+                    <select id="post_land_id" name="post_land_id" required>
+                        <option disabled  >Kies een land ...</option>
+                        <!-- dynamisch gecreeerde dropdown categorie-->
+                        @@landen@@
+                    </select>
+                </div>
+                <div class="stad">
+                    <label for="post_stad_naam">Stad</label>
+                    <input type="text" id="post_stad_naam" name="post_stad_naam" required value="@@post_stad_naam@@">
+                </div>
+                <div class="dropdown-container-item-blog">
+                    <label for="post_cat_id">Vakantie: </label>
+                    <select id="post_cat_id" name="post_cat_id" required>
+                        <option disabled selected>Kies een vakantie ...</option>
+                        <!-- dynamisch gecreeerde dropdown categorie-->
+                        @@category@@
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="blog">
+            <label for="post_blog">Blog</label>
+            <textarea id="post_blog" name="post_blog" rows="30" cols="30">@@post_blog@@</textarea>
+        </div>
+        <div class="button-blog" >
+            <input type="submit" name="submitpost"value="update" >
+        </div>
+
+    </fieldset>
+</form>

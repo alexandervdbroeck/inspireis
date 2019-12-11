@@ -40,7 +40,7 @@ for($i=0;$i<$countfiles;$i++){
 
 
 // als er geen error berichten zijn en het juiste formulier binnen gekomen is de blog, en foto's opslaan
-if ($formname == "creeer_form" AND $_POST['submitpost'] == "save_post" AND !isset($_SESSION['message'])) {
+if ($formname == "creeer_form" AND $_POST['submitpost'] == "save" AND !isset($_SESSION['message'])) {
     // sql statement samenstellen
     $blogtexst = $_POST['post_blog'];
     $date = new DateTime('NOW', new DateTimeZone('Europe/Brussels'));
@@ -66,7 +66,7 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "save_post" AND !isse
 
     // om de afbeelding een naam te geven, eerst de net gecreeerde post_id ophalen
     $sql = "SELECT post_id FROM post WHERE post_user_id ='".$user_id."' 
-                                    order by post_datum desc limit 1" ;
+                                    order by post_id desc limit 1" ;
     $post_id = GetDataOneRow($sql );
     $post_id = $post_id['post_id'];
 

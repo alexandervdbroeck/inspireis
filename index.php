@@ -14,7 +14,6 @@ unset($_SESSION["message"])
 
         /*Aanmaak variabele voor de functie TegelHome*/
         $user_id = $_SESSION['usr']['usr_id'];
-
         /*Print van de tegels*/
         echo TegelHome($user_id);
 

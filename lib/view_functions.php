@@ -36,6 +36,31 @@ function ReplaceContent( $data, $template_html )
     return $returnval;
 }
 
+function ReplaceContentSelect( $data, $template_html ,$id, $template_select)
+{
+    $returnval = "";
+
+    foreach ( $data as $row )
+    {
+        //replace fields with values in template
+        $content = $template_html;
+        $content_select = $template_select;
+        foreach($row as $field => $value)
+        {
+            if($value== $id ){
+                $content = str_replace("@@$field@@", $value, $content_select);
+            }else{
+                $content = str_replace("@@$field@@", $value, $content);
+            }
+
+        }
+
+        $returnval .= $content;
+    }
+
+    return $returnval;
+}
+
 /* Deze functie voegt data en template samen en print het resultaat */
 function ReplaceContentOneRow( $row, $template_html )
 {
@@ -65,7 +90,6 @@ function PrintForm($template_html)
 /*het formulier om een blog te creeren af drukken met eventuele error berichten*/
 function PrintcreateForm()
 {
-    //samenstellen van de <option> menu landen
     $error = $_SESSION['message'];
     $landen = GetData("SELECT land_id, land_naam FROM landen");
     $templatelanden = LoadTemplate("select_landen");
@@ -80,9 +104,36 @@ function PrintcreateForm()
     $content = str_replace("@@message@@",$error,$content);
     unset($_SESSION["message"]);
     print $content;
-
 }
 
+function PrintUpdateForm($postid)
+{
+    //samenstellen van de <option> menu landen
+    $error = $_SESSION['message'];
+    $landen = GetData("SELECT land_id, land_naam FROM landen");
+    $templatelanden = LoadTemplate("select_landen");
+    $category = GetData("SELECT cat_id, cat_naam FROM category");
+    $sql = SqlBlogUpdateSearch($postid);
+    $data = GetDataOneRow($sql);
+    $landid = $data['post_land_id'];
+    $catid = $data['post_cat_id'];
+    $templatecategory = LoadTemplate("select_category");
+    $tempcatSelected = LoadTemplate('select_category_selected');
+    $templandselected = LoadTemplate('select_landen_selected');
+    $optionlanden = ReplaceContentSelect($landen,$templatelanden,$landid,$templandselected);
+    $optioncategory = ReplaceContentSelect($category,$templatecategory,$catid,$tempcatSelected);
+    $content = LoadTemplate("update-form");
+    $content = str_replace("@@landen@@", $optionlanden, $content);
+    $content = str_replace("@@category@@", $optioncategory, $content);
+    /*vervangen van error berichten */
+    $content = str_replace("@@message@@",$error,$content);
+    $content = ReplaceContentOneRow($data,$content);
+
+
+    unset($_SESSION["message"]);
+    print $content;
+
+}
 function PrintUserLog($id){
     $sql = "SELECT usr_voornaam, usr_naam FROM user WHERE usr_id=".$id;
     $username = GetDataOneRow($sql);

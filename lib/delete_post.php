@@ -16,7 +16,7 @@ if($userid==$checkuser){
         }
     }
     /*---------------------blog, comments, en foto's uit de database verwijderen---*/
-    $sql = SqlDeleteBlog($postid);
+    $sql = SqlPostDelete($postid);
     if(ExecuteSQL($sql)){
     $_SESSION["message"] = "uw blog is verwijderd";
     header("Location: ../profiel.php");
