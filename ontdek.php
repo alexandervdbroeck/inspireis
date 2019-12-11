@@ -44,10 +44,10 @@ PrintPageSection('nav');
     var_dump($land_id);
     if(!isset($land_id) and !isset($cat_id)){
         echo TegelOntdek($user_id);
-    }elseif ($land_id == ""){
-        echo "land";
-    } else {
-        echo "beide";
+//    }elseif ($land_id == ""){
+//        echo "land";
+//    } else {
+//        echo "beide";
     }
 
     /*Printen van de tegels op de Ontdek pagina*/

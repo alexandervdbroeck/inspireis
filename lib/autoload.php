@@ -6,7 +6,7 @@ require_once "database.php";
 include_once "volg.php";
 require_once "view_functions.php";
 require_once "authoristation.php";
-//include_once "user_log.php";
+include_once "user_log.php";
 require_once "sqlstatements.php";
 require_once "comment.php";
 require_once "blog-detail.php";
