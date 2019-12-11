@@ -137,16 +137,8 @@ function SqlTegelHome($user_id){
     return $sql ;
 }
 
-function SqlTegelOntdek($user_id){
-    $sql="select  usr_id, post_title, post_id, afb_locatie 
-        from user 
-        inner join post p on user.usr_id = p.post_user_id
-        inner join afbeelding a on p.post_id = a.afb_post_id
-        group by post_id";
-    return $sql;
-}
 
-/*Zoekbar Ontdek ------------------------------*/
+/*ZOEKBAR ONTDEK ----------------------------------------------------------------------------------------------*/
 
 function SQLSearchCatOntdek(){
     $sql = "select cat_id, cat_naam from category;";
@@ -157,5 +149,50 @@ function SqlSearchLandOntdek(){
     $sql= "select land_id, land_naam from landen;";
     return $sql;
 }
+
+/*Zoekbar: Niks ingevuld*/
+function SqlTegelOntdek(){
+    $sql="select post_title, post_id, afb_locatie 
+        from post
+        inner join afbeelding a on post.post_id = a.afb_post_id
+        group by post_id";
+    return $sql;
+}
+
+
+/*Zoekbar: Land en categorie ingevuld*/
+function SqlSearchLandCatIngevuld($land_id, $cat_id){
+    $sql ="select  post_title, post_id, afb_locatie
+from post
+inner join afbeelding a on post.post_id = a.afb_post_id
+inner join landen l on post.post_land_id = l.land_id
+inner join category c on post.post_cat_id = c.cat_id
+where post_land_id=".$land_id." and post_cat_id =".$cat_id."
+group by post_id;";
+    return $sql;
+}
+
+/*Zoekbar: Enkel Land ingevuld*/
+function SqlSearchLandIngevuld($land_id){
+    $sql="select  post_title, post_id, afb_locatie
+from post
+inner join afbeelding a on post.post_id = a.afb_post_id
+inner join landen l on post.post_land_id = l.land_id
+where post_land_id=".$land_id."
+group by post_id;";
+    return $sql;
+}
+
+/*Zoekbar: Enkel Category ingevuld*/
+function SqlSearchCatIngevuld($cat_id){
+    $sql="select  post_title, post_id, afb_locatie
+from post
+inner join afbeelding a on post.post_id = a.afb_post_id
+inner join category c on post.post_cat_id = c.cat_id
+where post_cat_id=".$cat_id."
+group by post_id;";
+    return $sql;
+}
+
 
 

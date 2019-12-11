@@ -11,7 +11,7 @@ PrintPageSection('nav');
         <fieldset class="formcontainer dropdown-container">
             <?php
 
-            function SearchCatOntdek(){
+            function SearchDropOntdek(){
 
                 $sql = SQLSearchCatOntdek();
                 $data = GetData($sql);
@@ -28,7 +28,7 @@ PrintPageSection('nav');
                 return $temp;
             }
 
-            print SearchCatOntdek()
+            print SearchDropOntdek()
 
             ?>
 
@@ -40,17 +40,23 @@ PrintPageSection('nav');
     <?php
     $cat_id = $_GET['cat_id'];
     $land_id = $_GET['land_id'];
-    var_dump($cat_id);
     var_dump($land_id);
+    var_dump($cat_id);
     if(!isset($land_id) and !isset($cat_id)){
         echo TegelOntdek($user_id);
-//    }elseif ($land_id == ""){
-//        echo "land";
-//    } else {
-//        echo "beide";
     }
-
-    /*Printen van de tegels op de Ontdek pagina*/
+    elseif (isset($land_id) and !isset($cat_id)){
+        echo "land";
+        echo TegelLandOntdek($land_id);
+    }
+    elseif (!isset($land_id) and isset($cat_id)){
+        echo "cat";
+        echo TegelCatOntdek($cat_id);
+    }
+    else {
+        echo "beiden";
+        echo TegelLandCatOntdek($land_id, $cat_id, $user_id);
+    }
 
 
     ?>
