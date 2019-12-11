@@ -40,21 +40,16 @@ PrintPageSection('nav');
     <?php
     $cat_id = $_GET['cat_id'];
     $land_id = $_GET['land_id'];
-    var_dump($land_id);
-    var_dump($cat_id);
     if(!isset($land_id) and !isset($cat_id)){
         echo TegelOntdek($user_id);
     }
     elseif (isset($land_id) and !isset($cat_id)){
-        echo "land";
         echo TegelLandOntdek($land_id);
     }
     elseif (!isset($land_id) and isset($cat_id)){
-        echo "cat";
         echo TegelCatOntdek($cat_id);
     }
     else {
-        echo "beiden";
         echo TegelLandCatOntdek($land_id, $cat_id, $user_id);
     }
 
