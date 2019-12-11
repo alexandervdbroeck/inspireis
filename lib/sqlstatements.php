@@ -113,8 +113,11 @@ function SqlBlogItemsCheckFollow($userid, $followuser){
 /*      Comment formulier  ---------------------------------------------------------*/
 
 function SqlCommentAdd($user_id, $post_id, $tekst){
+    $date = new DateTime('NOW', new DateTimeZone('Europe/Brussels'));
+    $date = $date->format('d-m-Y');
+
     $sql= "INSERT INTO commentaar SET com_user_id=".$user_id.",
-        com_post_id=".$post_id.", com_tekst='".$tekst."'";
+        com_post_id=".$post_id.", com_tekst='".$tekst."', com_datum='".$date."'";
     return $sql;
 }
 function SqlCommentSearch( $post_id){
@@ -122,7 +125,7 @@ function SqlCommentSearch( $post_id){
 from commentaar
 inner join user u on commentaar.com_user_id = u.usr_id
 where com_post_id =".$post_id."
-order by com_datum desc";
+order by com_id desc";
     return $sql;
 }
 
@@ -152,7 +155,7 @@ function SqlSearchLandOntdek(){
 
 /*Zoekbar: Niks ingevuld*/
 function SqlTegelOntdek(){
-    $sql="select post_title, post_id, afb_locatie 
+    $sql="select post_title, post_id, afb_locatie , post_user_id
         from post
         inner join afbeelding a on post.post_id = a.afb_post_id
         group by post_id";
@@ -162,7 +165,7 @@ function SqlTegelOntdek(){
 
 /*Zoekbar: Land en categorie ingevuld*/
 function SqlSearchLandCatIngevuld($land_id, $cat_id){
-    $sql ="select  post_title, post_id, afb_locatie
+    $sql ="select  post_title, post_id, afb_locatie, post_user_id
 from post
 inner join afbeelding a on post.post_id = a.afb_post_id
 inner join landen l on post.post_land_id = l.land_id
@@ -174,7 +177,7 @@ group by post_id;";
 
 /*Zoekbar: Enkel Land ingevuld*/
 function SqlSearchLandIngevuld($land_id){
-    $sql="select  post_title, post_id, afb_locatie
+    $sql="select  post_title, post_id, afb_locatie, post_user_id
 from post
 inner join afbeelding a on post.post_id = a.afb_post_id
 inner join landen l on post.post_land_id = l.land_id
@@ -185,7 +188,7 @@ group by post_id;";
 
 /*Zoekbar: Enkel Category ingevuld*/
 function SqlSearchCatIngevuld($cat_id){
-    $sql="select  post_title, post_id, afb_locatie
+    $sql="select  post_title, post_id, afb_locatie,post_user_id
 from post
 inner join afbeelding a on post.post_id = a.afb_post_id
 inner join category c on post.post_cat_id = c.cat_id

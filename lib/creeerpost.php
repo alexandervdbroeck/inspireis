@@ -43,6 +43,10 @@ for($i=0;$i<$countfiles;$i++){
 if ($formname == "creeer_form" AND $_POST['submitpost'] == "save_post" AND !isset($_SESSION['message'])) {
     // sql statement samenstellen
     $blogtexst = $_POST['post_blog'];
+    $date = new DateTime('NOW', new DateTimeZone('Europe/Brussels'));
+    $date = $date->format('d-m-Y');
+
+
 
     $sql = "INSERT INTO $tablename SET " .
         " post_title='" . htmlentities($_POST['post_title'], ENT_QUOTES) . "' , " .
@@ -50,6 +54,7 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "save_post" AND !isse
         " post_blog='". $blogtexst."' , " .
         " post_stad_naam='" . htmlentities($_POST['post_stad_naam'], ENT_QUOTES) . "' , " .
         " post_user_id='" . $_SESSION['usr']['usr_id'] . "' , " .
+        " post_datum='" . $date . "' , " .
         " post_cat_id='" . $_POST['cat_naam'] . "', ".
         " post_land_id='" . $_POST['land_id'] . "' ";
     // Post in database opslaan
