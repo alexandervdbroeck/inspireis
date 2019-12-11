@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-require_once "connection.php";
 require_once "database.php";
 //require_once "volg.php";
 require_once "view_functions.php";
