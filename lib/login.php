@@ -10,7 +10,7 @@ if ( $formname == "login_form" AND $buttonvalue == "Log in" )
     if ( StartLoginSession( $_POST['usr_login'], $_POST['usr_paswoord'] ) )
     {
         $_SESSION["message"]= "Welkom, " . $_SESSION['usr']['usr_voornaam'] . "!" ;
-        header("Location: ../creeer.php");
+        header("Location: ../index.php");
     }
     else
     {

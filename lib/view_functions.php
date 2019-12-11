@@ -153,3 +153,45 @@ function PrintError(){
     unset($_SESSION["message"]);
 }
 
+function TegelHome($user_id,$offset) {
+    $sql = SqlTegelHome($user_id,$offset);
+    $data = GetData($sql);
+    $temp = LoadTemplate("tegel_home");
+    $temp = ReplaceContent($data, $temp);
+    return $temp; }
+
+function TegelOntdek()
+{
+    $sql = SqlTegelOntdek();
+    $data = GetData($sql);
+    $temp = LoadTemplate("tegel_ontdek");
+    $temp = ReplaceContent($data, $temp);
+    return $temp;
+}
+
+/*Print tegels met ingave van het land*/
+function TegelLandOntdek ($id_land){
+    $sql = SqlSearchLandIngevuld($id_land);
+    $data = GetData($sql);
+    $temp = LoadTemplate("tegel_ontdek");
+    $temp = ReplaceContent($data, $temp);
+    return $temp;
+}
+
+/*Print tegels met ingave van de categorie*/
+function TegelCatOntdek($cat_id){
+    $sql = SqlSearchCatIngevuld($cat_id);
+    $data = GetData($sql);
+    $temp = LoadTemplate("tegel_ontdek");
+    $temp = ReplaceContent($data, $temp);
+    return $temp;
+}
+
+/*Print tegels met ingave van zowel land als categorie*/
+function TegelLandCatOntdek($id_land, $cat_id){
+    $sql = SqlSearchLandCatIngevuld($id_land, $cat_id);
+    $data = GetData($sql);
+    $temp = LoadTemplate("tegel_ontdek");
+    $temp= ReplaceContent($data, $temp);
+    return $temp;
+}

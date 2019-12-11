@@ -1,5 +1,5 @@
 <?php
-include_once "autoload.php";
+require_once "autoload.php";
 $userid = $_SESSION['usr']['usr_id'];
 $formname = $_POST['formname'];
 

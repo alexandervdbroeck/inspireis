@@ -1,5 +1,5 @@
 <?php
-include_once "autoload.php";
+require_once "autoload.php";
     /*-------------------controle of de juiste user de blog wilt verwijdern -----*/
 $userid = $_SESSION['usr']['usr_id'];
 $postid = $_GET['postid'];

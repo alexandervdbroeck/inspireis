@@ -1,5 +1,5 @@
 <?php
-include_once 'lib/autoload.php';
+require_once 'lib/autoload.php';
 PrintPageSection('head');
 PrintPageSection('nav');
 ?>
@@ -7,11 +7,15 @@ PrintPageSection('nav');
 
 <main class="container" >
     <h1>Ontdek</h1>
+    <?php
+    PrintError();
+    ?>
+
     <form action="lib/ontdekform.php" method="post" class="form" >
         <fieldset class="formcontainer dropdown-container">
             <?php
 
-            function SearchDropOntdek(){
+            function OntdekSearchbar(){
 
                 $sql = SQLSearchCatOntdek();
                 $data = GetData($sql);
@@ -24,11 +28,11 @@ PrintPageSection('nav');
                 $temp = LoadTemplate('zoekbar_ontdek');
                 $temp = str_replace("@@land_naam@@", $landen, $temp);
                 $temp = str_replace("@@cat_naam@@", $category, $temp);
-//                $temp = ReplaceContentOneRow($data, $temp);
+
                 return $temp;
             }
 
-            print SearchDropOntdek()
+            print OntdekSearchbar()
 
             ?>
 

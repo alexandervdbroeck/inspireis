@@ -1,5 +1,5 @@
 <?php
-include_once "autoload.php";
+require_once "autoload.php";
 
 /* registratie formulier------------------------------------------*/
 function SqlRegisterUserCheckEmail($useremail){
@@ -86,7 +86,8 @@ function SqlBlogItemsProfile($usrid){
             from post
             inner join afbeelding a on post.post_id = a.afb_post_id
             where post_user_id =".$usrid."
-            group by post_id";
+            group by post_id
+            order by post_id desc";
     return $sql;
 }
 
@@ -147,13 +148,14 @@ order by com_id desc";
 }
 
 /* index pagina----------------------------------- -------------------------------------*/
-function SqlTegelHome($user_id){
+function SqlTegelHome($user_id, $offset){
     $sql = "select  usr_login, usr_id,post_title, post_id, post_datum, afb_locatie from volgers
             inner join user u on volgers.volg_volgt_user_id = u.usr_id
             inner join post p on u.usr_id = p.post_user_id
             inner join afbeelding a on p.post_id = a.afb_post_id
             where volg_user_id =".$user_id."
-            group by post_id";
+            group by post_id
+            order by post_id desc limit 9 offset ".$offset;
     return $sql ;
 }
 
@@ -175,20 +177,22 @@ function SqlTegelOntdek(){
     $sql="select post_title, post_id, afb_locatie , post_user_id
         from post
         inner join afbeelding a on post.post_id = a.afb_post_id
-        group by post_id";
+        group by post_id
+        order by post_id desc limit 27";
     return $sql;
 }
 
 
 /*Zoekbar: Land en categorie ingevuld*/
-function SqlSearchLandCatIngevuld($land_id, $cat_id){
-    $sql ="select  post_title, post_id, afb_locatie, post_user_id
-from post
-inner join afbeelding a on post.post_id = a.afb_post_id
-inner join landen l on post.post_land_id = l.land_id
-inner join category c on post.post_cat_id = c.cat_id
-where post_land_id=".$land_id." and post_cat_id =".$cat_id."
-group by post_id;";
+        function SqlSearchLandCatIngevuld($land_id, $cat_id){
+            $sql ="select  post_title, post_id, afb_locatie, post_user_id
+        from post
+        inner join afbeelding a on post.post_id = a.afb_post_id
+        inner join landen l on post.post_land_id = l.land_id
+        inner join category c on post.post_cat_id = c.cat_id
+        where post_land_id=".$land_id." and post_cat_id =".$cat_id."
+        group by post_id;
+        order by post_id desc limit 40";
     return $sql;
 }
 
