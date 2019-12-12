@@ -19,15 +19,3 @@ function LogoutUser(){
     ExecuteSQL($sql);
 }
 
-function PrintLoginOverviuw(){
-    $sql = "SELECT usr_voornaam, usr_naam FROM user WHERE usr_id=15";
-    $username = GetDataOneRow($sql);
-    $sql = "SELECT log_in, log_out FROM logging WHERE log_usr_id=15";
-    $userlogdata = GetData($sql);
-    $temprow = LoadTemplate("user_log_row");
-    $rows = ReplaceContent($userlogdata,$temprow);
-    $templog = LoadTemplate("user_log");
-    $temp = ReplaceContentOneRow($username, $templog);
-    $content = str_replace("@@log_row@@", $rows, $temp);
-    return $content;
-}

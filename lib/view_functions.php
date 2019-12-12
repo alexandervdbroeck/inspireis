@@ -114,7 +114,10 @@ function PrintUpdateForm($postid)
     $landen = GetData("SELECT land_id, land_naam FROM landen");
     $templatelanden = LoadTemplate("select_landen");
     $category = GetData("SELECT cat_id, cat_naam FROM category");
+    $fotos = GetData("SELECT afb_locatie, afb_id FROM afbeelding where afb_post_id =".$postid);
+    $fototemp = LoadTemplate('fotoupdate');
     $sql = SqlBlogUpdateSearch($postid);
+    $fototemp = ReplaceContent($fotos,$fototemp);
     $data = GetDataOneRow($sql);
     if(!$data['post_user_id']== $_SESSION['usr']['usr_id']){
         $_SESSION['message'] = "U hebt een pagina bezocht waar u niet gemachtigd toe was,.. foefelaar";
@@ -133,6 +136,7 @@ function PrintUpdateForm($postid)
     $content = str_replace("@@category@@", $optioncategory, $content);
     /*vervangen van error berichten */
     $content = str_replace("@@message@@",$error,$content);
+    $content = str_replace("@@foto@@",$fototemp,$content);
     $content = ReplaceContentOneRow($data,$content);
 
 

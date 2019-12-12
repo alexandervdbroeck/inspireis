@@ -32,6 +32,9 @@ p.error {
     border-radius: 10px;
 }
 
+p {
+    padding: .2em;
+}
 /*img stijlen -------------------------------------*/
 
 img#banner {
@@ -265,6 +268,7 @@ section.grid img {
 
 
 section.grid div.tegel{
+    width: 350px;
     height: 100%;
     display: grid;
     background: white;
@@ -429,6 +433,7 @@ div.grid-profile img {
 }
 
 div.grid-profile div.tegel-profile{
+    width: 350px;
     height: 100%;
     display: grid;
     background: white;
@@ -697,4 +702,10 @@ footer p {
 
 form input[type=checkbox]{
     width: 50px;
+}
+
+/* update formulieren -------------------------------------*/
+.update-img img{
+
+    width: 150px;
 }

@@ -48,7 +48,7 @@ function SqlPostUpdate($post_id,$post_blog,$post_cat,$post_land,$post_stad,$post
 }
 
 
-/* -------------------------blog-items pagina-----------------------------------------*/
+/* ----------------------------------------DETAIL PAGINA------------------------------------------------------*/
 //function SqlBlogItemsGetUserId($blogid){
 //    $sql = "select  post_user_id
 //from post where post_id=".$blogid;
@@ -56,6 +56,7 @@ function SqlPostUpdate($post_id,$post_blog,$post_cat,$post_land,$post_stad,$post
 //
 //}
 
+        /*voeg een volgen toe */
 function SQLBlogITemsAddFollow($followuser,$userid){
     $sql= "INSERT INTO volgers SET volg_user_id=".$userid.",
         volg_volgt_user_id=".$followuser;
