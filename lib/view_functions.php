@@ -1,4 +1,5 @@
 <?php
+require_once "autoload.php";
 
 /* afdrukken van niet dynamische delen van een pagina */
 function PrintPageSection($template)
@@ -110,38 +111,38 @@ function PrintcreateForm()
 function PrintUpdateForm($postid)
 {
     //samenstellen van de <option> menu landen
-    $error = $_SESSION['message'];
-    $landen = GetData("SELECT land_id, land_naam FROM landen");
-    $templatelanden = LoadTemplate("select_landen");
-    $category = GetData("SELECT cat_id, cat_naam FROM category");
-    $fotos = GetData("SELECT afb_locatie, afb_id FROM afbeelding where afb_post_id =".$postid);
-    $fototemp = LoadTemplate('fotoupdate');
     $sql = SqlBlogUpdateSearch($postid);
-    $fototemp = ReplaceContent($fotos,$fototemp);
     $data = GetDataOneRow($sql);
-    if(!$data['post_user_id']== $_SESSION['usr']['usr_id']){
-        $_SESSION['message'] = "U hebt een pagina bezocht waar u niet gemachtigd toe was,.. foefelaar";
-        header ("location:profiel.php");
-        die;
-    }
-    $landid = $data['post_land_id'];
-    $catid = $data['post_cat_id'];
-    $templatecategory = LoadTemplate("select_category");
-    $tempcatSelected = LoadTemplate('select_category_selected');
-    $templandselected = LoadTemplate('select_landen_selected');
-    $optionlanden = ReplaceContentSelect($landen,$templatelanden,$landid,$templandselected);
-    $optioncategory = ReplaceContentSelect($category,$templatecategory,$catid,$tempcatSelected);
-    $content = LoadTemplate("update-form");
-    $content = str_replace("@@landen@@", $optionlanden, $content);
-    $content = str_replace("@@category@@", $optioncategory, $content);
-    /*vervangen van error berichten */
-    $content = str_replace("@@message@@",$error,$content);
-    $content = str_replace("@@foto@@",$fototemp,$content);
-    $content = ReplaceContentOneRow($data,$content);
+    if($data['post_user_id']== $_SESSION['usr']['usr_id']){
+        $error = $_SESSION['message'];
+        $landen = GetData("SELECT land_id, land_naam FROM landen");
+        $templatelanden = LoadTemplate("select_landen");
+        $category = GetData("SELECT cat_id, cat_naam FROM category");
+        $fotos = GetData("SELECT afb_locatie, afb_id FROM afbeelding where afb_post_id =".$postid);
+        $fototemp = LoadTemplate('fotoupdate');
+        $fototemp = ReplaceContent($fotos,$fototemp);
+        $data = GetDataOneRow($sql);
+
+        $landid = $data['post_land_id'];
+        $catid = $data['post_cat_id'];
+        $templatecategory = LoadTemplate("select_category");
+        $tempcatSelected = LoadTemplate('select_category_selected');
+        $templandselected = LoadTemplate('select_landen_selected');
+        $optionlanden = ReplaceContentSelect($landen,$templatelanden,$landid,$templandselected);
+        $optioncategory = ReplaceContentSelect($category,$templatecategory,$catid,$tempcatSelected);
+        $content = LoadTemplate("update-form");
+        $content = str_replace("@@landen@@", $optionlanden, $content);
+        $content = str_replace("@@category@@", $optioncategory, $content);
+        /*vervangen van error berichten */
+        $content = str_replace("@@foto@@",$fototemp,$content);
+        $content = ReplaceContentOneRow($data,$content);
+        print $content;
+    }else{ $_SESSION['message'] = "U probeerde toegang te krijgen tot een pagina waar uw geen machtiging toe hebt, foei !";
+        header ("location: profiel.php");
+        die;}
 
 
-    unset($_SESSION["message"]);
-    print $content;
+
 
 }
 function PrintUserLog($id){
@@ -158,50 +159,48 @@ function PrintUserLog($id){
 }
 
 function PrintError(){
-    $message = "<p class=\"error\">".$_SESSION['message']."</p>";
-    print $message;
-    unset($_SESSION["message"]);
+    if(isset($_SESSION['message'])){
+        $message = "<p class=\"error\">".$_SESSION['message']."</p>";
+        print $message;
+        unset($_SESSION["message"]);
+    }
+
 }
 
-function TegelHome($user_id,$offset) {
-    $sql = SqlTegelHome($user_id,$offset);
-    $data = GetData($sql);
-    $temp = LoadTemplate("tegel_home");
-    $temp = ReplaceContent($data, $temp);
-    return $temp; }
 
-function TegelOntdek()
-{
-    $sql = SqlTegelOntdek();
-    $data = GetData($sql);
-    $temp = LoadTemplate("tegel_ontdek");
-    $temp = ReplaceContent($data, $temp);
-    return $temp;
-}
 
-/*Print tegels met ingave van het land*/
-function TegelLandOntdek ($id_land){
-    $sql = SqlSearchLandIngevuld($id_land);
-    $data = GetData($sql);
-    $temp = LoadTemplate("tegel_ontdek");
-    $temp = ReplaceContent($data, $temp);
-    return $temp;
-}
-
-/*Print tegels met ingave van de categorie*/
-function TegelCatOntdek($cat_id){
-    $sql = SqlSearchCatIngevuld($cat_id);
-    $data = GetData($sql);
-    $temp = LoadTemplate("tegel_ontdek");
-    $temp = ReplaceContent($data, $temp);
-    return $temp;
-}
-
-/*Print tegels met ingave van zowel land als categorie*/
-function TegelLandCatOntdek($id_land, $cat_id){
-    $sql = SqlSearchLandCatIngevuld($id_land, $cat_id);
-    $data = GetData($sql);
-    $temp = LoadTemplate("tegel_ontdek");
-    $temp= ReplaceContent($data, $temp);
-    return $temp;
-}
+//function TegelOntdek()
+//{
+//    $sql = SqlTegelOntdek();
+//    $data = GetData($sql);
+//    $temp = LoadTemplate("tegel_ontdek");
+//    $temp = ReplaceContent($data, $temp);
+//    return $temp;
+//}
+//
+///*Print tegels met ingave van het land*/
+//function TegelLandOntdek ($id_land){
+//    $sql = SqlSearchLandIngevuld($id_land);
+//    $data = GetData($sql);
+//    $temp = LoadTemplate("tegel_ontdek");
+//    $temp = ReplaceContent($data, $temp);
+//    return $temp;
+//}
+//
+///*Print tegels met ingave van de categorie*/
+//function TegelCatOntdek($cat_id){
+//    $sql = SqlSearchCatIngevuld($cat_id);
+//    $data = GetData($sql);
+//    $temp = LoadTemplate("tegel_ontdek");
+//    $temp = ReplaceContent($data, $temp);
+//    return $temp;
+//}
+//
+///*Print tegels met ingave van zowel land als categorie*/
+//function TegelLandCatOntdek($id_land, $cat_id){
+//    $sql = SqlSearchLandCatIngevuld($id_land, $cat_id);
+//    $data = GetData($sql);
+//    $temp = LoadTemplate("tegel_ontdek");
+//    $temp= ReplaceContent($data, $temp);
+//    return $temp;
+//}

@@ -8,8 +8,10 @@ PrintPageSection("nav");
 <main class="container ">
 
     <?php
-    !isset($_GET['postid'])?   PrintcreateForm(): PrintUpdateForm($_GET['postid']);
+    PrintError();
 
+    !isset($_GET['postid'])?   PrintcreateForm(): PrintUpdateForm($_GET['postid']);
+    var_dump($_SESSION);
     ?>
 </main>
 

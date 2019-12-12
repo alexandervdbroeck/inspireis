@@ -12,7 +12,7 @@ if (isset($_GET['userid'])){
     $sql = SQLBlogITemsAddFollow($followuser,$userid);
     ExecuteSQL($sql);
     /* terug naar de juiste detail pagina*/
-    header ("location:../blog_item.php?blogid=".$blog_id."&userid=".$followuser);
+    header ("location:../detail.php?blogid=".$blog_id."&userid=".$followuser);
 
 }
 // iemand niet meer volgen
@@ -25,7 +25,7 @@ if(isset($_GET['unfollow'])){
     $sql = SQLBlogITemsUnFollow($followuser,$userid);
     ExecuteSQL($sql);
     /* terug naar de juiste detail pagina*/
-    header ("location:../blog_item.php?blogid=".$blog_id."&userid=".$followuser);
+    header ("location:../detail.php?blogid=".$blog_id."&userid=".$followuser);
 
 }
 if(isset($_GET['addcomment'])){
@@ -41,5 +41,4 @@ function CheckFollow($postuser){
 
 }
 
-echo "hello world";
 

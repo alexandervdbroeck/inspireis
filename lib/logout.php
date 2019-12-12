@@ -1,5 +1,6 @@
 <?php
 require_once "autoload.php";
+include_once "user_log.php";
 $formname = $_POST["formname"];
 
 if ($formname == "logout"){

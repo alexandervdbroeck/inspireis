@@ -24,12 +24,12 @@ body {
 
 p.error {
     margin-top: 10px;
-    color: white;
-    font-size: 1.2em;
+    color:white;
+    font-size: 2em;
     background: #F2C36B;
-    line-height: 3em;
+    line-height: 1em;
     text-align: center;
-    border-radius: 10px;
+
 }
 
 p {

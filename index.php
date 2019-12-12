@@ -1,5 +1,6 @@
 <?php
 require_once "lib/autoload.php";
+include_once "lib/index_funtionts.php";
 PrintPageSection("head");
 PrintPageSection("nav");
 

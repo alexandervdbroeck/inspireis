@@ -1,10 +1,12 @@
 <?php
 require_once "lib/autoload.php";
 
+include_once "lib/detail_functions.php";
+
 PrintPageSection("head");
 PrintPageSection("nav");
 if(isset($_SESSION["message"])) print '<p class=error>'. $_SESSION["message"]."</p>";
-unset($_SESSION["message"]);
+//unset($_SESSION["message"]);
 ?>
 <main class="container blogbericht">
     <div class="profiel-commentaar">
