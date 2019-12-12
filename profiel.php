@@ -38,10 +38,10 @@ PrintPageSection("nav");
                 $temp = LoadTemplate('profiel-tegel');
                 echo ReplaceContent($data,$temp);
             }else {
-//                $sql = SqlTegelHome($_GET['userid'],0);
-//                $data = GetData($sql);
-//                $temp = LoadTemplate('profiel-tegel-getuser');
-//                echo ReplaceContent($data,$temp);
+                $sql = SqlBlogItemsProfile($_GET['userid']);
+                $data = GetData($sql);
+                $temp = LoadTemplate('profiel-tegel-getuser');
+                echo ReplaceContent($data,$temp);
 
             }
 //            $sql = SqlBlogItemsProfile($_SESSION['usr']['usr_id']);
