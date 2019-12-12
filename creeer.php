@@ -10,7 +10,6 @@ PrintPageSection("nav");
     <?php
     !isset($_GET['postid'])?   PrintcreateForm(): PrintUpdateForm($_GET['postid']);
 
-
     ?>
 </main>
 

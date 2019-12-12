@@ -11,6 +11,7 @@ function PrintPageSection($template)
 /* Deze functie laadt de opgegeven template */
 function LoadTemplate( $name )
 {
+//    $name = $submap."/".$name;
     if ( file_exists("$name.html") ) return file_get_contents("$name.html");
     if ( file_exists("template/$name.html") ) return file_get_contents("template/$name.html");
     if ( file_exists("../template/$name.html") ) return file_get_contents("../template/$name.html");
@@ -76,7 +77,7 @@ function ReplaceContentOneRow( $row, $template_html )
 
 
 /*een formulier printen met de bijhorende foutmeldingen*/
-function PrintForm($template_html)
+function PrintLoginOutForm($template_html)
 {
     $content = LoadTemplate($template_html);
     $value = $_SESSION["message"];
@@ -115,6 +116,11 @@ function PrintUpdateForm($postid)
     $category = GetData("SELECT cat_id, cat_naam FROM category");
     $sql = SqlBlogUpdateSearch($postid);
     $data = GetDataOneRow($sql);
+    if(!$data['post_user_id']== $_SESSION['usr']['usr_id']){
+        $_SESSION['message'] = "U hebt een pagina bezocht waar u niet gemachtigd toe was,.. foefelaar";
+        header ("location:profiel.php");
+        die;
+    }
     $landid = $data['post_land_id'];
     $catid = $data['post_cat_id'];
     $templatecategory = LoadTemplate("select_category");

@@ -14,7 +14,17 @@ PrintPageSection("nav");
         <div class="profiel ">
 
             <?php
-            echo GetFollowers();
+            if(isset($_GET['userid'])){
+                $user = "get";
+                $usrid = $_GET['userid'];
+                echo GetFollowers($usrid);
+
+            }else{
+                $user = "session";
+                $usrid = $_SESSION['usr']['usr_id'];
+                echo GetFollowers($usrid);
+
+            }
 
             ?>
 <!
@@ -22,10 +32,20 @@ PrintPageSection("nav");
         </div>
         <div class="container grid-profile" >
             <?php
-            $sql = SqlBlogItemsProfile($_SESSION['usr']['usr_id']);
-            $data = GetData($sql);
-            $temp = LoadTemplate('profiel-tegel');
-            echo ReplaceContent($data,$temp);
+            if(!isset($_GET['userid'])){
+                $sql = SqlBlogItemsProfile($_SESSION['usr']['usr_id']);
+                $data = GetData($sql);
+                $temp = LoadTemplate('profiel-tegel');
+                echo ReplaceContent($data,$temp);
+            }else {
+//                $sql = SqlTegelHome($_GET['userid'],0);
+//                $data = GetData($sql);
+//                $temp = LoadTemplate('profiel-tegel-getuser');
+//                echo ReplaceContent($data,$temp);
+
+            }
+//            $sql = SqlBlogItemsProfile($_SESSION['usr']['usr_id']);
+
 
             ?>
 

@@ -39,8 +39,7 @@ function GetFollowersAndFollowButton($userid,$postid) {
     }
 }
 
-function GetFollowers() {
-    $usrid = $_SESSION['usr']['usr_id'];
+function GetFollowers($usrid) {
     $sql = SqlBlogItemsSearchVolgers($usrid);
     $row = GetDataOneRow($sql);
     $temp = LoadTemplate("profiel-volgers");
