@@ -41,3 +41,5 @@ function CheckFollow($postuser){
 
 }
 
+echo "hello world";
+
