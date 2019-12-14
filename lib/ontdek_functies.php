@@ -9,7 +9,7 @@ function TegelOntdek()
 {
     $sql = SqlTegelOntdek();
     $data = GetData($sql);
-    $temp = LoadTemplate("tegel_ontdek");
+    $temp = LoadTemplate("ontdek_polaroid");
     $temp = ReplaceContent($data, $temp);
     return $temp;
 }
@@ -18,7 +18,7 @@ function TegelOntdek()
 function TegelLandOntdek ($id_land){
     $sql = SqlSearchLandIngevuld($id_land);
     $data = GetData($sql);
-    $temp = LoadTemplate("tegel_ontdek");
+    $temp = LoadTemplate("ontdek_polaroid");
     $temp = ReplaceContent($data, $temp);
     return $temp;
 }
@@ -27,7 +27,7 @@ function TegelLandOntdek ($id_land){
 function TegelCatOntdek($cat_id){
     $sql = SqlSearchCatIngevuld($cat_id);
     $data = GetData($sql);
-    $temp = LoadTemplate("tegel_ontdek");
+    $temp = LoadTemplate("ontdek_polaroid");
     $temp = ReplaceContent($data, $temp);
     return $temp;
 }
@@ -36,7 +36,7 @@ function TegelCatOntdek($cat_id){
 function TegelLandCatOntdek($id_land, $cat_id){
     $sql = SqlSearchLandCatIngevuld($id_land, $cat_id);
     $data = GetData($sql);
-    $temp = LoadTemplate("tegel_ontdek");
+    $temp = LoadTemplate("ontdek_polaroid");
     $temp= ReplaceContent($data, $temp);
     return $temp;
 }
@@ -44,13 +44,13 @@ function OntdekSearchbar(){
 
     $sql = SQLSearchCatOntdek();
     $data = GetData($sql);
-    $temp = LoadTemplate('select_category');
+    $temp = LoadTemplate('form_select_category');
     $category = ReplaceContent($data,$temp);
     $sql = SqlSearchLandOntdek();
     $data = GetData($sql);
-    $temp = LoadTemplate('select_landen');
+    $temp = LoadTemplate('form_select_landen');
     $landen = ReplaceContent($data,$temp);
-    $temp = LoadTemplate('zoekbar_ontdek');
+    $temp = LoadTemplate('ontdek_search_form');
     $temp = str_replace("@@land_naam@@", $landen, $temp);
     $temp = str_replace("@@cat_naam@@", $category, $temp);
 

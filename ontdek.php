@@ -1,8 +1,8 @@
 <?php
 require_once 'lib/autoload.php';
 require_once 'lib/ontdek_functies.php';
-PrintPageSection('head');
-PrintPageSection('nav');
+PrintPageSection('page_section_head');
+PrintPageSection('page_section_main_nav');
 ?>
 
 
@@ -49,5 +49,5 @@ PrintPageSection('nav');
 </main>
 
 <?php
-PrintPageSection("footer");
+PrintPageSection("page_section_footer");
 ?>

@@ -21,7 +21,7 @@ if ($formname == "comment" AND $_POST['submit'] == "Reageer") {
 function GetFollowersAndFollowButton($userid,$postid) {
     $sql = SqlBlogItemsSearchVolgers($userid);
     $row = GetDataOneRow($sql);
-    $temp = LoadTemplate("blog-bericht-volgers");
+    $temp = LoadTemplate("detail_follow_status");
     $temp = ReplaceContentOneRow($row,$temp);
     /*samenstellen hoeveel post's en naam vd blogger*/
     $sql = SqlBlogItemsCountPost($userid);
@@ -34,7 +34,7 @@ function GetFollowersAndFollowButton($userid,$postid) {
     if($row['follow'] == 0){
         $blogid = $_GET['blogid'];
         $userid = $_GET['userid'];
-        $followbutton =LoadTemplate("blog-bericht-follow");
+        $followbutton =LoadTemplate("detail_button_follow");
         $followbutton = str_replace("@@blog_id@@", $blogid, $followbutton);
         $followbutton = str_replace("@@user_id@@", $userid, $followbutton);
         $temp = str_replace("@@follow@@", $followbutton,$temp);
@@ -44,7 +44,7 @@ function GetFollowersAndFollowButton($userid,$postid) {
         /*als de user reeds gevolgd wordt print de ontvolg knop*/
         $blogid = $_GET['blogid'];
         $userid = $_GET['userid'];
-        $followbutton =LoadTemplate("blog-bericht-unfollow");
+        $followbutton =LoadTemplate("detail_button_unfollow");
         $followbutton = str_replace("@@blog_id@@", $blogid, $followbutton);
         $followbutton = str_replace("@@user_id@@", $userid, $followbutton);
         $temp = str_replace("@@follow@@", $followbutton,$temp);
@@ -56,7 +56,7 @@ function GetFollowersAndFollowButton($userid,$postid) {
 function GetFollowers($usrid) {
     $sql = SqlBlogItemsSearchVolgers($usrid);
     $row = GetDataOneRow($sql);
-    $temp = LoadTemplate("profiel-volgers");
+    $temp = LoadTemplate("profiel_follow_status");
     $temp = ReplaceContentOneRow($row,$temp);
     /*samenstellen hoeveel post's en naam vd blogger*/
     $sql = SqlBlogItemsCountPost($usrid);
@@ -67,10 +67,10 @@ function GetFollowers($usrid) {
 }
 
 function CommentForm($userid,$postid) {
-    $temp = LoadTemplate("blog-bericht-comment");
+    $temp = LoadTemplate("detail_comment_form");
     $temp = str_replace("@@usr_id@@",$userid,$temp);
     $temp = str_replace("@@post_id@@",$postid,$temp);
-    $com = LoadTemplate('blog-bericht-comment-overview');
+    $com = LoadTemplate('detail_comment');
     $sql = SqlCommentSearch($postid);
     $data= GetData($sql);
     $com = ReplaceContent($data,$com);
@@ -83,7 +83,7 @@ function BlogTekst($postid){
 
     $sql = SqlBlogItems($postid);
     $row = GetDataOneRow($sql);
-    $temp = LoadTemplate("blog-bericht");
+    $temp = LoadTemplate("detail_blog");
     $temp = ReplaceContentOneRow($row,$temp);
     /* als je er voor gekozen hebt om maar 1 foto te kunnen zien, wordt dit hier gecheckt*/
     if($_SESSION['usr']['usr_believer']==0){
@@ -93,7 +93,7 @@ function BlogTekst($postid){
             $temp = str_replace("@@image@@","<p>er is maar 1 afbeelding</p>",$temp);
             return $temp;
         }
-        $afb = LoadTemplate('image');
+        $afb = LoadTemplate('detail_extra_image');
         $afb = ReplaceContent($data,$afb);
         $temp = str_replace("@@image@@",$afb,$temp);
         return $temp;

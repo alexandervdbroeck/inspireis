@@ -94,12 +94,12 @@ function PrintcreateForm()
 {
     $error = $_SESSION['message'];
     $landen = GetData("SELECT land_id, land_naam FROM landen");
-    $templatelanden = LoadTemplate("select_landen");
+    $templatelanden = LoadTemplate("form_select_landen");
     $optionlanden = ReplaceContent($landen,$templatelanden);
     $category = GetData("SELECT cat_id, cat_naam FROM category");
-    $templatecategory = LoadTemplate("select_category");
+    $templatecategory = LoadTemplate("form_select_category");
     $optioncategory = ReplaceContent($category,$templatecategory);
-    $content = LoadTemplate("creeerform");
+    $content = LoadTemplate("inspireer_form");
     $content = str_replace("@@landen@@", $optionlanden, $content);
     $content = str_replace("@@category@@", $optioncategory, $content);
     /*vervangen van error berichten */
@@ -116,21 +116,21 @@ function PrintUpdateForm($postid)
     if($data['post_user_id']== $_SESSION['usr']['usr_id']){
         $error = $_SESSION['message'];
         $landen = GetData("SELECT land_id, land_naam FROM landen");
-        $templatelanden = LoadTemplate("select_landen");
+        $templatelanden = LoadTemplate("form_select_landen");
         $category = GetData("SELECT cat_id, cat_naam FROM category");
         $fotos = GetData("SELECT afb_locatie, afb_id FROM afbeelding where afb_post_id =".$postid);
-        $fototemp = LoadTemplate('fotoupdate');
+        $fototemp = LoadTemplate('inspireer_update_foto_delete');
         $fototemp = ReplaceContent($fotos,$fototemp);
         $data = GetDataOneRow($sql);
 
         $landid = $data['post_land_id'];
         $catid = $data['post_cat_id'];
-        $templatecategory = LoadTemplate("select_category");
-        $tempcatSelected = LoadTemplate('select_category_selected');
-        $templandselected = LoadTemplate('select_landen_selected');
+        $templatecategory = LoadTemplate("form_select_category");
+        $tempcatSelected = LoadTemplate('form_select_category_selected');
+        $templandselected = LoadTemplate('form_select_landen_selected');
         $optionlanden = ReplaceContentSelect($landen,$templatelanden,$landid,$templandselected);
         $optioncategory = ReplaceContentSelect($category,$templatecategory,$catid,$tempcatSelected);
-        $content = LoadTemplate("update-form");
+        $content = LoadTemplate("inspireer_update_form");
         $content = str_replace("@@landen@@", $optionlanden, $content);
         $content = str_replace("@@category@@", $optioncategory, $content);
         /*vervangen van error berichten */
@@ -173,7 +173,7 @@ function PrintError(){
 //{
 //    $sql = SqlTegelOntdek();
 //    $data = GetData($sql);
-//    $temp = LoadTemplate("tegel_ontdek");
+//    $temp = LoadTemplate("ontdek_polaroid");
 //    $temp = ReplaceContent($data, $temp);
 //    return $temp;
 //}
@@ -182,7 +182,7 @@ function PrintError(){
 //function TegelLandOntdek ($id_land){
 //    $sql = SqlSearchLandIngevuld($id_land);
 //    $data = GetData($sql);
-//    $temp = LoadTemplate("tegel_ontdek");
+//    $temp = LoadTemplate("ontdek_polaroid");
 //    $temp = ReplaceContent($data, $temp);
 //    return $temp;
 //}
@@ -191,7 +191,7 @@ function PrintError(){
 //function TegelCatOntdek($cat_id){
 //    $sql = SqlSearchCatIngevuld($cat_id);
 //    $data = GetData($sql);
-//    $temp = LoadTemplate("tegel_ontdek");
+//    $temp = LoadTemplate("ontdek_polaroid");
 //    $temp = ReplaceContent($data, $temp);
 //    return $temp;
 //}
@@ -200,7 +200,7 @@ function PrintError(){
 //function TegelLandCatOntdek($id_land, $cat_id){
 //    $sql = SqlSearchLandCatIngevuld($id_land, $cat_id);
 //    $data = GetData($sql);
-//    $temp = LoadTemplate("tegel_ontdek");
+//    $temp = LoadTemplate("ontdek_polaroid");
 //    $temp= ReplaceContent($data, $temp);
 //    return $temp;
 //}

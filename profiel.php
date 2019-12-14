@@ -1,8 +1,8 @@
 <?php
 require_once "lib/autoload.php";
 include_once "lib/detail_functions.php";
-PrintPageSection("head");
-PrintPageSection("nav");
+PrintPageSection("page_section_head");
+PrintPageSection("page_section_main_nav");
 ?>
 
 
@@ -36,12 +36,12 @@ PrintPageSection("nav");
             if(!isset($_GET['userid'])){
                 $sql = SqlBlogItemsProfile($_SESSION['usr']['usr_id']);
                 $data = GetData($sql);
-                $temp = LoadTemplate('profiel-tegel');
+                $temp = LoadTemplate('profiel_polaroid');
                 echo ReplaceContent($data,$temp);
             }else {
                 $sql = SqlBlogItemsProfile($_GET['userid']);
                 $data = GetData($sql);
-                $temp = LoadTemplate('profiel-tegel-getuser');
+                $temp = LoadTemplate('profiel_polaroid_no_change_functions');
                 echo ReplaceContent($data,$temp);
 
             }
@@ -57,7 +57,7 @@ PrintPageSection("nav");
     </div>
 </main>
 <?php
-PrintPageSection("footer");
+PrintPageSection("page_section_footer");
 ?>
 
 

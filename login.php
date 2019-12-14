@@ -2,11 +2,11 @@
 $login_acces = true;
 require_once "lib/autoload.php";
 
-PrintPageSection("head");
+PrintPageSection("page_section_head");
 
-PrintPageSection("nav_login");
+PrintPageSection("page_section_loging_nav");
 
 PrintLoginOutForm("login_form");
 
-PrintPageSection("footer");
+PrintPageSection("page_section_footer");
 ?>

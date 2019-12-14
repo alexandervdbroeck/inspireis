@@ -3,8 +3,8 @@ require_once "lib/autoload.php";
 
 include_once "lib/detail_functions.php";
 
-PrintPageSection("head");
-PrintPageSection("nav");
+PrintPageSection("page_section_head");
+PrintPageSection("page_section_main_nav");
 if(isset($_SESSION["message"])) print '<p class=error>'. $_SESSION["message"]."</p>";
 //unset($_SESSION["message"]);
 ?>
@@ -38,5 +38,5 @@ if(isset($_SESSION["message"])) print '<p class=error>'. $_SESSION["message"]."<
 </main>
 
 <?php
-PrintPageSection("footer");
+PrintPageSection("page_section_footer");
 ?>

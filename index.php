@@ -1,8 +1,8 @@
 <?php
 require_once "lib/autoload.php";
 include_once "lib/index_funtionts.php";
-PrintPageSection("head");
-PrintPageSection("nav");
+PrintPageSection("page_section_head");
+PrintPageSection("page_section_main_nav");
 
 ?>
 
@@ -25,7 +25,7 @@ PrintPageSection("nav");
     </section>
 </main>
 <?php
-PrintPageSection("footer");
+PrintPageSection("page_section_footer");
 ?>
 
 

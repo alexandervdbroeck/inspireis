@@ -71,8 +71,12 @@ where volg_user_id =".$userid." and volg_volgt_user_id =".$followuser;
 }
 
 function SqlBlogItems($blogid){
-    $sql = "select post_id, post_blog, post_title, post_user_id ,(select afbeelding.afb_locatie from afbeelding where afb_post_id=".$blogid."  limit 1) as afbeelding
-            from post where post_id=".$blogid;
+    $sql = "select post_id, post_blog, post_title, land_naam,cat_naam,post_stad_naam,post_user_id ,(select afbeelding.afb_locatie from afbeelding where afb_post_id=".$blogid."  limit 1) as afbeelding
+            from post
+            inner join landen l on post.post_land_id = l.land_id
+            inner join category c on post.post_cat_id = c.cat_id
+where post_id=".$blogid;
+
     return $sql;
 }
 
@@ -180,6 +184,7 @@ function SqlTegelOntdek(){
     $sql="select post_title, post_id, afb_locatie , post_user_id
         from post
         inner join afbeelding a on post.post_id = a.afb_post_id
+        
         group by post_id
         order by post_id desc limit 27";
     return $sql;
