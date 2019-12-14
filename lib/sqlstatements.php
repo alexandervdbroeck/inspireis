@@ -12,13 +12,12 @@ function SqlRegisterUserCheckLogin($login){
     return $sql;
 }
 
-function SqlRegisterUserInsertUser($voornaam,$naam,$email,$pasw,$login,$tablename,$believe){
+function SqlRegisterUserInsertUser($voornaam,$naam,$email,$pasw,$login,$tablename){
     $sql = "INSERT INTO $tablename SET " .
         " usr_voornaam='" . htmlentities($voornaam, ENT_QUOTES) . "' , " .
         " usr_naam='" . htmlentities($naam, ENT_QUOTES) . "' , " .
         " usr_email='" . $email. "' , " .
         " usr_paswoord='" .$pasw . "', ".
-        " usr_believer=" .$believe . ", ".
         " usr_login='".$login."'";
     return $sql;
 }
@@ -86,7 +85,7 @@ function SqlBlogUpdateSearch($blogid){
     return $sql;
 }
 
-function SqlBlogItemsProfile($usrid){
+function SqlProfielPolaroid($usrid){
     $sql = "select post_title, post_id, post_user_id, afb_locatie, post_datum, land_naam
             from post p
             inner join afbeelding a on p.post_id = a.afb_post_id
@@ -154,7 +153,7 @@ order by com_id desc";
 }
 
 /* index pagina----------------------------------- -------------------------------------*/
-function SqlTegelHome($user_id, $offset){
+function SqlIndexPolaroid($user_id, $offset, $maxpolaroid){
     $sql = "select  usr_login, usr_id,post_title, post_id, post_datum, land_naam,afb_locatie, post_user_id from volgers
             inner join user u on volgers.volg_volgt_user_id = u.usr_id
             inner join post p on u.usr_id = p.post_user_id
@@ -162,7 +161,7 @@ function SqlTegelHome($user_id, $offset){
             inner join afbeelding a on p.post_id = a.afb_post_id
             where volg_user_id =".$user_id."
             group by post_id
-            order by post_id desc limit 9 offset ".$offset;
+            order by post_id desc limit".$maxpolaroid." offset ".$offset;
     return $sql ;
 }
 

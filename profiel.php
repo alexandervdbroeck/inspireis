@@ -8,7 +8,7 @@ PrintPageSection("page_section_main_nav");
 
 <main>
     <?php
-    PrintError();
+    PrintMessage();
     ?>
     <h1>Profiel</h1>
     <div class="container container-profiel">
@@ -28,25 +28,25 @@ PrintPageSection("page_section_main_nav");
             }
 
             ?>
-<!
-        </div>
+
         </div>
         <div class="container grid-profile" >
             <?php
+
+            // controleren of het de ingelogde gebruiker is die zijn profiel bekijkt er een profiel van een ander gebruiker wordt opgezicht
             if(!isset($_GET['userid'])){
-                $sql = SqlBlogItemsProfile($_SESSION['usr']['usr_id']);
+                $sql = SqlProfielPolaroid($_SESSION['usr']['usr_id']);
                 $data = GetData($sql);
                 $temp = LoadTemplate('profiel_polaroid');
                 echo ReplaceContent($data,$temp);
             }else {
-                $sql = SqlBlogItemsProfile($_GET['userid']);
+                $sql = SqlProfielPolaroid($_GET['userid']);
                 $data = GetData($sql);
+                // laden van het polaroid template zonder de verwijder en aanpas functies
                 $temp = LoadTemplate('profiel_polaroid_no_change_functions');
                 echo ReplaceContent($data,$temp);
 
             }
-//            $sql = SqlBlogItemsProfile($_SESSION['usr']['usr_id']);
-
 
             ?>
 

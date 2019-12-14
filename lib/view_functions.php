@@ -158,14 +158,22 @@ function PrintUserLog($id){
     return $content;
 }
 
-function PrintError(){
+function PrintMessage(){
     if(isset($_SESSION['message'])){
-        $message = "<p class=\"error\">".$_SESSION['message']."</p>";
+        $message = "<p class=\"message\">".$_SESSION['message']."</p>";
         print $message;
         unset($_SESSION["message"]);
     }
+    if(isset($_SESSION['error'])){
+        $message = "<p class=\"error\">".$_SESSION['error']."</p>";
+        print $message;
+        unset($_SESSION["error"]);
+
+    }
 
 }
+
+
 
 
 

@@ -26,6 +26,7 @@ function StartLoginSession($login, $paswd )
     {
         session_start();
         $_SESSION['usr'] = $row;
+        /* bijhouden van de login beweging van de user*/
         LoginUser();
         return true;
     }

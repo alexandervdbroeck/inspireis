@@ -1,12 +1,14 @@
 <?php
 $register_acces = true;
 require_once "autoload.php";
-session_start();
-;
+
+
+
 $formname = $_POST["formname"];
 $tablename = $_POST["tablename"];
 $pkey = $_POST["pkey"];
 unset($_SESSION['message']);
+
 if ($formname == "registration_form" AND $_POST['registerbutton'] == "Register") {
     //controle of gebruiker al bestaat
     $sql = SqlRegisterUserCheckEmail($_POST['usr_email']);
@@ -36,17 +38,16 @@ if ($formname == "registration_form" AND $_POST['registerbutton'] == "Register")
     }
     // als er geen fouten opgetreden zijn
     if (!isset($_SESSION["message"])){
-        /*als geen believer waarde op 0 zetten*/
-        $believer = 1;
-        if ($_GET['usr_believer']<> 1)$believer = 0;
 
         //wachtwoord coderen
         $password_encrypted = password_hash($_POST["usr_paswoord"], PASSWORD_DEFAULT);
-        $sql = SqlRegisterUserInsertUser($_POST['usr_voornaam'],$_POST['usr_naam'],$_POST['usr_email'],$password_encrypted,$_POST['usr_login'],$_POST['tablename'],$believer);
+        $sql = SqlRegisterUserInsertUser($_POST['usr_voornaam'],$_POST['usr_naam'],$_POST['usr_email'],$password_encrypted,$_POST['usr_login'],$_POST['tablename']);
+        //gebruiker toevoegen
         if (ExecuteSQL($sql)) {
+
             if (StartLoginSession($_POST["usr_email"], $_POST["usr_paswoord"])){
                 $_SESSION["message"]= "Bedankt voor uw registratie!".$_SESSION['usr']['usr_voornaam'];
-                header("Location:../index.php");
+                header("Location:../ontdek.php");
             }
         } else {
             $_SESSION["message"] = "Sorry, er liep iets fout. Uw gegevens werden niet goed opgeslagen";

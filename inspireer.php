@@ -8,7 +8,7 @@ PrintPageSection("page_section_main_nav");
 <main class="container ">
 
     <?php
-    PrintError();
+    PrintMessage();
 
     !isset($_GET['postid'])?   PrintcreateForm(): PrintUpdateForm($_GET['postid']);
     var_dump($_SESSION);

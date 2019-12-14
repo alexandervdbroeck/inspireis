@@ -9,7 +9,7 @@ PrintPageSection('page_section_main_nav');
 <main class="container" >
     <h1>Ontdek</h1>
     <?php
-    PrintError();
+    PrintMessage();
     ?>
 
     <form action="lib/ontdek_functies.php" method="post" class="form" >

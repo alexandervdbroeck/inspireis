@@ -5,6 +5,7 @@ $formname = $_POST["formname"];
 
 if ($formname == "logout"){
     session_start();
+    // de log uit beweging van de gebruiker registreren
     LogoutUser();
     session_destroy();
     unset($_SESSION);

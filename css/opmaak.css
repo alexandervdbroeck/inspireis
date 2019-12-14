@@ -22,11 +22,21 @@ body {
     background: #FAFAFA;
 }
 
-p.error {
+p.message {
     margin-top: 10px;
     color:white;
     font-size: 2em;
     background: #F2C36B;
+    line-height: 1em;
+    text-align: center;
+
+}
+
+p.error {
+    margin-top: 10px;
+    color:white;
+    font-size: 2em;
+    background: red;
     line-height: 1em;
     text-align: center;
 
