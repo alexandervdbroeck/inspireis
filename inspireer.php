@@ -1,7 +1,7 @@
 <?php
 require_once "lib/autoload.php";
 PrintPageSection("page_section_head");
-PrintPageSection("page_section_main_nav");
+PrintNavBar();
 
 
 ?>

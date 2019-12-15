@@ -3,7 +3,7 @@ require_once "lib/autoload.php";
 include_once "lib/detail_functions.php";
 
 PrintPageSection("page_section_head");
-PrintPageSection("page_section_main_nav");
+PrintNavBar();
 PrintMessage();
 ?>
 <main class="container blogbericht">
