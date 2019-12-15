@@ -126,7 +126,7 @@ function DeleteAllPostPicturesDirectory($postid){
     {
         foreach($row as $field => $value)
         {
-            $value = ".../".$value;
+            $value = "../".$value;
             if(!unlink($value)){
 
                 // als de fotos niet van de server verwijderd kunnen worden zal er een error in de database ingevuld worden
