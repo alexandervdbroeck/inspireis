@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once "database.php";
+include_once "error.php";
 include_once "view_functions.php";
 include_once "authoristation.php";
 include_once "sqlstatements.php";

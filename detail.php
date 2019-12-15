@@ -4,8 +4,7 @@ include_once "lib/detail_functions.php";
 
 PrintPageSection("page_section_head");
 PrintPageSection("page_section_main_nav");
-if(isset($_SESSION["message"])) print '<p class=error>'. $_SESSION["message"]."</p>";
-//unset($_SESSION["message"]);
+PrintMessage();
 ?>
 <main class="container blogbericht">
     <div class="profiel-commentaar">

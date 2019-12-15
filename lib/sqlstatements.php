@@ -24,6 +24,18 @@ function SqlRegisterUserInsertUser($voornaam,$naam,$email,$pasw,$login,$tablenam
 
 
 /*--------------------------post creeer/ delete / update--------------------------*/
+function SqlPostInsert($tablename,$blogtekst,$date){
+    $sql = "INSERT INTO $tablename SET " .
+        " post_title='" . htmlentities($_POST['post_title'], ENT_QUOTES) . "' , " .
+        " post_blog='". $blogtekst."' , " .
+        " post_stad_naam='" . htmlentities($_POST['post_stad_naam'], ENT_QUOTES) . "' , " .
+        " post_user_id='" . $_SESSION['usr']['usr_id'] . "' , " .
+        " post_datum='" . $date . "' , " .
+        " post_cat_id='" . $_POST['cat_naam'] . "', ".
+        " post_land_id='" . $_POST['land_id'] . "' ";
+    return $sql;
+}
+
 
 function SqlPostDelete($postid){
     $sql = "delete from afbeelding
@@ -45,6 +57,12 @@ function SqlPostUpdate($post_id,$post_blog,$post_cat,$post_land,$post_stad,$post
             where post_id =".$post_id;
     return $sql;
 }
+function SqlPostGetPostid($user_id){
+    $sql = "SELECT post_id FROM post WHERE post_user_id ='".$user_id."' 
+                                    order by post_id desc limit 1" ;
+    return $sql;
+}
+
 
 
 /* ----------------------------------------DETAIL PAGINA------------------------------------------------------*/
@@ -105,9 +123,9 @@ function SqlImagesNotFirst($blogid){
     return$sql;
 }
 
-function SqlImages($blogid){
+function SqlPostImages($blogid){
 
-    $sql = "select afb_locatie
+    $sql = "select afb_locatie, afb_filename
             from afbeelding
             where afb_post_id =".$blogid;
     return $sql;
@@ -161,7 +179,7 @@ function SqlIndexPolaroid($user_id, $offset, $maxpolaroid){
             inner join afbeelding a on p.post_id = a.afb_post_id
             where volg_user_id =".$user_id."
             group by post_id
-            order by post_id desc limit".$maxpolaroid." offset ".$offset;
+            order by post_id desc limit ".$maxpolaroid." offset ".$offset;
     return $sql ;
 }
 
@@ -224,6 +242,19 @@ where post_cat_id=".$cat_id."
 group by post_id;";
     return $sql;
 }
+
+
+/*error messages-----------------------*/
+
+function SqlError($postid,$error){
+    $sql = "INSERT INTO error SET
+            error_discription = '".$error."',
+            error_usr_id=".$_SESSION['usr']['usr_id'].",
+            error_post_id=".$postid;
+    return $sql;
+}
+
+
 
 
 

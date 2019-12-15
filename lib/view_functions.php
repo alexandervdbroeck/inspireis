@@ -108,8 +108,8 @@ function PrintcreateForm()
     print $content;
 }
 
-function PrintUpdateForm($postid)
-{
+function PrintUpdateForm($postid){
+
     //samenstellen van de <option> menu landen
     $sql = SqlBlogUpdateSearch($postid);
     $data = GetDataOneRow($sql);
@@ -137,7 +137,7 @@ function PrintUpdateForm($postid)
         $content = str_replace("@@foto@@",$fototemp,$content);
         $content = ReplaceContentOneRow($data,$content);
         print $content;
-    }else{ $_SESSION['message'] = "U probeerde toegang te krijgen tot een pagina waar uw geen machtiging toe hebt, foei !";
+    }else{ $_SESSION['error'] = "U probeerde toegang te krijgen tot een pagina waar uw geen machtiging toe hebt, foei !";
         header ("location: profiel.php");
         die;}
 
@@ -160,12 +160,12 @@ function PrintUserLog($id){
 
 function PrintMessage(){
     if(isset($_SESSION['message'])){
-        $message = "<p class=\"message\">".$_SESSION['message']."</p>";
+        $message = "<p class=\"message container\">".$_SESSION['message']."</p>";
         print $message;
         unset($_SESSION["message"]);
     }
     if(isset($_SESSION['error'])){
-        $message = "<p class=\"error\">".$_SESSION['error']."</p>";
+        $message = "<p class=\"error container\">".$_SESSION['error']."</p>";
         print $message;
         unset($_SESSION["error"]);
 

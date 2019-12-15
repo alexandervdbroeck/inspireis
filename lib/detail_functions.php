@@ -89,7 +89,8 @@ function BlogTekst($postid){
     if($_SESSION['usr']['usr_believer']==0){
         $sql = SqlImagesNotFirst($postid);
         $data = GetData($sql);
-        if(count($data)==1){
+
+        if(count($data)==0){
             $temp = str_replace("@@image@@","<p>er is maar 1 afbeelding</p>",$temp);
             return $temp;
         }
