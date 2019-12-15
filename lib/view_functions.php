@@ -118,7 +118,6 @@ function PrintUpdateForm($postid){
         $landen = GetData("SELECT land_id, land_naam FROM landen");
         $templatelanden = LoadTemplate("form_select_landen");
         $category = GetData("SELECT cat_id, cat_naam FROM category");
-
         $data = GetDataOneRow($sql);
 
         $landid = $data['post_land_id'];
@@ -128,9 +127,15 @@ function PrintUpdateForm($postid){
         $templandselected = LoadTemplate('form_select_landen_selected');
         $optionlanden = ReplaceContentSelect($landen,$templatelanden,$landid,$templandselected);
         $optioncategory = ReplaceContentSelect($category,$templatecategory,$catid,$tempcatSelected);
+        $sql = SqlPostImages($postid);
+        $afbeeldingen = GetData($sql);
+
+        $afbtemplate = LoadTemplate('inspireer_update_delete_image_checkbox');
+        $afbtemplate = ReplaceContent($afbeeldingen,$afbtemplate);
         $content = LoadTemplate("inspireer_update_form");
         $content = str_replace("@@landen@@", $optionlanden, $content);
         $content = str_replace("@@category@@", $optioncategory, $content);
+        $content = str_replace("@@afb@@",$afbtemplate,$content);
         /*vervangen van error berichten */
         $content = ReplaceContentOneRow($data,$content);
         print $content;

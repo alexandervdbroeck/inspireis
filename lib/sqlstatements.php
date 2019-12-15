@@ -63,6 +63,16 @@ function SqlPostGetPostid($user_id){
     return $sql;
 }
 
+function SqlDeleteImage($value){
+    $sql = "DELETE FROM afbeelding WHERE afb_filename='".$value."'";
+    return $sql;
+};
+
+function SqlSearchImage($value){
+    $sql = "SELECT afb_filename, afb_locatie FROM afbeelding WHERE afb_filename='".$value."'";
+    return $sql;
+};
+
 
 
 /* ----------------------------------------DETAIL PAGINA------------------------------------------------------*/
@@ -119,7 +129,7 @@ function SqlImagesNotFirst($blogid){
 
 function SqlPostImages($blogid){
 
-    $sql = "select afb_locatie
+    $sql = "select afb_locatie, afb_filename
             from afbeelding
             where afb_post_id =".$blogid;
     return $sql;
