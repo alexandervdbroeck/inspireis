@@ -2,7 +2,7 @@
 require_once 'lib/autoload.php';
 include_once 'lib/ontdek_functies.php';
 PrintPageSection('page_section_head');
-PrintPageSection('page_section_main_nav');
+PrintNavBar();
 ?>
 
 

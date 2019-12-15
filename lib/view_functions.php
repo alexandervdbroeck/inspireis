@@ -50,8 +50,10 @@ function ReplaceContentSelect( $data, $template_html ,$id, $template_select)
         foreach($row as $field => $value)
         {
             if($value== $id ){
+
                 $content = str_replace("@@$field@@", $value, $content_select);
             }else{
+
                 $content = str_replace("@@$field@@", $value, $content);
             }
 
@@ -163,5 +165,41 @@ function PrintMessage(){
 
     }
 
+}
+function PrintNavBar()
+{
+    //navbar items ophalen
+
+    $data = GetData("select * from navigation order by nav_order ");
+
+    // welke webpagina is actief
+    // enkel laatse stuk van de url in(fileext)
+    $active = $_SERVER['PHP_SELF'];
+    $fileExplode = explode("/",$active);
+    $fileExt = end($fileExplode);
+    $items_temp = LoadTemplate('page_section_nav_items');
+    $active_template = LoadTemplate('page_section_nav_items_active');
+    $fileExplode = explode("/",$active);
+    $fileExt = end($fileExplode);
+    $replacetemp = "";
+
+    // nav bar items samenstellen
+
+    foreach ( $data as $row )
+    {
+        if($row['nav_path'] == $fileExt){
+            $replacetemp .= str_replace("@@nav_caption@@", $row['nav_caption'], $active_template);
+            $replacetemp = str_replace("@@nav_path@@", $row['nav_path'], $replacetemp);
+            }else{
+
+            $replacetemp .= str_replace("@@nav_caption@@", $row['nav_caption'], $items_temp);
+            $replacetemp = str_replace("@@nav_path@@", $row['nav_path'], $replacetemp);
+
+        }
+
+
+    }
+    $temp = LoadTemplate('page_section_main_nav');
+    print str_replace("@@navitems@@",$replacetemp,$temp);
 }
 

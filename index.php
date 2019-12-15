@@ -3,8 +3,8 @@ require_once "lib/autoload.php";
 include_once "lib/index_functions.php";
             /*printen van de pagina hoofding*/
 PrintPageSection("page_section_head");
+PrintNavBar();
 
-PrintPageSection("page_section_main_nav");
 
 ?>
 
