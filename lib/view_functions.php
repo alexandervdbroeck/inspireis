@@ -118,9 +118,7 @@ function PrintUpdateForm($postid){
         $landen = GetData("SELECT land_id, land_naam FROM landen");
         $templatelanden = LoadTemplate("form_select_landen");
         $category = GetData("SELECT cat_id, cat_naam FROM category");
-        $fotos = GetData("SELECT afb_locatie, afb_id FROM afbeelding where afb_post_id =".$postid);
-        $fototemp = LoadTemplate('inspireer_update_foto_delete');
-        $fototemp = ReplaceContent($fotos,$fototemp);
+
         $data = GetDataOneRow($sql);
 
         $landid = $data['post_land_id'];
@@ -134,7 +132,6 @@ function PrintUpdateForm($postid){
         $content = str_replace("@@landen@@", $optionlanden, $content);
         $content = str_replace("@@category@@", $optioncategory, $content);
         /*vervangen van error berichten */
-        $content = str_replace("@@foto@@",$fototemp,$content);
         $content = ReplaceContentOneRow($data,$content);
         print $content;
     }else{ $_SESSION['error'] = "U probeerde toegang te krijgen tot een pagina waar uw geen machtiging toe hebt, foei !";
@@ -146,18 +143,7 @@ function PrintUpdateForm($postid){
 
 
 }
-function PrintUserLog($id){
-    $sql = "SELECT usr_voornaam, usr_naam FROM user WHERE usr_id=".$id;
-    $username = GetDataOneRow($sql);
-    $sql = "SELECT log_in, log_out FROM logging WHERE log_usr_id=".$id;
-    $userlogdata = GetData($sql);
-    $temprow = LoadTemplate("user_log_row");
-    $rows = ReplaceContent($userlogdata,$temprow);
-    $templog = LoadTemplate("user_log");
-    $temp = ReplaceContentOneRow($username, $templog);
-    $content = str_replace("@@log_row@@", $rows, $temp);
-    return $content;
-}
+
 
 function PrintMessage(){
     if(isset($_SESSION['message'])){
@@ -174,42 +160,3 @@ function PrintMessage(){
 
 }
 
-
-
-
-
-//function TegelOntdek()
-//{
-//    $sql = SqlTegelOntdek();
-//    $data = GetData($sql);
-//    $temp = LoadTemplate("ontdek_polaroid");
-//    $temp = ReplaceContent($data, $temp);
-//    return $temp;
-//}
-//
-///*Print tegels met ingave van het land*/
-//function TegelLandOntdek ($id_land){
-//    $sql = SqlSearchLandIngevuld($id_land);
-//    $data = GetData($sql);
-//    $temp = LoadTemplate("ontdek_polaroid");
-//    $temp = ReplaceContent($data, $temp);
-//    return $temp;
-//}
-//
-///*Print tegels met ingave van de categorie*/
-//function TegelCatOntdek($cat_id){
-//    $sql = SqlSearchCatIngevuld($cat_id);
-//    $data = GetData($sql);
-//    $temp = LoadTemplate("ontdek_polaroid");
-//    $temp = ReplaceContent($data, $temp);
-//    return $temp;
-//}
-//
-///*Print tegels met ingave van zowel land als categorie*/
-//function TegelLandCatOntdek($id_land, $cat_id){
-//    $sql = SqlSearchLandCatIngevuld($id_land, $cat_id);
-//    $data = GetData($sql);
-//    $temp = LoadTemplate("ontdek_polaroid");
-//    $temp= ReplaceContent($data, $temp);
-//    return $temp;
-//}

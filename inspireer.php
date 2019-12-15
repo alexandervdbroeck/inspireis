@@ -11,7 +11,7 @@ PrintPageSection("page_section_main_nav");
     PrintMessage();
 
     !isset($_GET['postid'])?   PrintcreateForm(): PrintUpdateForm($_GET['postid']);
-    var_dump($_SESSION);
+
     ?>
 </main>
 

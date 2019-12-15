@@ -177,6 +177,11 @@ function CheckImages(){
         if ($_FILES['filename']["size"][$i] > 6000000){
             $_SESSION['error'] = "een afbeelding mag maximum 6MB zijn";
         }
+        if($_FILES["filename"]["name"][0] == ""){
+            $_SESSION['error']= "u moet minimum 1 foto toevoegen,";
+        }
+
+
 
     }
     if (isset($_SESSION['error'])){
