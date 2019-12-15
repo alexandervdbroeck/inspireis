@@ -9,7 +9,7 @@ function StartLoginSession($login, $paswd )
     if ( count($data) == 1 )
     {
         $row = $data[0];
-        
+
         //password controleren
 
         if ( password_verify( $paswd, $row['usr_paswoord'] ) ) $login_ok = true;
