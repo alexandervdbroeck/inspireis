@@ -66,12 +66,6 @@ function SqlPostGetPostid($user_id){
 
 
 /* ----------------------------------------DETAIL PAGINA------------------------------------------------------*/
-//function SqlBlogItemsGetUserId($blogid){
-//    $sql = "select  post_user_id
-//from post where post_id=".$blogid;
-//    return $sql;
-//
-//}
 
         /*voeg een volgen toe */
 function SQLDetailAddFollow($followuser, $userid){
