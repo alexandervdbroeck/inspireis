@@ -36,10 +36,10 @@ p.error {
     margin-top: 10px;
     color:white;
     font-size: 2em;
-    background: red;
+    background: #F2C36B;
     line-height: 1em;
     text-align: center;
-
+    min-width: 20%;
 }
 
 p {
@@ -302,9 +302,10 @@ h2.title-blog {
 }
 
 .title-profile {
-    font: 400 2em/1.4 solway, arial, sans-serif ;
+    font: 400 1.5em/1.4 solway, arial, sans-serif ;
     color: black;
     text-transform: uppercase;
+    color: #F2C36B;
 
 }
 
@@ -537,7 +538,7 @@ section.grid div.tegel:nth-of-type(6) {
 
 .profiel-detail p.details {
     padding-top: 15px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 .profiel-detail p.details:last-of-type {
@@ -548,6 +549,10 @@ section.grid div.tegel:nth-of-type(6) {
 
 .blog-details {
     width: 50%;
+}
+
+.blog-details div {
+    padding-bottom: 10px;
 }
 .blog-details label {
     display: block;
@@ -608,15 +613,39 @@ section.grid div.tegel:nth-of-type(6) {
 .polaroid img {
     height: 320px;
 }
-.button-blog input[type=submit],
-.button-blog input[type=file] {
+
+.button-blog input[type=submit]{
     padding: 10px 20px;
     background-color: #80B2F2;
     border: 1px solid #80B2F2;
     border-radius: 5px;
     color: white;
     margin: 6px 0;
+    cursor: pointer;
 }
+
+.filename {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+
+}
+
+.filename + label {
+
+    padding: 10px 20px;
+    color: white;
+    background-color: #80B2F2;
+    display: inline-block;
+    cursor: pointer;
+    margin: 6px 0;
+    border-radius: 5px;
+}
+
+
 
 div.blog textarea {
     width: 70%;
@@ -634,8 +663,6 @@ div.blog textarea {
     padding: 20px;
 }
 .profiel-commentaar {
-    position: sticky;
-    top: 2rem;
     width: 30%;
     height: 100%;
 }
@@ -694,6 +721,15 @@ div.blog textarea {
     text-decoration: none;
 }
 
+.commentaar-reactie {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 5px 5px 8px grey;
+    padding: 10px;
+    text-align: center;
+}
+
+
 .blog-bericht {
     display: flex;
     flex-direction: column;
@@ -720,6 +756,11 @@ div.blog textarea {
 
 .blog-bericht p {
     padding-top: 20px;
+}
+
+.blog-bericht-detail {
+    padding-bottom: 20px;
+    text-transform: uppercase;
 }
 
 
