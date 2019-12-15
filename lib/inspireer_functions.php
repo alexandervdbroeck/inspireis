@@ -305,7 +305,6 @@ function DeleteImagesUpdate($postid){
         $sql = SqlSearchImage($value);
         $afb = GetDataOneRow($sql);
         $dir = "../".$afb['afb_locatie'];
-        var_dump($dir);
         if(!unlink($dir)){
             // als de fotos niet van de server verwijderd kunnen worden zal er een error in de database ingevuld worden
 
