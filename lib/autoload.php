@@ -8,9 +8,9 @@ include_once "sqlstatements.php";
 
 
 
-//// niet ingelogde gebruikers worden doorverwezen naar de login pagina
-///
-if ( !isset($_SESSION['usr']) AND !$login_acces AND ! $register_acces )
+// niet ingelogde gebruikers worden doorverwezen naar de login pagina
+
+if (!isset($_SESSION['usr']) AND !$login_acces AND ! $register_acces )
 {
-    header("Location: login.php");
+    header("Location:login.php");
 }

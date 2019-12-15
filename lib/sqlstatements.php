@@ -125,7 +125,7 @@ function SqlImagesNotFirst($blogid){
 
 function SqlPostImages($blogid){
 
-    $sql = "select afb_locatie, afb_filename
+    $sql = "select afb_locatie
             from afbeelding
             where afb_post_id =".$blogid;
     return $sql;
