@@ -33,7 +33,7 @@ if(isset($_GET['postid'])and isset($_GET['userid'])){
 
         DeleteAllPostPicturesDirectory($postid);
         if(DeletePostFromDatabase($postid)){
-           $_SESSION['message'] = "Uw post werd verwijderd";
+           $_SESSION['message'] = "Uw post werd verwijderd!";
            header ("location:../profiel.php");
            die;
             }else{
@@ -75,7 +75,7 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "save") {
 
         InsertImagesDatabase($fotos,$post_id,$user_id);
 
-        $_SESSION['message']= "Uw blog is opgeslagen";
+        $_SESSION['message']= "Uw blog is opgeslagen!";
         header ("location:../detail.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
         die;
     }
@@ -97,11 +97,11 @@ if ($formname == "update_form" AND $_POST['submitpost'] == "update" AND $user_id
     // als de blog niet upgedate kan worden zullen er error messages verschijnen in bij gehouden worden in de database
 
     if(ExecuteSQL($sql)){
-        $_SESSION['message']= "Uw blog is aangepast";
+        $_SESSION['message']= "Uw blog is aangepast!";
         header ("location:../detail.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
         die;
     }else{
-        $_SESSION['error']= "Sorry, er is een probleem,er liep iets mis met het opslaan van uw blog";
+        $_SESSION['error']= "Sorry, er is een probleem! Er liep iets mis met het opslaan van uw blog.";
         ErrorToDatabase($post_id,$_SESSION['error']);
         header ("location:../inspireer.php?postid=".$post_id);
         die;
