@@ -30,16 +30,16 @@ PrintPageSection('page_section_main_nav');
     $cat_id = $_GET['cat_id'];
     $land_id = $_GET['land_id'];
     if(!isset($land_id) and !isset($cat_id)){
-        echo TegelOntdek($user_id);
+        echo OntekPolaroid($user_id);
     }
     elseif (isset($land_id) and !isset($cat_id)){
-        echo TegelLandOntdek($land_id);
+        echo OntdekLandSearch($land_id);
     }
     elseif (!isset($land_id) and isset($cat_id)){
-        echo TegelCatOntdek($cat_id);
+        echo OntdekCatSearch($cat_id);
     }
     else {
-        echo TegelLandCatOntdek($land_id, $cat_id, $user_id);
+        echo ontdekSearchAll($land_id, $cat_id, $user_id);
     }
 
 

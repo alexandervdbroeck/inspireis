@@ -3,11 +3,28 @@
 <?php
 require_once "autoload.php";
 
-//Print tegels op ontdekpagina afhankelijk van de zoekresultaten van de zoekbar
-/*Print tegels zonder ingave in zoekresultaat*/
-function TegelOntdek()
+/*------------------------------formulier bovenaan functies onderaan de pagina-------------------------------------*/
+
+$formname = $_POST["formname"];
+if ($formname == "ontdek_form" && $_POST['search'] == "zoek") {
+    if (!isset($_POST['land_id']) && !isset($_POST['cat_id'])) {
+        $_SESSION["error"] = "u heeft niets geselecteerd";
+        header("location:../ontdek.php");
+    } elseif (isset($_POST['land_id']) && !isset($_POST['cat_id'])) {
+        header("location:../ontdek.php?land_id=" . $_POST['land_id']);
+    } elseif (!isset($_POST['land_id']) && isset($_POST['cat_id'])) {
+        header("location:../ontdek.php?cat_id=" . $_POST['cat_id']);
+    } else {
+        header("location:../ontdek.php?land_id=" . $_POST['land_id'] . "&cat_id=" . $_POST['cat_id']);
+    }
+}
+
+
+
+/*-------------------------------functies--------------------------------------------------------------------------*/
+function OntekPolaroid()
 {
-    $sql = SqlTegelOntdek();
+    $sql = SqlOntdekNoSearch();
     $data = GetData($sql);
     $temp = LoadTemplate("ontdek_polaroid");
     $temp = ReplaceContent($data, $temp);
@@ -15,8 +32,9 @@ function TegelOntdek()
 }
 
 /*Print tegels met ingave van het land*/
-function TegelLandOntdek ($id_land){
-    $sql = SqlSearchLandIngevuld($id_land);
+
+function OntdekLandSearch ($id_land){
+    $sql = SqlOntdekSearchLand($id_land);
     $data = GetData($sql);
     $temp = LoadTemplate("ontdek_polaroid");
     $temp = ReplaceContent($data, $temp);
@@ -24,17 +42,20 @@ function TegelLandOntdek ($id_land){
 }
 
 /*Print tegels met ingave van de categorie*/
-function TegelCatOntdek($cat_id){
-    $sql = SqlSearchCatIngevuld($cat_id);
+
+function OntdekCatSearch($cat_id){
+    $sql = SqlOntdekSearchCat($cat_id);
     $data = GetData($sql);
+
     $temp = LoadTemplate("ontdek_polaroid");
     $temp = ReplaceContent($data, $temp);
     return $temp;
 }
 
 /*Print tegels met ingave van zowel land als categorie*/
-function TegelLandCatOntdek($id_land, $cat_id){
-    $sql = SqlSearchLandCatIngevuld($id_land, $cat_id);
+
+function ontdekSearchAll($id_land, $cat_id){
+    $sql = SqlOntdekSearchLandCat($id_land, $cat_id);
     $data = GetData($sql);
     $temp = LoadTemplate("ontdek_polaroid");
     $temp= ReplaceContent($data, $temp);
@@ -59,19 +80,7 @@ function OntdekSearchbar(){
 
 
 
-    $formname = $_POST["formname"];
-    if ($formname == "ontdek_form" && $_POST['search'] == "zoek") {
-        if (!isset($_POST['land_id']) && !isset($_POST['cat_id'])) {
-            $_SESSION["message"] = "u heeft niets geselecteerd";
-            header("location:../ontdek.php");
-        } elseif (isset($_POST['land_id']) && !isset($_POST['cat_id'])) {
-            header("location:../ontdek.php?land_id=" . $_POST['land_id']);
-        } elseif (!isset($_POST['land_id']) && isset($_POST['cat_id'])) {
-            header("location:../ontdek.php?cat_id=" . $_POST['cat_id']);
-        } else {
-            header("location:../ontdek.php?land_id=" . $_POST['land_id'] . "&cat_id=" . $_POST['cat_id']);
-        }
-    }
+
 
 
 
