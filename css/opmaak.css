@@ -611,6 +611,13 @@ div.blog textarea {
     width: 70%;
 }
 
+.checkbox {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+
 /*STIJLEN BLOGBERICHT ---------------------------------*/
 
 .blogbericht {

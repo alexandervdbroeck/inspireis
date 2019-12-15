@@ -53,7 +53,7 @@ if(isset($_GET['postid'])and isset($_GET['userid'])){
 /*---------------------------inspireer create form-----------------------------------------------------*/
 
 
-if ($formname == "creeer_form" AND $_POST['submitpost'] == "save") {
+if ($formname == "creeer_form" AND $_POST['submitpost'] == "Save") {
 
     // controleren of er een foto is toegevoegd
 
