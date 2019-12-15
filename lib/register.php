@@ -11,7 +11,7 @@ unset($_SESSION['message']);
 
 /*------------------formulieren--------------------------------------------------------------------*/
 
-if ($formname == "registration_form" AND $_POST['registerbutton'] == "Register") {
+if ($formname == "registration_form" AND $_POST['registerbutton'] == "Registreer") {
 
     //controle of gebruiker al bestaat
 
@@ -59,11 +59,13 @@ if ($formname == "registration_form" AND $_POST['registerbutton'] == "Register")
             if (StartLoginSession($_POST["usr_email"], $_POST["usr_paswoord"])){
                 $_SESSION["message"]= "Bedankt voor uw registratie!".$_SESSION['usr']['usr_voornaam'];
                 header("Location:../ontdek.php");
+                die;
             }
         } else {
             $_SESSION["message"] = "Sorry, er liep iets fout. Uw gegevens werden niet goed opgeslagen";
 
             header("Location: ../register.php");
+            die;
         }
     }else {
         header("Location: ../register.php");
