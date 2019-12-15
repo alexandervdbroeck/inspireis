@@ -91,11 +91,28 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "save") {
 if ($formname == "update_form" AND $_POST['submitpost'] == "update" AND $user_id == $_POST['post_usr_id']){
 
     // sql statement samenstellen met update gegevens
+    if(isset($_POST['afb_filename'][0])){
+        DeleteImagesUpdate($postid);
+    }
 
-    $sql =  SqlPostUpdate($post_id,$post_blog,$post_cat,$post_land,$post_stad,$post_title);
+
+
+    if(!$_FILES["filename"]["name"][0] == ""){
+        if(CheckImages()){
+            $fotos = InsertImagesInDirectory($post_id,$user_id);
+            InsertImagesDatabase($fotos,$post_id,$user_id);
+
+        }else{
+            ErrorToDatabase($post_id,$_SESSION['error']);
+            header ("location:../inspireer.php?postid=".$post_id);
+        }
+
+    }
+
+
 
     // als de blog niet upgedate kan worden zullen er error messages verschijnen in bij gehouden worden in de database
-
+    $sql =  SqlPostUpdate($post_id,$post_blog,$post_cat,$post_land,$post_stad,$post_title);
     if(ExecuteSQL($sql)){
         $_SESSION['message']= "Uw blog is aangepast!";
         header ("location:../detail.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
@@ -126,15 +143,19 @@ function DeleteAllPostPicturesDirectory($postid){
     {
         foreach($row as $field => $value)
         {
-            $value = "../".$value;
-            if(!unlink($value)){
+            if($field == "afb_locatie"){
+                $value = "../".$value;
+                if(!unlink($value)){
 
-                // als de fotos niet van de server verwijderd kunnen worden zal er een error in de database ingevuld worden
+                    // als de fotos niet van de server verwijderd kunnen worden zal er een error in de database ingevuld worden
 
-                $error = " een foto van deze blog werd niet verwijdered";
-                ErrorToDatabase($postid,$error);
+                    $error = " een foto van deze blog werd niet verwijdered";
+                    ErrorToDatabase($postid,$error);
+
+                }
 
             }
+
         }
 }};
 
@@ -220,11 +241,14 @@ function InsertImagesInDirectory($post_id, $user_id){
     if(!is_dir("../images/user_".$user_id))mkdir("../images/user_".$user_id);
     $target_dir = "../images/user_".$user_id."/";
 
-    // controleren hoeveel foto's er toegevoegd moeten worden
+    // controleren hoeveel foto's reeds toegevoegd worden
 
     $countfiles = count($_FILES["filename"]["name"]);
 
     $fotos = array();
+    $sql= SqlPostImages($post_id);
+    $fotonr = count(GetData($sql));
+
 
     for($i=0;$i<$countfiles;$i++){
 
@@ -236,21 +260,27 @@ function InsertImagesInDirectory($post_id, $user_id){
 
         //fotonr creeren aan de hand van de $i
 
-        $fotonr = $i+1;
+        $fotonr += 1;
         $_FILES["filename"]["name"][$i] = $post_id."_".$fotonr.".".$fileExt;
-
-        // filename  aan lijst toevoegen voor later gebruik(in database invoer)
-
-        array_push($fotos,$_FILES["filename"]["name"][$i]);
         $target_file = $target_dir.basename($_FILES["filename"]["name"][$i]);
 
-        // de foto uploaden in zijn usermap
+        // als de fotonaam reeds bestaad de nr verhogen
+
+        while(file_exists($target_file)) {
+            $fotonr += 1;
+            $_FILES["filename"]["name"][$i] = $post_id."_".$fotonr.".".$fileExt;
+            $target_file = $target_dir.basename($_FILES["filename"]["name"][$i]);
+
+        }
+
 
         if(!move_uploaded_file($_FILES["filename"]["tmp_name"][$i],$target_file)){
             $_SESSION['error']= "Sorry, er is een probleem, uw blogtext is opgeslagen, maar een of meerdere van uw foto's niet";
             header ("location:../inspireer.php");
             die;
         };
+        // filename  aan lijst toevoegen voor later gebruik(in database invoer)
+        array_push($fotos,$_FILES["filename"]["name"][$i]);
 
     }
     return $fotos;
@@ -266,3 +296,27 @@ function InsertImagesDatabase($fotos, $post_id, $user_id){
 
     }
 }
+
+function DeleteImagesUpdate($postid){
+    $data = $_POST['afb_filename'];
+
+    foreach ( $data as $row => $value )
+    {
+        $sql = SqlSearchImage($value);
+        $afb = GetDataOneRow($sql);
+        $dir = "../".$afb['afb_locatie'];
+        if(!unlink($dir)){
+            // als de fotos niet van de server verwijderd kunnen worden zal er een error in de database ingevuld worden
+
+            $error = " een foto van deze blog werd niet verwijdered";
+            ErrorToDatabase($postid,$error);
+        }
+        $sql = SqlDeleteImage($value);
+        ExecuteSQL($sql);
+
+
+
+} }
+
+
+//delete from afbeelding where afb_filename = '98_1.jpg';

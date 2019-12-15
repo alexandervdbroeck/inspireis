@@ -28,7 +28,7 @@ p.message {
 
 p.error {
     margin-top: 10px;
-    color:white;
+    color:red;
     font-size: 2em;
     background: #80B2F2;
     line-height: 1em;
