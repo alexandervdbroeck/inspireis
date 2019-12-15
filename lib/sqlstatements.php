@@ -138,7 +138,7 @@ function SqlBlogItemsSearchVolgers($user_id){
 }
 
 function SqlBlogItemsCountPost($user_id){
-    $sql = "select count(*) as post, usr_voornaam, usr_naam from post
+    $sql = "select count(*) as post, usr_login from post
             inner join user u on post.post_user_id = u.usr_id
             where post_user_id =".$user_id;
     return $sql;
