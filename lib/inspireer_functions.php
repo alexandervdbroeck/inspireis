@@ -74,25 +74,30 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "save") {
 
             // extra controle of de ingelogde gebruiker geen post van iemand anders probeerd te wijzigen
 if ($formname == "update_form" AND $_POST['submitpost'] == "update" AND $user_id == $_POST['post_usr_id']){
-    
+
     // sql statement samenstellen met alle nieuwe input
 
     $sql =  SqlPostUpdate($post_id,$post_blog,$post_cat,$post_land,$post_stad,$post_title);
+    // als de blog niet upgedate kan worden zullen er error messages verschijnen in bij gehouden worden in de database
     if(ExecuteSQL($sql)){
         $_SESSION['message']= "Uw blog is aangepast";
         header ("location:../detail.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
         die;
     }else{
-        $_SESSION['error']= "Sorry, er is een probleem, uw blogtext is opgeslagen, maar een of meerdere van uw foto's niet";
+        $_SESSION['error']= "Sorry, er is een probleem,er liep iets mis met het opslaan van uw blog";
+        ErrorToDatabase($post_id,$_SESSION['error']);
         header ("location:../inspireer.php?postid=".$post_id);
         die;
     }
 
 }else{
     $_SESSION['error']= "U was op een pagina waar u geen rechten toe heeft";
+    ErrorToDatabase($post_id,$_SESSION['error']);
     header ("location:../index.php");
     die;
 };
+
+/*-------------------------------functies---------------------------------------------------------------------------*/
 
 function DeleteAllPostPicturesServer($postid){
     $sql = SqlPostImages($postid);

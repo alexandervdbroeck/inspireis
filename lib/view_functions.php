@@ -138,6 +138,7 @@ function PrintUpdateForm($postid){
         $content = ReplaceContentOneRow($data,$content);
         print $content;
     }else{ $_SESSION['error'] = "U probeerde toegang te krijgen tot een pagina waar uw geen machtiging toe hebt, foei !";
+        ErrorToDatabase($postid,$_SESSION['error']);
         header ("location: profiel.php");
         die;}
 
