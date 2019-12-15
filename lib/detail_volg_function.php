@@ -1,44 +1,46 @@
 <?php
-//Insert Data
+
 require_once "autoload.php";
-//iemand volgen:
-if (isset($_GET['userid'])){
-    /*check welke gebruiker gevolgd dient te worden*/
+
+/*------------------------------via de get functie wordt het volgen of het ontvolgen van een ander user-------------
+--------------------------------hier verwerkt  om iemand te volgen wordt userid(usr_id)meegegven en om te weten-----------
+--------------------------------of iemand niet meer gevold dient te worden wordt ook unfollow=yes- meegegeven------------*/
+
+
+
+if (isset($_GET['userid'])and !isset($_GET['unfollow'])){
+
+    //check welke gebruiker gevolgd dient te worden
+
     $blog_id= $_GET['blog'];
     $followuser= $_GET['userid'];
     $userid = $_SESSION['usr']['usr_id'];
 
     /* invoeren in de database*/
-    $sql = SQLBlogITemsAddFollow($followuser,$userid);
+
+    $sql = SQLDetailAddFollow($followuser,$userid);
     ExecuteSQL($sql);
     /* terug naar de juiste detail pagina*/
     header ("location:../detail.php?blogid=".$blog_id."&userid=".$followuser);
 
 }
 // iemand niet meer volgen
+
 if(isset($_GET['unfollow'])){
     $blog_id= $_GET['blog'];
     $followuser= $_GET['userid'];
     $userid = $_SESSION['usr']['usr_id'];
 
     /* invoeren in de database*/
-    $sql = SQLBlogITemsUnFollow($followuser,$userid);
+
+    $sql = SQLDetailUnFollow($followuser,$userid);
     ExecuteSQL($sql);
+
     /* terug naar de juiste detail pagina*/
+
     header ("location:../detail.php?blogid=".$blog_id."&userid=".$followuser);
 
 }
-if(isset($_GET['addcomment'])){
 
-
-}
-function CheckFollow($postuser){
-    $sql = SqlBlogItemsCheckFollow($_SESSION['usr']['usr_id'],$postuser);
-    $row = GetDataOneRow($sql);
-    if($row['follow'] > 0){
-        return true;
-    }else {return false;}
-
-}
 
 

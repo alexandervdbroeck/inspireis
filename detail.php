@@ -9,27 +9,31 @@ PrintMessage();
 <main class="container blogbericht">
     <div class="profiel-commentaar">
         <?php
-            /*aanmaken van de user en blog id*/
+            // variablen aanmaken (get)
+
             $userid  = $_GET['userid'];
             $blogid = $_GET['blogid'];
 
-            /* als er geen userid of blogid meegegeven een error bericht generen en naar de indexpagina sturen*/
+            // controle of er een post en user id via get meegegeven is, anders redirecten naar de index pagina
+
             if(!isset($userid) and !isset($blogid)){
                 $_SESSION["message"] = "Sorry er liep iets mis bij het laden van een blog";
                 header("Location: index.php");
             }
 
-            /*printen van het detailformulier met de volgknopfucntie*/
-            echo GetFollowersAndFollowButton($userid,$blogid);
 
-            /*commentaar formulier afdrukken*/
+            // printen van de user status (hoeveel posts en hoeveel volgers) met bijhorende volg knop
+
+            echo DetailUserStatusAndFollowButton($userid,$blogid);
+
+            // formulier om commentaar bij te voegen en de reeds geschreven comenteren printen
+
             echo CommentForm($userid,$blogid);
 
-            /* afdrukken van de blogtekst met bijhorende foto's*/
+            // de effective post met foto's  en bijhoorende info afdrukken
             echo BlogTekst($blogid);
 
-            /*  afdrukken van alle geposte commentaren*/
-//           echo Commentaren($blogid);
+
 
         ?>
 

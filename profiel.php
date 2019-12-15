@@ -15,15 +15,17 @@ PrintPageSection("page_section_main_nav");
         <div class="profiel ">
 
             <?php
+            // afdrukken van de user status (hoeveel post en volgers) afvankelijk of men de eigen profielpagina opend of die van iemand anders
+
             if(isset($_GET['userid'])){
                 $user = "get";
                 $usrid = $_GET['userid'];
-                echo GetFollowers($usrid);
+                echo ProfielUserStatus($usrid);
 
             }else{
                 $user = "session";
                 $usrid = $_SESSION['usr']['usr_id'];
-                echo GetFollowers($usrid);
+                echo ProfielUserStatus($usrid);
 
             }
 
@@ -32,6 +34,9 @@ PrintPageSection("page_section_main_nav");
         </div>
         <div class="container grid-profile" >
             <?php
+            /*-------------als de user zijn eigen profiel pagina bekijkt zijn er meer mogelijkheiden, namelijk het aanpassen
+            en verwijderen van post's dit wordt hieronder gecontroleerd of men men zijn eigen profiel pagina bekijkt of die van iemand
+            anders ook een controle of men niet probeerd een andermans post te bewerken*/
 
             // controleren of het de ingelogde gebruiker is die zijn profiel bekijkt er een profiel van een ander gebruiker wordt opgezicht
             if(!isset($_GET['userid'])){
@@ -42,7 +47,9 @@ PrintPageSection("page_section_main_nav");
             }else {
                 $sql = SqlProfielPolaroid($_GET['userid']);
                 $data = GetData($sql);
+
                 // laden van het polaroid template zonder de verwijder en aanpas functies
+
                 $temp = LoadTemplate('profiel_polaroid_no_change_functions');
                 echo ReplaceContent($data,$temp);
 

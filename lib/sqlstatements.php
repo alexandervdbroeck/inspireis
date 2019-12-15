@@ -74,14 +74,14 @@ function SqlPostGetPostid($user_id){
 //}
 
         /*voeg een volgen toe */
-function SQLBlogITemsAddFollow($followuser,$userid){
+function SQLDetailAddFollow($followuser, $userid){
     $sql= "INSERT INTO volgers SET volg_user_id=".$userid.",
         volg_volgt_user_id=".$followuser;
     return $sql;
 }
 
 
-function SQLBlogITemsUnFollow($followuser,$userid){
+function SQLDetailUnFollow($followuser, $userid){
     $sql= "delete from volgers
 where volg_user_id =".$userid." and volg_volgt_user_id =".$followuser;
     return $sql;
@@ -131,20 +131,20 @@ function SqlPostImages($blogid){
     return $sql;
 }
 
-function SqlBlogItemsSearchVolgers($user_id){
+function SqlDetailCountFolowers($user_id){
     $sql= "select count(*) as volgt, (select count(*)from volgers where volg_volgt_user_id =". $user_id.")as aantalvolgers from volgers
             where volg_user_id =". $user_id;
     return $sql;
 }
 
-function SqlBlogItemsCountPost($user_id){
-    $sql = "select count(*) as post, usr_login from post
+function SqlDetailCountPosts($user_id){
+    $sql = "select count(*) as post, usr_voornaam, usr_naam from post
             inner join user u on post.post_user_id = u.usr_id
             where post_user_id =".$user_id;
     return $sql;
 }
 
-function SqlBlogItemsCheckFollow($userid, $followuser){
+function SqlDetailCheckFollow($userid, $followuser){
     $sql= "select count(*) as follow from volgers
             where volg_user_id =".$userid."  and volg_volgt_user_id =".$followuser;
     return $sql;
@@ -197,8 +197,8 @@ function SqlSearchLandOntdek(){
 }
 
 /*Zoekbar: Niks ingevuld*/
-function SqlTegelOntdek(){
-    $sql="select post_title, post_id, afb_locatie , post_user_id
+function SqlOntdekNoSearch(){
+    $sql="select post_title, post_id, afb_locatie , post_user_id,(select land_naam from landen where land_id = post_land_id)as land_naam
         from post
         inner join afbeelding a on post.post_id = a.afb_post_id
         
@@ -209,8 +209,8 @@ function SqlTegelOntdek(){
 
 
 /*Zoekbar: Land en categorie ingevuld*/
-        function SqlSearchLandCatIngevuld($land_id, $cat_id){
-            $sql ="select  post_title, post_id, afb_locatie, post_user_id
+        function SqlOntdekSearchLandCat($land_id, $cat_id){
+            $sql ="select  post_title, post_id, afb_locatie, post_user_id,land_naam
         from post
         inner join afbeelding a on post.post_id = a.afb_post_id
         inner join landen l on post.post_land_id = l.land_id
@@ -222,8 +222,8 @@ function SqlTegelOntdek(){
 }
 
 /*Zoekbar: Enkel Land ingevuld*/
-function SqlSearchLandIngevuld($land_id){
-    $sql="select  post_title, post_id, afb_locatie, post_user_id
+function SqlOntdekSearchLand($land_id){
+    $sql="select  post_title, post_id, afb_locatie, post_user_id,(select land_naam from landen where land_id = post_land_id)as land_naam
 from post
 inner join afbeelding a on post.post_id = a.afb_post_id
 inner join landen l on post.post_land_id = l.land_id
@@ -233,8 +233,8 @@ group by post_id;";
 }
 
 /*Zoekbar: Enkel Category ingevuld*/
-function SqlSearchCatIngevuld($cat_id){
-    $sql="select  post_title, post_id, afb_locatie,post_user_id
+function SqlOntdekSearchCat($cat_id){
+    $sql="select  post_title, post_id, afb_locatie,post_user_id,(select land_naam from landen where land_id = post_land_id)as land_naam
 from post
 inner join afbeelding a on post.post_id = a.afb_post_id
 inner join category c on post.post_cat_id = c.cat_id
