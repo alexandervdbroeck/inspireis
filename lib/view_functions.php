@@ -94,7 +94,7 @@ function PrintLoginOutForm($template_html)
 /*het formulier om een blog te creeren af drukken met eventuele error berichten*/
 function PrintcreateForm()
 {
-    $error = $_SESSION['message'];
+
     $landen = GetData("SELECT land_id, land_naam FROM landen");
     $templatelanden = LoadTemplate("form_select_landen");
     $optionlanden = ReplaceContent($landen,$templatelanden);
@@ -104,9 +104,8 @@ function PrintcreateForm()
     $content = LoadTemplate("inspireer_form");
     $content = str_replace("@@landen@@", $optionlanden, $content);
     $content = str_replace("@@category@@", $optioncategory, $content);
-    /*vervangen van error berichten */
-    $content = str_replace("@@message@@",$error,$content);
-    unset($_SESSION["message"]);
+
+
     print $content;
 }
 
@@ -165,10 +164,13 @@ function PrintUpdateForm($postid){
 
         // als iemand toegang probeerd te krijgen tot het aanpassen van een post die niet van hem is wordt deze beweging
         // in de database opgeslagen (wie probeerde en wanneer)
-    }else{ $_SESSION['error'] = "U probeerde toegang te krijgen tot een pagina waar uw geen machtiging toe hebt, foei !";
+    }else{ $_SESSION['error'] = "U probeerde toegang te krijgen tot een pagina waar uw geen machtiging toe hebt,
+                                 Uw poging wordt gerigistreerd!";
         ErrorToDatabase($postid,$_SESSION['error']);
-        header ("location: profiel.php");
-        die;}
+        PrintMessage();
+        //header ("location: ../profiel.php");
+       die;
+    }
 
 
 

@@ -77,6 +77,7 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "Save") {
         InsertImagesDatabase($fotos,$post_id,$user_id);
 
         $_SESSION['message']= "Uw blog is opgeslagen!";
+
         header ("location:../detail.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
         die;
     }

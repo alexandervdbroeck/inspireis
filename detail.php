@@ -17,8 +17,10 @@ PrintMessage();
             // controle of er een post en user id via get meegegeven is, anders redirecten naar de index pagina
 
             if(!isset($userid) and !isset($blogid)){
-                $_SESSION["message"] = "Sorry, er liep iets mis bij het laden van een blog!";
-                header("Location: index.php");
+                $_SESSION["error"] = "Sorry, er liep iets mis bij het laden van een blog!";
+                PrintMessage();
+                die;
+               // header("Location: index.php");
             }
 
 
