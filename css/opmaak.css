@@ -37,12 +37,11 @@ p.message {
 
 p.error {
     margin-top: 10px;
-    color:red;
+    color:white;
     font-size: 2em;
     background: #80B2F2;
     line-height: 1em;
     text-align: center;
-    min-width: 20%;
 }
 
 p {padding: .2em;}
@@ -281,6 +280,11 @@ section.grid a {
     text-decoration: none;
 }
 
+h2.ontdek-title-blog {
+    font: 400 2em/1.4 solway, arial, sans-serif;
+    color: white;
+}
+
 h2.title-blog {
     font: 400 2em/1.4 solway, arial, sans-serif;
     color: black;
@@ -348,8 +352,8 @@ section.grid-ontdek figure {
 
 section.grid-ontdek a {
     display: block;
-    background: rgba(255,255,255,.5);
-    color: black;
+    background: rgba(242,195,107,.8) ;
+    color: white;
     padding: .5em;
     text-decoration: none;
     text-align: center;
@@ -702,6 +706,14 @@ div.blog textarea {
     text-align: center;
 }
 
+.commentaar-reactie p:first-of-type {
+    font-weight: 500;
+    padding-bottom: .3em;
+}
+
+.commentaar-reactie p:last-of-type {
+    font-size: 80% ;
+}
 .blog-bericht {
     display: flex;
     flex-direction: column;
