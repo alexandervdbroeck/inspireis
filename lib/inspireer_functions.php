@@ -1,7 +1,7 @@
 <?php
 
 /*------------------------------formulieren en GET functies bevinden zich bovenaan ------------------------
- -------------------------------alle functies bevinden zich onderaan -------------------------------------*/
+ -------------------------------alle andere functies bevinden zich onderaan -------------------------------------*/
 
 require_once "autoload.php";
 
@@ -32,6 +32,7 @@ if(isset($_GET['postid'])and isset($_GET['userid'])){
        // eerst foto's van de server verwijderen//
 
         DeleteAllPostPicturesDirectory($postid);
+
         if(DeletePostFromDatabase($postid)){
            $_SESSION['message'] = "Uw post werd verwijderd";
            header ("location:../profiel.php");
@@ -195,7 +196,7 @@ function CheckImages(){
 
 
         }
-        if ($_FILES['filename']["size"][$i] > 6000000){
+        if ($_FILES['filename']["size"][$i] > 8000000){
             $_SESSION['error'] = "een afbeelding mag maximum 6MB zijn";
         }
         if($_FILES["filename"]["name"][0] == ""){

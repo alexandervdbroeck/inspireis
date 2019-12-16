@@ -101,7 +101,7 @@ where post_id=".$blogid;
     return $sql;
 }
 
-function SqlBlogUpdateSearch($blogid){
+function SqlInspireerUpdateSearch($blogid){
     $sql = "select post_id, post_blog, post_title, post_cat_id, post_land_id, post_stad_naam, post_user_id
             from post where post_id=".$blogid;
     return $sql;

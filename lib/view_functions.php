@@ -112,35 +112,59 @@ function PrintcreateForm()
 
 function PrintUpdateForm($postid){
 
-    //samenstellen van de <option> menu landen
-    $sql = SqlBlogUpdateSearch($postid);
+    //Ophalen van de post info
+    $sql = SqlInspireerUpdateSearch($postid);
     $data = GetDataOneRow($sql);
-    if($data['post_user_id']== $_SESSION['usr']['usr_id']){
-        $error = $_SESSION['message'];
-        $landen = GetData("SELECT land_id, land_naam FROM landen");
-        $templatelanden = LoadTemplate("form_select_landen");
-        $category = GetData("SELECT cat_id, cat_naam FROM category");
-        $data = GetDataOneRow($sql);
 
+    // controle of de ingelogde user zijn eigen blog probeert te posten, ander wordt er een error aangemaakt en in de database gestoken
+
+    if($data['post_user_id']== $_SESSION['usr']['usr_id']){
+
+        // ophalen van opgeslagen landen en categorieen
         $landid = $data['post_land_id'];
         $catid = $data['post_cat_id'];
+
+        // ophalen van de landen en categorieen om de drow down menus in te vullen
+
+        $landen = GetData("SELECT land_id, land_naam FROM landen");
+
+        $category = GetData("SELECT cat_id, cat_naam FROM category");
+//        $data = GetDataOneRow($sql);
+
+        // laden van select drop down menu's
+        $templatelanden = LoadTemplate("form_select_landen");
         $templatecategory = LoadTemplate("form_select_category");
         $tempcatSelected = LoadTemplate('form_select_category_selected');
         $templandselected = LoadTemplate('form_select_landen_selected');
+
+        // Content van de drop down menu's vervangen
+
         $optionlanden = ReplaceContentSelect($landen,$templatelanden,$landid,$templandselected);
         $optioncategory = ReplaceContentSelect($category,$templatecategory,$catid,$tempcatSelected);
+
+        // laden van alle afbeeldingen
         $sql = SqlPostImages($postid);
         $afbeeldingen = GetData($sql);
 
+        // laden en vervangen van de  selectie lijst van foto's om te verwijderen
+
         $afbtemplate = LoadTemplate('inspireer_update_delete_image_checkbox');
         $afbtemplate = ReplaceContent($afbeeldingen,$afbtemplate);
+
+        // heel het form samen stellen met bovenstaande fromulieren van landen categorien en te deleten afbeeldingen
+
         $content = LoadTemplate("inspireer_update_form");
         $content = str_replace("@@landen@@", $optionlanden, $content);
         $content = str_replace("@@category@@", $optioncategory, $content);
         $content = str_replace("@@afb@@",$afbtemplate,$content);
-        /*vervangen van error berichten */
         $content = ReplaceContentOneRow($data,$content);
+
+        // afdrukken van het update formulier
+
         print $content;
+
+        // als iemand toegang probeerd te krijgen tot het aanpassen van een post die niet van hem is wordt deze beweging
+        // in de database opgeslagen (wie probeerde en wanneer)
     }else{ $_SESSION['error'] = "U probeerde toegang te krijgen tot een pagina waar uw geen machtiging toe hebt, foei !";
         ErrorToDatabase($postid,$_SESSION['error']);
         header ("location: profiel.php");
@@ -174,20 +198,21 @@ function PrintNavBar()
 
     // welke webpagina is actief
     // enkel laatse stuk van de url in(fileext)
+
     $active = $_SERVER['PHP_SELF'];
     $fileExplode = explode("/",$active);
-    $fileExt = end($fileExplode);
+    $filePath = end($fileExplode);
     $items_temp = LoadTemplate('page_section_nav_items');
     $active_template = LoadTemplate('page_section_nav_items_active');
     $fileExplode = explode("/",$active);
-    $fileExt = end($fileExplode);
+    $filePath = end($fileExplode);
     $replacetemp = "";
 
     // nav bar items samenstellen
 
     foreach ( $data as $row )
     {
-        if($row['nav_path'] == $fileExt){
+        if($row['nav_path'] == $filePath){
             $replacetemp .= str_replace("@@nav_caption@@", $row['nav_caption'], $active_template);
             $replacetemp = str_replace("@@nav_path@@", $row['nav_path'], $replacetemp);
             }else{
