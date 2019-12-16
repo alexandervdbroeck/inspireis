@@ -274,13 +274,14 @@ function InsertImagesInDirectory($post_id, $user_id){
             $target_file = $target_dir.basename($_FILES["filename"]["name"][$i]);
 
         }
+                /* deze functie werkt niet op de synta server*/
+        compressImage($_FILES["filename"]["tmp_name"][$i],$target_file,60);
 
-
-        if(!move_uploaded_file($_FILES["filename"]["tmp_name"][$i],$target_file)){
-            $_SESSION['error']= "Sorry, er is een probleem, uw blogtext is opgeslagen, maar een of meerdere van uw foto's niet";
-            header ("location:../inspireer.php");
-            die;
-        };
+//       if(!move_uploaded_file($_FILES["filename"]["tmp_name"][$i],$target_file)){
+//           $_SESSION['error']= "Sorry, er is een probleem, uw blogtext is opgeslagen, maar een of meerdere van uw foto's niet";
+//           header ("location:../inspireer.php");
+//            die;
+//        };
         // filename  aan lijst toevoegen voor later gebruik(in database invoer)
         array_push($fotos,$_FILES["filename"]["name"][$i]);
 
@@ -312,7 +313,9 @@ function DeleteImagesUpdate($postid){
 
             $error = " een foto van deze blog werd niet verwijdered";
             ErrorToDatabase($postid,$error);
+            die;
         }
+
         $sql = SqlDeleteImage($value);
         ExecuteSQL($sql);
 
@@ -321,4 +324,24 @@ function DeleteImagesUpdate($postid){
 } }
 
 
-//delete from afbeelding where afb_filename = '98_1.jpg';
+
+
+
+// Compress image werkt niet op de syntra server
+
+function compressImage($source, $destination, $quality) {
+
+    $info = getimagesize($source);
+
+    if ($info['mime'] == 'image/jpeg')
+        $image = imagecreatefromjpeg($source);
+
+    elseif ($info['mime'] == 'image/gif')
+        $image = imagecreatefromgif($source);
+
+    elseif ($info['mime'] == 'image/png')
+        $image = imagecreatefrompng($source);
+
+    imagejpeg($image, $destination, $quality);
+
+}

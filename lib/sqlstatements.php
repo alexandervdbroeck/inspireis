@@ -110,7 +110,7 @@ function SqlInspireerUpdateSearch($blogid){
 function SqlProfielPolaroid($usrid){
     $sql = "select post_title, post_id, post_user_id, afb_locatie, post_datum, land_naam
             from post p
-            inner join afbeelding a on p.post_id = a.afb_post_id
+            left join afbeelding a on p.post_id = a.afb_post_id
             inner join landen l on p.post_land_id = l.land_id
             where post_user_id =".$usrid."
             group by post_id
@@ -221,7 +221,7 @@ function SqlOntdekNoSearch(){
         inner join category c on post.post_cat_id = c.cat_id
         where post_land_id=".$land_id." and post_cat_id =".$cat_id."
         group by post_id;
-        order by post_id desc limit 40";
+        order by post_id desc limit 18";
     return $sql;
 }
 
