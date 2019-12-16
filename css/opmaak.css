@@ -148,11 +148,13 @@ nav a {
     transform: scaleX(1);
 }
 
-.active:after{
+.active:after {
     transform: scaleX(1);
-    cursor: default;
 }
 
+.active:hover {
+    cursor: default;
+}
 /*LOGIN & REGISTREER STIJLEN ---------------------------------------------------------------------------------------------------------*/
 
 h2#login {
