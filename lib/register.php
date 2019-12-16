@@ -19,7 +19,7 @@ if ($formname == "registration_form" AND $_POST['registerbutton'] == "Registreer
     $data = GetData($sql);
     if (count($data) > 0) {
 
-        $_SESSION["message"] = "Dit e-mailadres is al in gebruik.<br> ";
+        $_SESSION["message"] = "Dit e-mailadres is al in gebruik<br> ";
     }
     // controle of de username al in gebruik is.
 
@@ -27,13 +27,13 @@ if ($formname == "registration_form" AND $_POST['registerbutton'] == "Registreer
     $data = GetData($sql);
     if (count($data) > 0) {
 
-        $_SESSION["message"] = "deze username is al in gebruik<br> ";
+        $_SESSION["message"] = "Deze username is al in gebruik<br> ";
     }
 
     //controle wachtwoord minimaal 8 tekens
 
     if (strlen($_POST["usr_paswoord"]) < 8){
-        $_SESSION["message"] .= "Het paswoord moet minsens 8 karakters lang zijn. <br>";
+        $_SESSION["message"] .= "Het paswoord moet minsens 8 karakters lang zijn <br>";
 
     }
 
@@ -62,7 +62,7 @@ if ($formname == "registration_form" AND $_POST['registerbutton'] == "Registreer
                 die;
             }
         } else {
-            $_SESSION["message"] = "Sorry, er liep iets fout. Uw gegevens werden niet goed opgeslagen";
+            $_SESSION["message"] = "Sorry, er liep iets fout. Uw gegevens werden niet goed opgeslagen.";
 
             header("Location: ../register.php");
             die;

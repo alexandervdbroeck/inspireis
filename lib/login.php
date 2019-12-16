@@ -16,10 +16,11 @@ if ( $formname == "login_form" AND $buttonvalue == "Log in" )
     }
     else
     {
-        $_SESSION["message"] = "Verkeerde user login of paswoord";
+        $_SESSION["message"] = "Verkeerde login of paswoord";
         header("Location: ../login.php");
     }
 }
+
 else
 {
     $_SESSION["message"] = "Foute formname of buttonvalue";
