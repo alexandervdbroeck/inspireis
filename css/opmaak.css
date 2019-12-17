@@ -50,12 +50,6 @@ a {cursor: pointer;}
 
 /*img stijlen -------------------------------------*/
 
-img#banner {
-    display: inline-block;
-    width: 50%;
-    height: auto;
-    padding: 10px;
-}
 
 nav img {
     max-width: 50%;
@@ -167,12 +161,38 @@ h2#login {
 .login-container {
     display: flex;
     justify-content: center;
+    padding-top: 20px;
+}
+
+.image-login {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    padding-top: 40px;
 }
-main#mainlogin {
-    margin: 5px auto;
-    padding: 5px auto;
+
+.image-login img {
+    width: 70%;
 }
+.title-login {
+     font: 500 2rem/1.4 Solway, Arial, sans-serif;
+}
+
+.title2-login {
+    text-align: center;
+    font: 400 1.5rem/1.4 Solway, Arial, sans-serif;
+}
+
+.title3-login {
+    text-align: center;
+    font: 400 1.5rem/1.4 Solway, Arial, sans-serif;
+    color: #F2C36B;
+}
+.loginform {
+    width: 40%;
+}
+
 
 /* -----dit gaat over het blok van van de twee vierkanten(login en hyperlink registreer */
 main#mainlogin div.loginform {
