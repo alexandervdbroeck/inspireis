@@ -12,5 +12,5 @@ if ($formname == "logout"){
     session_start();
     session_regenerate_id();
     $_SESSION["message"] = "U bent afgemeld!";
-    header("Location: ../login.php");
+    header("Location: ".$_application_folder."login.php");
 }

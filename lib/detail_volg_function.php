@@ -21,7 +21,7 @@ if (isset($_GET['userid'])and !isset($_GET['unfollow'])){
     $sql = SQLDetailAddFollow($followuser,$userid);
     ExecuteSQL($sql);
     /* terug naar de juiste detail pagina*/
-    header ("location:../detail.php?blogid=".$blog_id."&userid=".$followuser);
+    header ("location:".$_application_folder."detail.php?blogid=".$blog_id."&userid=".$followuser);
 
 }
 // iemand niet meer volgen
@@ -38,7 +38,7 @@ if(isset($_GET['unfollow'])){
 
     /* terug naar de juiste detail pagina*/
 
-    header ("location:../detail.php?blogid=".$blog_id."&userid=".$followuser);
+    header ("location:".$_application_folder."detail.php?blogid=".$blog_id."&userid=".$followuser);
 
 }
 

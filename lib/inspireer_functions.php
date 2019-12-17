@@ -35,11 +35,11 @@ if(isset($_GET['postid'])and isset($_GET['userid'])){
 
         if(DeletePostFromDatabase($postid)){
            $_SESSION['message'] = "Uw post werd verwijderd!";
-           header ("location:../profiel.php");
-           die;
+           header ("location:".$_application_folder."profiel.php");
+            die;
             }else{
             $_SESSION['error'] = "Sorry er liep iets mis met het verwijderen van uw post";
-            header ("location:../profiel.php");
+            header ("location:".$_application_folder."profiel.php");
 
             // een error naar de databank versturen
 
@@ -78,10 +78,10 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "Save") {
 
         $_SESSION['message']= "Uw blog is opgeslagen!";
 
-        header ("location:../detail.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
+        header ("location:".$_application_folder."detail.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
         die;
     }
-    header ("location:../inspireer.php");
+    header ("location:".$_application_folder."inspireer.php");
     die;
     }
 
@@ -93,20 +93,21 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "Save") {
 if ($formname == "update_form" AND $_POST['submitpost'] == "update" AND $user_id == $_POST['post_usr_id']){
 
     // sql statement samenstellen met update gegevens
-    if(isset($_POST['afb_filename'][0])){
+    if($_POST['afb_filename'][0]<>""){
+
         DeleteImagesUpdate($postid);
     }
 
 
 
-    if(!$_FILES["filename"]["name"][0] == ""){
+    if($_FILES["filename"]["name"][0] <> ""){
         if(CheckImages()){
             $fotos = InsertImagesInDirectory($post_id,$user_id);
             InsertImagesDatabase($fotos,$post_id,$user_id);
 
         }else{
             ErrorToDatabase($post_id,$_SESSION['error']);
-            header ("location:../inspireer.php?postid=".$post_id);
+            header ("location:".$_application_folder."inspireer.php?postid=".$post_id);
         }
 
     }
@@ -117,12 +118,12 @@ if ($formname == "update_form" AND $_POST['submitpost'] == "update" AND $user_id
     $sql =  SqlPostUpdate($post_id,$post_blog,$post_cat,$post_land,$post_stad,$post_title);
     if(ExecuteSQL($sql)){
         $_SESSION['message']= "Uw blog is aangepast!";
-        header ("location:../detail.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
+        header ("location:".$_application_folder."detail.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
         die;
     }else{
         $_SESSION['error']= "Sorry, er is een probleem! Er liep iets mis met het opslaan van uw blog.";
         ErrorToDatabase($post_id,$_SESSION['error']);
-        header ("location:../inspireer.php?postid=".$post_id);
+        header ("location:".$_application_folder."inspireer.php?postid=".$post_id);
         die;
     }
 
@@ -132,9 +133,10 @@ if ($formname == "update_form" AND $_POST['submitpost'] == "update" AND $user_id
     // als er iemand probeerde om iemands anders blog te veranderen zal dit bijgehouden worden in de database
 
     ErrorToDatabase($post_id,$_SESSION['error']);
-    header ("location:../index.php");
+    header ("location:".$_application_folder."index.php");
     die;
-};
+
+}
 
 /*----------------------------------------------------------functies--------------------------------------------------------*/
 
@@ -157,7 +159,6 @@ function DeleteAllPostPicturesDirectory($postid){
                 }
 
             }
-
         }
 }};
 
@@ -207,6 +208,7 @@ function CheckImages(){
 
 
     }
+
     if (isset($_SESSION['error'])){
         return false;
     }else{
@@ -217,7 +219,7 @@ function CheckImages(){
 }
 
 function InsertDatabasePost($tablename){
-
+global $_application_folder;
     $blogtekst = $_POST['post_blog'];
 
         $date = new DateTime('NOW', new DateTimeZone('Europe/Brussels'));
@@ -228,7 +230,7 @@ function InsertDatabasePost($tablename){
 
         if (!ExecuteSQL($sql)){
             $_SESSION['error']= "er liep iets mis met het opslaan van uw blog ";
-            header ("location:../inspireer.php");
+            header ("location:../".$_application_folder."inspireer.php");
             die;
 
         }
@@ -240,6 +242,7 @@ function GetLatestPostid($user_id){
 }
 
 function InsertImagesInDirectory($post_id, $user_id){
+    global $_application_folder;
     if(!is_dir("../images/user_".$user_id))mkdir("../images/user_".$user_id);
     $target_dir = "../images/user_".$user_id."/";
 
@@ -275,14 +278,14 @@ function InsertImagesInDirectory($post_id, $user_id){
 
         }
                 /* deze functie werkt niet op de synta server*/
-        compressImage($_FILES["filename"]["tmp_name"][$i],$target_file,60);
+//        compressImage($_FILES["filename"]["tmp_name"][$i],$target_file,40);
 
-//       if(!move_uploaded_file($_FILES["filename"]["tmp_name"][$i],$target_file)){
-//           $_SESSION['error']= "Sorry, er is een probleem, uw blogtext is opgeslagen, maar een of meerdere van uw foto's niet";
-//           header ("location:../inspireer.php");
-//            die;
-//        };
-        // filename  aan lijst toevoegen voor later gebruik(in database invoer)
+       if(!move_uploaded_file($_FILES["filename"]["tmp_name"][$i],$target_file)){
+           $_SESSION['error']= "Sorry, er is een probleem, uw blogtext is opgeslagen, maar een of meerdere van uw foto's niet";
+           header ("location:../".$_application_folder."inspireer.php");
+            die;
+        };
+//         filename  aan lijst toevoegen voor later gebruik(in database invoer)
         array_push($fotos,$_FILES["filename"]["name"][$i]);
 
     }
@@ -301,13 +304,15 @@ function InsertImagesDatabase($fotos, $post_id, $user_id){
 }
 
 function DeleteImagesUpdate($postid){
+
     $data = $_POST['afb_filename'];
 
     foreach ( $data as $row => $value )
     {
         $sql = SqlSearchImage($value);
         $afb = GetDataOneRow($sql);
-        $dir = "../".$afb['afb_locatie'];
+        $dir  = "../".$afb['afb_locatie'];
+
         if(!unlink($dir)){
             // als de fotos niet van de server verwijderd kunnen worden zal er een error in de database ingevuld worden
 

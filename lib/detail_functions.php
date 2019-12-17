@@ -18,7 +18,7 @@ if ($formname == "comment" AND $_POST['submit'] == "Reageer") {
     $sql = SqlCommentAdd($usr_id,$post_id,$tekst);
     if(!ExecuteSQL($sql))$_SESSION['error']= "Er liep iets mis met het opslaan van uw comment";
     $usr_id = $_POST['usr_id'];
-    header ("location:../detail.php?blogid=".$post_id."&userid=".$usr_id);
+    header ("location:".$_application_folder."detail.php?blogid=".$post_id."&userid=".$usr_id);
 
 }
 
@@ -114,11 +114,14 @@ function BlogTekst($postid){
         $sql = SqlImagesNotFirst($postid);
         $data = GetData($sql);
 
+
         // als er maar 1 image is wordt het bericht gegenereerd dat er maar 1 foto is
 
-        if(count($data)==0){
+        if(count($data) > 1){
+
             $temp = str_replace("@@image@@","<p>er is maar 1 afbeelding</p>",$temp);
             return $temp;
+
         }
         $afb = LoadTemplate('detail_extra_image');
         $afb = ReplaceContent($data,$afb);

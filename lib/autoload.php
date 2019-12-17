@@ -13,6 +13,9 @@ if(isset($_SESSION['timeout']) ) {
     header("Location: ../login.php"); }
 }
 $_SESSION['timeout'] = time();
+$_application_folder = "/wdev_alexander/inspireis/";
+//$_application_folder = "/inspireis/";
+
 
 include_once "database.php";
 include_once "error.php";

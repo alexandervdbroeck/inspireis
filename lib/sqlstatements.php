@@ -123,7 +123,7 @@ function SqlImagesNotFirst($blogid){
     $sql = "select afb_locatie
             from afbeelding
             where afb_post_id =".$blogid." 
-            and afb_filename not like '%_1.%'";
+            limit 15 offset 1";
     return$sql;
 }
 
