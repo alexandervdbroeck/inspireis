@@ -381,7 +381,7 @@ section.grid-ontdek figure:first-child {
 
 }
 
-section.grid-ontdek figure:nth-child(11) {
+section.grid-ontdek figure:nth-child(12) {
     grid-row: 4 / span 2;
     grid-column: 3 / span 2;
 }
