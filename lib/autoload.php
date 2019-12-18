@@ -1,18 +1,7 @@
 <?php
 session_start();
 
-// tijd dat er geen actie geweest is
-//$inactive = 600;
-//
-//if(isset($_SESSION['timeout']) ) {
-//    $session_life = time() - $_SESSION['timeout'];
-//    if($session_life > $inactive)
-//    { session_destroy();
-//    include_once "user_log.php";
-//    LogoutUser();
-//    header("Location: ../login.php"); }
-//}
-//$_SESSION['timeout'] = time();
+
 $_application_folder = "/wdev_alexander/inspireis/";
 //$_application_folder = "/inspireis/";
 

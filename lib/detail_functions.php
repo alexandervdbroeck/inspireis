@@ -31,14 +31,12 @@ if ($formname == "comment" AND $_POST['submit'] == "Reageer") {
 function DetailUserStatusAndFollowButton($userid, $blogid) {
 
     // eerst samenstellen van van de user status template
-
     $sql = SqlDetailCountFolowers($userid);
     $row = GetDataOneRow($sql);
     $temp = LoadTemplate("detail_follow_status");
     $temp = ReplaceContentOneRow($row,$temp);
 
     /*samenstellen hoeveel post's en naam vd blogger*/
-
     $sql = SqlDetailCountPosts($userid);
     $row = GetDataOneRow($sql);
     $temp = ReplaceContentOneRow($row,$temp);
@@ -47,7 +45,6 @@ function DetailUserStatusAndFollowButton($userid, $blogid) {
     $row = GetDataOneRow($sql);
 
     // als de user nog niet gevolgd wordt wordt de volg knop geprint anders de ontvolg knop
-
     if($row['follow'] == 0){
 
         $followbutton =LoadTemplate("detail_button_follow");
@@ -55,17 +52,13 @@ function DetailUserStatusAndFollowButton($userid, $blogid) {
         $followbutton = str_replace("@@user_id@@", $userid, $followbutton);
         $temp = str_replace("@@follow@@", $followbutton,$temp);
         return $temp;
-
     }else {
-
         /*als de user reeds gevolgd wordt , de ontvolgknop printen*/
-
         $followbutton =LoadTemplate("detail_button_unfollow");
         $followbutton = str_replace("@@blog_id@@", $blogid, $followbutton);
         $followbutton = str_replace("@@user_id@@", $userid, $followbutton);
         $temp = str_replace("@@follow@@", $followbutton,$temp);
         return $temp;
-
     }
 }
 
@@ -100,11 +93,10 @@ function CommentForm($userid,$postid) {
 
 function BlogTekst($postid){
 
-    $sql = SqlBlogItems($postid);
+    $sql = SqlDetailpost($postid);
     $row = GetDataOneRow($sql);
     $temp = LoadTemplate("detail_blog");
     $temp = ReplaceContentOneRow($row,$temp);
-
     /* functie reeds voorzien dat users kunnen kiezen om 1 of meerder foto's te kunnen zien
     voorlopig worden alle users zo aangemaakt dat ze alle foto's te zien krijgen.. wordt vervolgd*/
 
@@ -114,26 +106,23 @@ function BlogTekst($postid){
         $sql = SqlImagesNotFirst($postid);
         $data = GetData($sql);
 
-
         // als er maar 1 image is wordt het bericht gegenereerd dat er maar 1 foto is
-
-        if(count($data) > 1){
-
+        if(count($data) == 0){
             $temp = str_replace("@@image@@","<p>er is maar 1 afbeelding</p>",$temp);
             return $temp;
-
         }
         $afb = LoadTemplate('detail_extra_image');
         $afb = ReplaceContent($data,$afb);
         $temp = str_replace("@@image@@",$afb,$temp);
         return $temp;
-        } else{
+        }
+    else{
         /* in de toekomst als mensen er voor kiezen om maar 1 foto te kunnen zien wordt volgend bericht geprint als er meerdere
         foto's zouden zijn*/
-
-
-        $temp = str_replace("@@image@@","<p>u are a believer</p>",$temp);
-        return $temp;} }
+        $temp = str_replace("@@image@@","<p>u koos ervoor om maar 1 foto te zien, maar er zijn er nog.</p>",$temp);
+        return $temp;
+    }
+}
 
 
 

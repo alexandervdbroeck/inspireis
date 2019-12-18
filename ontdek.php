@@ -29,7 +29,6 @@ else {
     echo ontdekSearchAll($land_id, $cat_id, $user_id);
 }
 
-
 ?>
 
     </section>

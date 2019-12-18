@@ -91,13 +91,12 @@ where volg_user_id =".$userid." and volg_volgt_user_id =".$followuser;
     return $sql;
 }
 
-function SqlBlogItems($blogid){
+function SqlDetailpost($blogid){
     $sql = "select post_id, post_blog, post_title, land_naam,cat_naam,post_stad_naam,post_user_id ,(select afbeelding.afb_locatie from afbeelding where afb_post_id=".$blogid."  limit 1) as afbeelding
             from post
             inner join landen l on post.post_land_id = l.land_id
             inner join category c on post.post_cat_id = c.cat_id
 where post_id=".$blogid;
-
     return $sql;
 }
 

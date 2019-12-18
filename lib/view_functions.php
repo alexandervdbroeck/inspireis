@@ -91,32 +91,30 @@ function PrintLoginOutForm($template_html)
 
 }
 
-/*het formulier om een blog te creeren af drukken met eventuele error berichten*/
+/*het formulier om een blog te creeren */
 function PrintcreateForm()
 {
-
+    //samenstellen van de drow down menu's
     $landen = GetData("SELECT land_id, land_naam FROM landen");
     $templatelanden = LoadTemplate("form_select_landen");
     $optionlanden = ReplaceContent($landen,$templatelanden);
     $category = GetData("SELECT cat_id, cat_naam FROM category");
     $templatecategory = LoadTemplate("form_select_category");
     $optioncategory = ReplaceContent($category,$templatecategory);
+
+    //drop down menu's aan het formulier toevogen
     $content = LoadTemplate("inspireer_form");
     $content = str_replace("@@landen@@", $optionlanden, $content);
     $content = str_replace("@@category@@", $optioncategory, $content);
-
-
     print $content;
 }
 
 function PrintUpdateForm($postid){
-
     //Ophalen van de post info
     $sql = SqlInspireerUpdateSearch($postid);
     $data = GetDataOneRow($sql);
 
     // controle of de ingelogde user zijn eigen blog probeert te posten, ander wordt er een error aangemaakt en in de database gestoken
-
     if($data['post_user_id']== $_SESSION['usr']['usr_id']){
 
         // ophalen van opgeslagen landen en categorieen
@@ -124,20 +122,16 @@ function PrintUpdateForm($postid){
         $catid = $data['post_cat_id'];
 
         // ophalen van de landen en categorieen om de drow down menus in te vullen
-
         $landen = GetData("SELECT land_id, land_naam FROM landen");
-
         $category = GetData("SELECT cat_id, cat_naam FROM category");
-//        $data = GetDataOneRow($sql);
 
-        // laden van select drop down menu's
+        // laden van select drop down menu's en de reeds gekozen landen en category keuze (selected)
         $templatelanden = LoadTemplate("form_select_landen");
         $templatecategory = LoadTemplate("form_select_category");
         $tempcatSelected = LoadTemplate('form_select_category_selected');
         $templandselected = LoadTemplate('form_select_landen_selected');
 
         // Content van de drop down menu's vervangen
-
         $optionlanden = ReplaceContentSelect($landen,$templatelanden,$landid,$templandselected);
         $optioncategory = ReplaceContentSelect($category,$templatecategory,$catid,$tempcatSelected);
 
@@ -146,12 +140,10 @@ function PrintUpdateForm($postid){
         $afbeeldingen = GetData($sql);
 
         // laden en vervangen van de  selectie lijst van foto's om te verwijderen
-
         $afbtemplate = LoadTemplate('inspireer_update_delete_image_checkbox');
         $afbtemplate = ReplaceContent($afbeeldingen,$afbtemplate);
 
         // heel het form samen stellen met bovenstaande fromulieren van landen categorien en te deleten afbeeldingen
-
         $content = LoadTemplate("inspireer_update_form");
         $content = str_replace("@@landen@@", $optionlanden, $content);
         $content = str_replace("@@category@@", $optioncategory, $content);
@@ -159,7 +151,6 @@ function PrintUpdateForm($postid){
         $content = ReplaceContentOneRow($data,$content);
 
         // afdrukken van het update formulier
-
         print $content;
 
         // als iemand toegang probeerd te krijgen tot het aanpassen van een post die niet van hem is wordt deze beweging
@@ -167,14 +158,7 @@ function PrintUpdateForm($postid){
     }else{ $_SESSION['error'] = "U probeerde toegang te krijgen tot een pagina waar uw geen machtiging toe hebt,
                                  Uw poging wordt gerigistreerd!";
         ErrorToDatabase($postid,$_SESSION['error']);
-        PrintMessage();
-        //header ("location: ../profiel.php");
-       die;
     }
-
-
-
-
 }
 
 
