@@ -45,6 +45,11 @@ if(isset($_GET['postid'])and isset($_GET['userid'])){
             die;
         }
         }
+    $error ="verdachte poging om een post te verwijderen ";
+    ErrorToDatabase($postid,$error);
+    header ("location:".$_application_folder."profiel.php");
+    die;
+
 }
 
 
@@ -63,6 +68,13 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "Save") {
         // laatst ingegeven post_id ophalen
         $post_id = GetLatestPostid($user_id);
 
+        // als er iets mis liep met het opvragen van een post id worden errors gecreeerd en in de DB opgsl.
+        if(!isset($post_id)){
+            $_SESSION['error']= "Er liep iets mis met het opslaan van uw blog!";
+            ErrorToDatabase(0,"het post id kon niet opgevraagd worden");
+            header ("location:".$_application_folder."inspireer.php");
+            die;
+        }
         // inserts fotos in de juiste directory (images/user_XX/plogid nrfoto.jpeg) en returns een lijst van de file names van de foto's
         $fotos = InsertImagesInDirectory($post_id,$user_id);
 
@@ -71,20 +83,32 @@ if ($formname == "creeer_form" AND $_POST['submitpost'] == "Save") {
         $_SESSION['message']= "Uw blog is opgeslagen!";
         header ("location:".$_application_folder."detail.php?blogid=".$post_id."&userid=".$_SESSION['usr']['usr_id']);
         die;
+    }else{
+
+        header ("location:".$_application_folder."inspireer.php");
+        die;
     }
-    header ("location:".$_application_folder."inspireer.php");
-    die;
-    }
+
+}
 
 /*-------------------------------------Update Form------------------------------------------------------------------*/
 
             // extra controle of de ingelogde gebruiker geen post van iemand anders probeerd te wijzigen
 
-if ($formname == "update_form" AND $_POST['submitpost'] == "update" AND $user_id == $_POST['post_usr_id']){
+if ($formname == "update_form" AND $_POST['submitpost'] == "update" ){
+
+    if($user_id <> $_POST['post_usr_id']){
+        $_SESSION['error']= "U was op een pagina waar u geen rechten toe heeft";
+        // als er iemand probeerde om iemands anders blog te veranderen zal dit bijgehouden worden in de database
+        ErrorToDatabase($post_id,$_SESSION['error']);
+        header ("location:".$_application_folder."index.php");
+        die;
+    }
 
     // controle of er afbeeldingen zij die verwijderd moeten worden
     if($_POST['afb_filename'][0]<>""){
-        DeleteImagesUpdate($postid);
+        DeleteImagesUpdate($post_id);
+
     }
     // controle of er afbeeldinge toegevoed moeten worden , en deze toevoegen
     if($_FILES["filename"]["name"][0] <> ""){
@@ -109,12 +133,6 @@ if ($formname == "update_form" AND $_POST['submitpost'] == "update" AND $user_id
         header ("location:".$_application_folder."inspireer.php?postid=".$post_id);
         die;
     }
-}else{
-    $_SESSION['error']= "U was op een pagina waar u geen rechten toe heeft";
-    // als er iemand probeerde om iemands anders blog te veranderen zal dit bijgehouden worden in de database
-    ErrorToDatabase($post_id,$_SESSION['error']);
-    header ("location:".$_application_folder."index.php");
-    die;
 }
 
 /*----------------------------------------------------------functies--------------------------------------------------------*/
@@ -152,7 +170,7 @@ function CheckImages(){
         $_SESSION['error']= "u moet minimum 1 foto toevoegen,";
         return false;
     }
-    // check of foto een jpg, png of jpeg is en het formaat van de afbeelding
+    // check of foto een jpg, png of jpeg is en het extensie van de afbeelding
     $ext_allowed = array(
         "png",
         "jpg",
@@ -188,7 +206,7 @@ global $_application_folder;
     // Post in database opslaan
     if (!ExecuteSQL($sql)){
         $_SESSION['error']= "er liep iets mis met het opslaan van uw blog ";
-        header ("location:../".$_application_folder."inspireer.php");
+        header ("location:".$_application_folder."inspireer.php");
         die;
     }
 }
@@ -206,13 +224,13 @@ function InsertImagesInDirectory($post_id, $user_id){
 
     // controleren hoeveel foto's er toegevoegd moeten worden
     $countfiles = count($_FILES["filename"]["name"]);
-    $sql= SqlPostImages($post_id);
-    $fotonr = count(GetData($sql));
+    // als er reeds foto's toegevoegd waren, tellen hoeveel.
+    $fotonr = 0;
     $fotos = array();
 
     for($i=0;$i<$countfiles;$i++){
 
-        // foto herbenoemen naar (postid_fotonr) in lowercase letters
+        // foto extensie ophalen in lowercase letters
         $filename = strtolower($_FILES["filename"]["name"][$i]) ;
         $fileExplode = explode(".",$filename);
         $fileExt = end($fileExplode);
@@ -222,7 +240,7 @@ function InsertImagesInDirectory($post_id, $user_id){
         $_FILES["filename"]["name"][$i] = $post_id."_".$fotonr.".".$fileExt;
         $target_file = $target_dir.basename($_FILES["filename"]["name"][$i]);
 
-        // als de fotonaam reeds bestaad de nr verhogen en bestandsnaam veranderen
+        // als de fotonaam reeds bestaat de nr verhogen en bestandsnaam veranderen
         while(file_exists($target_file)) {
             $fotonr += 1;
             $_FILES["filename"]["name"][$i] = $post_id."_".$fotonr.".".$fileExt;

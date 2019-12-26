@@ -111,6 +111,7 @@ function PrintcreateForm()
 
 function PrintUpdateForm($postid){
     //Ophalen van de post info
+    global $_application_folder;
     $sql = SqlInspireerUpdateSearch($postid);
     $data = GetDataOneRow($sql);
 
@@ -157,7 +158,11 @@ function PrintUpdateForm($postid){
         // in de database opgeslagen (wie probeerde en wanneer)
     }else{ $_SESSION['error'] = "U probeerde toegang te krijgen tot een pagina waar uw geen machtiging toe hebt,
                                  Uw poging wordt gerigistreerd!";
+        // als er iemand probeerde om iemands anders blog te veranderen zal dit bijgehouden worden in de database
         ErrorToDatabase($postid,$_SESSION['error']);
+        PrintMessage();
+        die;
+
     }
 }
 

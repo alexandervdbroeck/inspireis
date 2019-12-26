@@ -1,4 +1,5 @@
 <?php
+
 require_once "lib/autoload.php";
 include_once "lib/detail_functions.php";
 

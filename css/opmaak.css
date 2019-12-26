@@ -145,9 +145,7 @@ nav a {
     transform: scaleX(1);
 }
 
-.active:hover {
-    cursor: default;
-}
+
 /*LOGIN & REGISTREER STIJLEN ---------------------------------------------------------------------------------------------------------*/
 
 h2#login {
@@ -646,12 +644,15 @@ div.blog textarea {
 }
 
 .checkbox {
-    padding-top: 20px;
+    padding: 20px 0;
     display: flex;
     flex-direction: row;
 }
 
+.checkbox img {
+    padding-left: 20px;
 
+}
 /*STIJLEN BLOGBERICHT ---------------------------------*/
 
 .blogbericht {
@@ -784,7 +785,8 @@ footer p {
 /* test pop uw window*/
 
 form input[type=checkbox]{
-    width: 50px;
+    width: 10px;
+    padding-right: 10px;
 }
 
 /* update formulieren -------------------------------------*/

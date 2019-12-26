@@ -12,6 +12,9 @@ unset($_SESSION['message']);
 /*------------------formulieren--------------------------------------------------------------------*/
 
 if ($formname == "registration_form" AND $_POST['registerbutton'] == "Registreer") {
+    $_SESSION["message"] = "sorry wij zijn even met vakantie......";
+    header("Location: ".$_application_folder."login.php");
+    die;
 
     //controle of gebruiker al bestaat
 
@@ -52,7 +55,7 @@ if ($formname == "registration_form" AND $_POST['registerbutton'] == "Registreer
         $password_encrypted = password_hash($_POST["usr_paswoord"], PASSWORD_DEFAULT);
         $sql = SqlRegisterUserInsertUser($_POST['usr_voornaam'],$_POST['usr_naam'],$_POST['usr_email'],$password_encrypted,$_POST['usr_login'],$_POST['tablename']);
 
-        //gebruiker toevoegen
+//        //gebruiker toevoegen
 
         if (ExecuteSQL($sql)) {
 

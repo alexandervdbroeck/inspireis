@@ -190,12 +190,12 @@ function SqlIndexPolaroid($user_id, $offset, $maxpolaroid){
 /*ZOEKBAR ONTDEK ----------------------------------------------------------------------------------------------*/
 
 function SQLSearchCatOntdek(){
-    $sql = "select cat_id, cat_naam from category;";
+    $sql = "select cat_id, cat_naam from category order by cat_naam;";
     return $sql;
 }
 
 function SqlSearchLandOntdek(){
-    $sql= "select land_id, land_naam from landen;";
+    $sql= "select land_id, land_naam from landen order by land_naam;";
     return $sql;
 }
 
