@@ -184,23 +184,18 @@ function PrintMessage(){
 function PrintNavBar()
 {
     //navbar items ophalen
-
     $data = GetData("select * from navigation order by nav_order ");
-
     // welke webpagina is actief
-    // enkel laatse stuk van de url in(fileext)
-    $active = $_SERVER['PHP_SELF'];
-    $fileExplode = explode("/",$active);
-    $filePath = end($fileExplode);
+    $filePath = basename($_SERVER['SCRIPT_NAME']);
     $items_temp = LoadTemplate('page_section_nav_items');
     // nav bar items samenstellen
-    foreach ( $data as $key => $val )
+    foreach ( $data as $row )
     {
 
-        if($data[$key]['nav_path'] == $filePath){
-            $data[$key]['active'] = "active";
+        if($data[$row]['nav_path'] == $filePath){
+            $data[$row]['active'] = "active";
         }else{
-            $data[$key]['active'] = "";
+            $data[$row]['active'] = "";
         }
 
     }
