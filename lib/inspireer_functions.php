@@ -196,10 +196,13 @@ function CheckImages(){
     return true;
 }
 
+
+
 function InsertDatabasePost($tablename){
 global $_application_folder;
     $blogtekst = $_POST['post_blog'];
     $date = new DateTime('NOW', new DateTimeZone('Europe/Brussels'));
+
     $date = $date->format('d-m-Y');
     $sql = SqlPostInsert($tablename,$blogtekst,$date);
 

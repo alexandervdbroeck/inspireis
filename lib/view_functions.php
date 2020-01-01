@@ -189,33 +189,23 @@ function PrintNavBar()
 
     // welke webpagina is actief
     // enkel laatse stuk van de url in(fileext)
-
     $active = $_SERVER['PHP_SELF'];
     $fileExplode = explode("/",$active);
     $filePath = end($fileExplode);
     $items_temp = LoadTemplate('page_section_nav_items');
-    $active_template = LoadTemplate('page_section_nav_items_active');
-    $fileExplode = explode("/",$active);
-    $filePath = end($fileExplode);
-    $replacetemp = "";
-
     // nav bar items samenstellen
-
-    foreach ( $data as $row )
+    foreach ( $data as $key => $val )
     {
-        if($row['nav_path'] == $filePath){
-            $replacetemp .= str_replace("@@nav_caption@@", $row['nav_caption'], $active_template);
-            $replacetemp = str_replace("@@nav_path@@", $row['nav_path'], $replacetemp);
-            }else{
 
-            $replacetemp .= str_replace("@@nav_caption@@", $row['nav_caption'], $items_temp);
-            $replacetemp = str_replace("@@nav_path@@", $row['nav_path'], $replacetemp);
-
+        if($data[$key]['nav_path'] == $filePath){
+            $data[$key]['active'] = "active";
+        }else{
+            $data[$key]['active'] = "";
         }
 
-
     }
+    $items = ReplaceContent($data,$items_temp);
     $temp = LoadTemplate('page_section_main_nav');
-    print str_replace("@@navitems@@",$replacetemp,$temp);
+    print str_replace("@@navitems@@",$items,$temp);
 }
 

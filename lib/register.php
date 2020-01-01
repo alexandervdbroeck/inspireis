@@ -12,7 +12,7 @@ unset($_SESSION['message']);
 /*------------------formulieren--------------------------------------------------------------------*/
 
 if ($formname == "registration_form" AND $_POST['registerbutton'] == "Registreer") {
-    $_SESSION["message"] = "sorry wij zijn even met vakantie......";
+    $_SESSION["message"] = "sorry u kan tijdelijk niet in registreren";
     header("Location: ".$_application_folder."login.php");
     die;
 
