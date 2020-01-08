@@ -7,6 +7,7 @@ function indexPolaroid( $offset, $maxpolaroid) {
 
     $user_id = $_SESSION['usr']['usr_id'];
     $sql = SqlIndexPolaroid($user_id,$offset, $maxpolaroid);
+
     $data = GetData($sql);
     $temp = LoadTemplate("index_polaroid");
     $temp = ReplaceContent($data, $temp);

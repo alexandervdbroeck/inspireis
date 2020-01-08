@@ -181,7 +181,7 @@ function SqlIndexPolaroid($user_id, $offset, $maxpolaroid){
             inner join landen l on p.post_land_id = l.land_id
             inner join afbeelding a on p.post_id = a.afb_post_id
             where volg_user_id =".$user_id."
-            group by post_id
+            group by post_title, usr_id, usr_login, post_id, post_datum, land_naam, afb_locatie, post_user_id
             order by post_id desc limit ".$maxpolaroid." offset ".$offset;
     return $sql ;
 }

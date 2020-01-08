@@ -21,7 +21,7 @@ PrintNavBar();
         /* Printen van de polaroids, parameters zijn aantal getoonde foto's (maxpolaroid) en de offset*/
         /*Bedoeling is dat hier later een next button komt*/
         /*de users die door de ingelogde gebruiker gevolgd worden worden opgezocht */
-        echo indexPolaroid(0,45);
+        echo indexPolaroid(0,9);
 
         ?>
     </section>

@@ -2,9 +2,9 @@
 session_start();
 
 
-$_application_folder = "/wdev_alexander/inspireis/";
-//$_application_folder = "/inspireis/";
-//
+//$_application_folder = "/wdev_alexander/inspireis/";
+$_application_folder = "/inspireis/";
+
 
 include_once "database.php";
 include_once "error.php";

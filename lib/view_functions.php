@@ -184,12 +184,14 @@ function PrintMessage(){
 function PrintNavBar()
 {
     //navbar items ophalen
+
     $data = GetData("select * from navigation order by nav_order ");
+
     // welke webpagina is actief
     $filePath = basename($_SERVER['SCRIPT_NAME']);
     $items_temp = LoadTemplate('page_section_nav_items');
     // nav bar items samenstellen
-    foreach ( $data as $row )
+    foreach ( $data as $row => $value )
     {
 
         if($data[$row]['nav_path'] == $filePath){
